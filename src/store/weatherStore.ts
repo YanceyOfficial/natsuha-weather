@@ -1,39 +1,55 @@
 import {
   observable,
-  runInAction,
 } from 'mobx';
-import weatherService from '../apis/weatherService';
+
+import IWeatherResult from '../types/weather';
 
 class WeatherStore {
-  @observable public weather: any = {};
+  @observable public weatherData: IWeatherResult = {
+    meta: {
+      conditionMap: {},
+      skycode: {},
+    },
+    weathers: [],
+  };
 
   constructor() {
-    this.weather = {};
+    this.weatherData = {
+      meta: {
+        conditionMap: {},
+        skycode: {},
+      },
+      weathers: [],
+    };
   }
 
-  public getWeatherById =  (woeids: string, lang = 'en-US') => {
-    try {
-      const res =  weatherService.getWeatherById(woeids, lang);
-      runInAction(() => {
-        console.log(res)
-        // this.weather = res.data;
-      });
-    } catch (e) {
-      // todo
-    }
-  };
-  public getCloudData = () => {
+  public getWeatherById = () => {
+    wx.cloud.init();
+    wx.cloud.callFunction({
+      name: 'getWeatherById',
+      data: {
+        woeid: '2168606',
+        lang: 'en-US',
+      },
+      success(res) {
+        this.weather = res.result;
+        console.log(res.result)
+      },
+      fail: console.error
+    })
+  }
+
+  public getRegion = () => {
     wx.cloud.init();
     wx.cloud.callFunction({
       // 云函数名称
-      name: 'getWeatherById',
+      name: 'getRegion',
       // 传给云函数的参数
       data: {
-        a: 1,
-        b: 2,
+        region: 'sh',
       },
       success(res) {
-        console.log(res.result.sum) // 3
+        console.log(res)
       },
       fail: console.error
     })
