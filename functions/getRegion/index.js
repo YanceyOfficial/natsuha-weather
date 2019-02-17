@@ -13,7 +13,9 @@ exports.main = async (event, context) => {
     uri: `https://www.yahoo.com/news/_tdnews/api/resource/WeatherSearch;text=${region}`,
     json: true
   }).then((body) => {
-    return body
+    return {
+      regionList: body
+    }
   }).catch(err => {
     return err;
   })

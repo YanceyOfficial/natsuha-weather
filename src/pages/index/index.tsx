@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Button, Text, Image } from '@tarojs/components';
+import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 
 import './index.scss';
@@ -14,7 +14,7 @@ type PageStateProps = {
   };
   weatherStore: {
     getWeatherById: Function;
-    getCloudData: Function;
+    getRegion: Function;
   };
 };
 
@@ -43,8 +43,7 @@ class Index extends Component {
 
   componentDidMount() {
     const { weatherStore } = this.props;
-    // weatherStore.getWeatherById();
-    // weatherStore.getCloudData();
+    weatherStore.getWeatherById();
   }
 
   componentWillUnmount() {}
@@ -67,23 +66,6 @@ class Index extends Component {
     const { counterStore } = this.props;
     counterStore.incrementAsync();
   };
-
-  handleClick = () => {
-    wx.cloud.init();
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'getWeatherById',
-      // 传给云函数的参数
-      data: {
-        woeid: '2151849',
-        lang: 'en-US',
-      },
-      success(res) {
-        console.log(res)
-      },
-      fail: console.error
-    })
-  }
 
   getSystemInfo = () => {
     const res = Taro.getSystemInfoSync();
@@ -114,11 +96,6 @@ class Index extends Component {
         <Button onClick={this.incrementAsync}>Add Async</Button>
         <Text>{counter}</Text>
         <Button onClick={this.getSystemInfo}>getSystemInfo</Button>
-        <Button onClick={this.handleClick}>handleClick</Button>
-        <Image
-          style="width: 100vw;height: 100vh;background: #fff;"
-          src="https://s.yimg.com/un/api/res/1.2/2f4JTsguRoJioZhJY21PBw--/YXBwaWQ9eW13ZWF0aGVyO2NjPTg2NDAwO3E9ODA7Zmk9ZmlsbDt3PTcyMDtoPTEyODA7ZnI9MA--/https://s3.us-east-2.amazonaws.com/weather-flickr-images/farm6/5474/12002201555_e1b49c66a9_k"
-        />
       </View>
     );
   }
