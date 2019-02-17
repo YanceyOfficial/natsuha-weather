@@ -1,6 +1,6 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "moji-weather",
+	"projectname": "Natsuha-Weather-WeChat",
 	"description": "An awesome weather app for WeChat mini program.",
 	"appid": "wx50e47221f2016c9d",
 	"cloudfunctionRoot": "functions/",
