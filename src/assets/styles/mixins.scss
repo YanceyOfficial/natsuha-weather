@@ -1,0 +1,29 @@
+@mixin arrow {
+  background: #fff;
+  height: 4px;
+  width: 24px;
+  position: relative;
+  display: inline-block;
+  transform: rotate(-90deg);
+
+  &:before,
+  &:after {
+    content: "";
+    background: #fff;
+    position: absolute;
+    height: 4px;
+    width: 15px;
+  }
+
+  &:before {
+    right: -3px;
+    bottom: -4px;
+    transform: rotate(-45deg);
+  }
+
+  &:after {
+    right: -3px;
+    top: -4px;
+    transform: rotate(45deg);
+  }
+}

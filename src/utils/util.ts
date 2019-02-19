@@ -33,3 +33,19 @@ export const getSystemInfo = () => {
   console.log(res.fontSizeSetting);
   console.log(res.SDKVersion);
 };
+
+export const formatJSONDate = jsonDate => new Date(+new Date(new Date(jsonDate).toJSON()) + 8 * 3600 * 1000).toISOString()
+  .replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+
+export const hourTo12 = date => {
+  const oDate = new Date(date);
+  const month = oDate.getUTCMonth() + 1;
+  const day = oDate.getUTCDate();
+  const hour = oDate.getUTCHours();
+  const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes();
+  if (hour > 12) {
+    return `${month}/${day}, ${hour -12}:${minute} PM`;
+  } else {
+    return `${month}/${day}, ${hour}:${minute} AM`;
+  }
+}
