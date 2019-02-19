@@ -11,7 +11,7 @@ An awesome weather app for WeChat mini program.
       "miniprogramRoot": "dist/",
       "projectname": "Natsuha-Weather-WeChat",
       "description": "An awesome weather app for WeChat mini program.",
-      "appid": YOUR_APIP_ID,
+      "appid": YOUR_APP_ID,
       "cloudfunctionRoot": "functions/",
       "setting": {
         "urlCheck": true,
