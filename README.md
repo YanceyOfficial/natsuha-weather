@@ -2,7 +2,7 @@
 
 An awesome weather app for WeChat mini program.
 
-![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha.jpg)
+![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha_344.jpg)
 
 ## 注意️️ ⚠️
 
