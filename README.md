@@ -1,4 +1,4 @@
-# Natsuha Weather for Wechat Mini Program
+# Natsuha Weather for WeChat Mini Program
 
 An awesome weather app for WeChat mini program.
 
