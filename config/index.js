@@ -1,5 +1,5 @@
 const config = {
-  projectName: 'moji-weather',
+  projectName: 'natsuha-weather',
   date: '2019-2-14',
   designWidth: 750,
   deviceRatio: {

@@ -1,46 +1,72 @@
 import {
   observable,
+  runInAction,
 } from 'mobx';
 
-import IWeatherResult from '../types/weather';
+import {
+  IMeta,
+  IWeather
+} from '../types/weather';
 
 class WeatherStore {
-  @observable public weatherData: IWeatherResult = {
-    meta: {
-      conditionMap: {},
-      skycode: {},
+  @observable public weatherData: IWeather = {
+    location: {
+      countryName: '',
+      displayName: '',
     },
-    weathers: [],
+    observation: {
+      conditionDescription: '',
+      conditionCode: 0,
+      localTime: {
+        timestamp: new Date(),
+      },
+      temperature: {
+        now: 0,
+        high: 0,
+        low: 0,
+        feelsLike: 0,
+      },
+      photos: [],
+    }
   };
 
-  constructor() {
-    this.weatherData = {
-      meta: {
-        conditionMap: {},
-        skycode: {},
-      },
-      weathers: [],
-    };
+  @observable public metaData: IMeta = {
+    conditionMap: {},
+    skycode: {},
   }
 
+  @observable public curSkyCode = '';
+
+  constructor() {
+    this.weatherData = {};
+    this.metaData = {
+      conditionMap: {},
+      skycode: {},
+    };
+    this.curSkyCode = 'clear_day';
+  }
+
+  // @action
   public getWeatherById = () => {
-    wx.cloud.init();
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid: '2168606',
-        lang: 'en-US',
-      },
-      success(res) {
-        this.weather = res.result;
-        console.log(res.result)
-      },
-      fail: console.error
-    })
+        woeid: '15015370',
+        lang: 'ja',
+      }
+    }).then((res) => {
+      runInAction(() => {
+        const weatherResult = res.result.weatherResult;
+        this.weatherData = weatherResult.weathers[0];
+        this.metaData = weatherResult.meta;
+        this.curSkyCode = this.metaData.skycode[this.weatherData.observation.conditionCode];
+      })
+    }).catch((e) => {
+      console.log(e);
+    });
   }
 
   public getRegion = () => {
-    wx.cloud.init();
     wx.cloud.callFunction({
       // 云函数名称
       name: 'getRegion',

@@ -18,3 +18,5 @@ declare global {
       }
   }
 }
+
+declare var wx: any;
