@@ -2,6 +2,8 @@
 
 An awesome weather app for WeChat mini program.
 
+![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha.jpg)
+
 ## 注意️️ ⚠️
 
 因为项目涉及到了**appid**，因此gitignore了project.config.json文件，所以克隆下来之后，在**根目录**下创建文件`project.config.json`,
