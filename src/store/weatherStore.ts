@@ -51,7 +51,7 @@ class WeatherStore {
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid: '15015370',
+        woeid: '2151330',
         lang: 'ja',
       }
     }).then((res) => {
@@ -68,9 +68,7 @@ class WeatherStore {
 
   public getRegion = () => {
     wx.cloud.callFunction({
-      // 云函数名称
       name: 'getRegion',
-      // 传给云函数的参数
       data: {
         region: 'sh',
       },
