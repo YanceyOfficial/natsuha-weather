@@ -2,6 +2,29 @@
 
 An awesome weather app for WeChat mini program.
 
+## 注意️️ ⚠️
+
+因为项目涉及到了**appid**，因此gitignore了project.config.json文件，所以克隆下来之后，在**根目录**下创建文件`project.config.json`,
+然后复制下面的代码：
+
+    {
+      "miniprogramRoot": "dist/",
+      "projectname": "Natsuha-Weather-WeChat",
+      "description": "An awesome weather app for WeChat mini program.",
+      "appid": YOUR_APIP_ID,
+      "cloudfunctionRoot": "functions/",
+      "setting": {
+        "urlCheck": true,
+        "es6": false,
+        "postcss": false,
+        "minified": false,
+        "newFeature": true
+      },
+      "compileType": "miniprogram",
+      "condition": {}
+    }
+
+
 ## 关于降水量icon
 
     // 降雨量为0-9
