@@ -4,10 +4,11 @@ An awesome weather app for WeChat mini program.
 
 ![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha_344.jpg)
 
-## 注意️️ ⚠️
+## 关于隐私 ⚠️
 
-因为项目涉及到了**appid**，因此gitignore了project.config.json文件，所以克隆下来之后，在**根目录**下创建文件`project.config.json`,
-然后复制下面的代码：
+### project.config.json
+
+因为此文件涉及到微信小程序的 **appid**， 因此忽略了此文件的上传。克隆下工程后，在**根目录**下创建文件`project.config.json`，然后添加如下代码：
 
     {
       "miniprogramRoot": "dist/",
@@ -25,6 +26,50 @@ An awesome weather app for WeChat mini program.
       "compileType": "miniprogram",
       "condition": {}
     }
+
+### functions/getWoeid/index.js
+
+因为众所周知的原因，微信小程序禁止调用未备案域名的接口，哪怕是开发环境。因此这里使用[**云开发**](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)来“反代” Yahoo API，其中 `getWoeid` 这个接口涉及到密钥，故忽略了此文件的上传，因此你需要先去 Yahoo deveoper 注册一个 key, 具体戳 [Yahoo Weather API](https://developer.yahoo.com/weather/).
+
+![yahpp key](https://yancey-assets.oss-cn-beijing.aliyuncs.com/Jietu20190221-135157.jpg)
+
+然后在 `functions/getWoeid` 文件夹下创建 `index.js`，添加如下代码：
+
+    /* eslint-disable */
+
+    const cloud = require('wx-server-sdk')
+    const OAuth = require('oauth')
+
+    cloud.init()
+
+    const header = {
+      'Yahoo-App-Id': YOUR_APP_ID,
+    }
+
+    const request = new OAuth.OAuth(
+      null,
+      null,
+      YOUR_CLIENT_ID,
+      YOUR_CLIENT_SECRET,
+      '1.0',
+      null,
+      'HMAC-SHA1',
+      null,
+      header
+    )
+
+    exports.main = async (event, context) => new Promise((resolve, reject) => {
+      const lat = event.lat;
+      const lon = event.lon;
+      request.get(
+        `https://weather-ydn-yql.media.yahoo.com/forecastrss?lang=zh-CN&format=json&lat=${lat}&lon=${lon}`,
+        null,
+        null,
+        (err, data, result) => {
+          resolve(data);
+        }
+      )
+    })
 
 
 ## 关于降水量icon
