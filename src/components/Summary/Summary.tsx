@@ -14,6 +14,8 @@ type PageStateProps = {
     curSkyCode: string;
     getWeatherById: Function;
     getRegion: Function;
+    getPosition: Function;
+    getWoeid: Function;
   };
 };
 
@@ -26,7 +28,11 @@ interface Summary {
 class Summary extends Component {
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    // const { weatherStore } = this.props;
+    // weatherStore.getWoeid();
+    // weatherStore.getPosition();
+  }
 
   componentWillUnmount() {}
 
@@ -42,8 +48,6 @@ class Summary extends Component {
     const photoUrl = weatherData.photos
       ? weatherData.photos[0].resolutions[5].url
       : defaultPhotoUrl;
-
-    console.log(weatherData.observation)
 
     const timestamp = weatherData.observation ? weatherData.observation.localTime.timestamp : new Date().toJSON();
 
@@ -96,7 +100,7 @@ class Summary extends Component {
           </View>
           <View className={styles.flickr_info}>
             <Text className={styles.flickr_txt}>
-              © by {weatherData.photos[0].ownerName} on{' '}
+              © by {weatherData.photos[0].ownerName}{' '}on{' '}
             </Text>
             <Image
               style="width: 32px;height: 10px"

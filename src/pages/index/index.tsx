@@ -11,6 +11,7 @@ type PageStateProps = {
   weatherStore: {
     getWeatherById: Function;
     getRegion: Function;
+    getPosition: Function;
   };
 };
 
@@ -31,7 +32,7 @@ class Index extends Component {
 
   componentDidMount() {
     const { weatherStore } = this.props;
-    weatherStore.getWeatherById();
+    weatherStore.getPosition();
   }
 
   componentWillUnmount() {}

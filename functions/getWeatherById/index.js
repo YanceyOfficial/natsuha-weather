@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-// 云函数入口文件
 const cloud = require('wx-server-sdk')
 const rp = require('request-promise')
 
