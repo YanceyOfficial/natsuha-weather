@@ -4,6 +4,8 @@ import { View } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 
 import Summary from '../../components/Summary/Summary';
+import Detail from '../../components/Detail/Detail';
+import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 
 import './index.scss';
 
@@ -45,6 +47,8 @@ class Index extends Component {
     return (
       <View className="index">
         <Summary />
+        <Detail />
+        <ContentWrapper />
       </View>
     );
   }
