@@ -29,9 +29,6 @@ class Summary extends Component {
   componentWillMount() {}
 
   componentDidMount() {
-    // const { weatherStore } = this.props;
-    // weatherStore.getWoeid();
-    // weatherStore.getPosition();
   }
 
   componentWillUnmount() {}
