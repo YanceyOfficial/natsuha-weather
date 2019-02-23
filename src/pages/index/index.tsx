@@ -6,6 +6,7 @@ import { observer, inject } from '@tarojs/mobx';
 import Summary from '../../components/Summary/Summary';
 import Detail from '../../components/Detail/Detail';
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
+import SunAndMoon from '../../components/SunAndMoon/SunAndMoon';
 
 import './index.scss';
 
@@ -49,6 +50,7 @@ class Index extends Component {
         <Summary />
         <Detail />
         <ContentWrapper />
+        <SunAndMoon />
       </View>
     );
   }
