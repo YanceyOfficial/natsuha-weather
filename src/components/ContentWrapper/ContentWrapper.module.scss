@@ -3,6 +3,7 @@
 
 .content_wrapper {
   // clear BFC
+  position: relative;
   display: inline-block;
   margin: 20px;
   padding: 20px;
@@ -23,6 +24,7 @@
   justify-content: space-around;
   align-items: center;
   font-size: 28px;
+  margin-top: 20px;
 
   .precipitation_group {
     display: flex;

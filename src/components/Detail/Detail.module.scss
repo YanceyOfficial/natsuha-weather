@@ -3,6 +3,7 @@
 
 .content_wrapper {
   // clear BFC
+  position: relative;
   display:inline-block;
   margin: 20px;
   padding: 20px;
