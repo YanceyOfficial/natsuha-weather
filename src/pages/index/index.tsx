@@ -4,6 +4,10 @@ import { View } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 
 import Summary from '../../components/Summary/Summary';
+import Detail from '../../components/Detail/Detail';
+import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
+import SunAndMoon from '../../components/SunAndMoon/SunAndMoon';
+import Wind from '../../components/Wind/Wind';
 
 import './index.scss';
 
@@ -45,6 +49,10 @@ class Index extends Component {
     return (
       <View className="index">
         <Summary />
+        <Detail />
+        <ContentWrapper />
+        <SunAndMoon />
+        <Wind />
       </View>
     );
   }
