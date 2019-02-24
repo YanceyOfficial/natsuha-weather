@@ -1,0 +1,103 @@
+@import '../../assets/styles/mixins.scss';
+@import '../../assets/styles/variables.scss';
+
+.content_wrapper {
+  // clear BFC
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+  padding: 20px;
+  width: calc(100% - 80px);
+  background: rgba(0, 0, 0, .54);
+
+  .header {
+    display: block;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    font-size: 36px;
+    @include border_1px('bottom', $white, 0);
+  }
+}
+
+.sun_moon_container {
+  margin-bottom: 60px;
+  font-size: 24px;
+
+  .moon_parse {
+    margin-top: 20px;
+    width: 25%;
+    float: right;
+    font-size: 28px;
+    line-height: 1.2;
+
+    .sun_icon_container {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .moon_parse_name {
+      vertical-align: middle;
+      display: table-cell;
+      padding-left: 12px;
+      max-width: 20%;
+    }
+  }
+
+  .sun_graph {
+    position: relative;
+    display: inline-block;
+    width: 552px;
+    height: 132px;
+    background: url('https://s.yimg.com/os/weather/1.0.1/sun/suncurve_static@2x.png') no-repeat center center;
+    background-size: cover;
+
+    .graph_container {
+      height: 128px;
+
+      .sun_icon {
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        background: url('https://s.yimg.com/os/weather/1.0.1/sun/sun@2x.png') no-repeat center center;
+        background-size: cover;
+        transform: rotate(144deg);
+        transition-duration: 3s;
+        transform-origin: 190px;
+        transition-timing-function: linear;
+        left: 44px;
+        bottom: -60px;
+      }
+
+      .during_container {
+        width: 308px;
+        height: 128px;
+        position: absolute;
+        left: 60px;
+        overflow: hidden;
+        top: 0;
+
+        .during {
+          width: 340px;
+          height: 100%;
+          background-image: url(https://s.yimg.com/os/weather/1.0.1/sun/weather_circle.png);
+          background-size: cover;
+        }
+      }
+    }
+  }
+
+  .sunrise_sunset_txt {
+    position: relative;
+    margin-top: 16px;
+
+    .sunrise {
+      position: absolute;
+      left: 26px;
+    }
+
+    .sunset {
+      position: absolute;
+      right: 100px;
+    }
+  }
+}

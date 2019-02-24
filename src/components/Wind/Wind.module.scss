@@ -1,0 +1,87 @@
+@import '../../assets/styles/mixins.scss';
+@import '../../assets/styles/variables.scss';
+
+.content_wrapper {
+  // clear BFC
+  display: inline-block;
+  margin: 20px;
+  padding: 20px;
+  width: calc(100% - 80px);
+  background: rgba(0, 0, 0, .54);
+
+  .header {
+    display: block;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    font-size: 36px;
+    @include border_1px('bottom', $white, 0);
+  }
+}
+
+.wind_container {
+  position: relative;
+
+  .split {
+    position: relative;
+    top: -108px;
+    width: 100%;
+    height: 1px;
+    border-top: 1px dotted rgba(255, 255, 255, .12);
+  }
+}
+
+.wind_main {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+  height: 220px;
+  font-size: 24px;
+
+  .wind_graph {
+    display: inline-block;
+
+    .graph_fan {
+      width: 120px;
+      height: 120px;
+      animation-name: spin;
+      animation-duration: 3.125s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      background-image: url(https://s.yimg.com/os/weather/1.0.1/windmill/blade_big@2x.png);
+      background-size: cover;
+    }
+
+    .graph_pole {
+      position: relative;
+      top: -52px;
+      left: 50px;
+      width: 18px;
+      height: 130px;
+      background-image: url(https://s.yimg.com/os/weather/1.0.1/windmill/bigpole@2x.png);
+      background-size: cover;
+    }
+  }
+
+  .wind_graph_small {
+    transform: scale(.8);
+  }
+
+  .wind_info {
+    margin-top: 24px;
+  }
+
+  .barometric_pressure {
+    margin-top: 120px;
+  }
+
+  .wind_txt {
+    display: block;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -33,6 +33,7 @@
     "@tarojs/taro-swan": "1.2.12",
     "@tarojs/taro-tt": "1.2.12",
     "@tarojs/taro-weapp": "1.2.12",
+    "classnames": "^2.2.6",
     "global": "^4.3.2",
     "mobx": "4.8.0",
     "nerv-devtools": "^1.3.9",

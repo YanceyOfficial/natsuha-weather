@@ -1,6 +1,6 @@
 export const moonPhase = {
   0: 'New Moon', // 新月、朔
-  1: 'waxing crescent', // 眉月
+  1: 'Waxing Crescent', // 眉月
   2: 'First Quarter', // 上弦月
   3: 'Waxing Gibbous', // 盈凸月
   4: 'Full Moon', // 滿月、望
@@ -9,4 +9,4 @@ export const moonPhase = {
   7: 'Waning Crescent', // 虧眉月
 }
 
-export const defaultPhotoUrl = 'https://s.yimg.com/un/api/res/1.2/dQjCtH8gIk7LtY5Yf3Zuvg--/YXBwaWQ9eW13ZWF0aGVyO2NjPTg2NDAwO3E9ODA7Zmk9ZmlsbDt3PTcyMDtoPTEyODA7ZnI9MA--/https://s3.us-east-2.amazonaws.com/weather-flickr-images/farm8/7406/9771929422_3b86cb1ec1_k';
+export const defaultPhotoUrl = 'https://s.yimg.com/un/api/res/1.2/XykPrfVNHyl_xsWAUmg.vg--/YXBwaWQ9eW13ZWF0aGVyO2NjPTg2NDAwO3E9ODA7cm90YXRlPTA7Zmk9ZmlsbDt3PTcyMDtoPTEyODA7ZnI9MA--/https://s3.us-east-2.amazonaws.com/weather-flickr-images/farm4/3696/9186954484_7f66249600_o';

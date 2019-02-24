@@ -6,9 +6,11 @@ An awesome weather app for WeChat mini program.
 
 ## 关于隐私 ⚠️
 
+因为一些文件涉及到密钥，所以没有上传到 github,下面做一下说明。
+
 ### project.config.json
 
-因为此文件涉及到微信小程序的 **appid**， 因此忽略了此文件的上传。克隆下工程后，在**根目录**下创建文件`project.config.json`，然后添加如下代码：
+因为此文件涉及到微信小程序的 **appid**， 所以忽略上传。在**根目录**下创建文件`project.config.json`，添加如下代码：
 
     {
       "miniprogramRoot": "dist/",
@@ -29,11 +31,13 @@ An awesome weather app for WeChat mini program.
 
 ### functions/getWoeid/index.js
 
-因为众所周知的原因，微信小程序禁止调用未备案域名的接口，哪怕是开发环境。因此这里使用[**云开发**](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)来“反代” Yahoo API，其中 `getWoeid` 这个接口涉及到密钥，故忽略了此文件的上传，因此你需要先去 Yahoo deveoper 注册一个 key, 具体戳 [Yahoo Weather API](https://developer.yahoo.com/weather/).
+因为众所周知的原因，微信小程序禁止调用未备案域名的接口，哪怕是开发环境。因此这里使用[**云开发**](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)来“反代” Yahoo Weather API.
+
+其中 `getWoeid` 接口涉及到密钥，故忽略此文件的上传。你需要先去 Yahoo developer 申请一个 key, 具体戳 [Yahoo Weather API](https://developer.yahoo.com/weather/).
 
 ![yahpp key](https://yancey-assets.oss-cn-beijing.aliyuncs.com/Jietu20190221-135157.jpg)
 
-然后在 `functions/getWoeid` 文件夹下创建 `index.js`，添加如下代码：
+申请完毕后，在 `functions/getWoeid` 文件夹下创建 `index.js`，添加如下代码：
 
     /* eslint-disable */
 
@@ -62,7 +66,7 @@ An awesome weather app for WeChat mini program.
       const lat = event.lat;
       const lon = event.lon;
       request.get(
-        `https://weather-ydn-yql.media.yahoo.com/forecastrss?lang=zh-CN&format=json&lat=${lat}&lon=${lon}`,
+        `https://weather-ydn-yql.media.yahoo.com/forecastrss?format=json&lat=${lat}&lon=${lon}`,
         null,
         null,
         (err, data, result) => {
@@ -164,3 +168,5 @@ NNE 对应 `observation.windDirectionCode.split(' ').map(value => value[0]).join
 
     1 英寸汞柱 = 33.768496694064 毫巴
     1 毫巴 = 0.0296134 英寸汞柱
+
+
