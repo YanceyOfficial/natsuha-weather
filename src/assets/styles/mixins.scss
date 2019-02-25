@@ -39,7 +39,7 @@
     left: -50%;
     right: -50%;
     transform: scale(0.5);
-    border-#{$position}: 1px solid $color;
+    border-#{$position}: 2px solid $color;
     z-index: $zIndex;
   }
 }

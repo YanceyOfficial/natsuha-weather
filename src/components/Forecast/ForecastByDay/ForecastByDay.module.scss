@@ -57,8 +57,18 @@
       padding-right: 20px;
       margin-right: 20px;
       line-height: 1.4;
-      border-right: 1px solid rgba(255, 255, 255, .3);
+      border-right: 2px solid rgba(255, 255, 255, .3);
     }
+  }
+
+  .list {
+    max-height: 760px;
+    transition: max-height 1s linear;
+  }
+
+  .five_item {
+    max-height: 380px;
+    overflow: hidden;
   }
 
 }

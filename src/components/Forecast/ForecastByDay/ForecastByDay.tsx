@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image, Label, Radio, Block } from '@tarojs/components';
+import { View, Text, Image, Block } from '@tarojs/components';
 import styles from './ForecastByDay.module.scss';
 import cs from 'classnames';
 import { observer, inject } from '@tarojs/mobx';
@@ -29,7 +29,8 @@ class ForecastByDay extends Component {
     super(props);
     this.state = {
       selected: false,
-      numbers: [...Array(10).keys()]
+      numbers: [...Array(10).keys()],
+      isFive: true
     };
   }
 
@@ -49,15 +50,27 @@ class ForecastByDay extends Component {
     });
   };
 
+  public handleDay = (day: number) => {
+    if (day === 5) {
+      this.setState({
+        isFive: true
+      });
+    } else {
+      this.setState({
+        isFive: false
+      });
+    }
+  };
+
   render() {
     const {
       weatherStore: { curSkyCode }
     } = this.props;
 
-    const { selected, numbers } = this.state;
+    const { selected, numbers, isFive } = this.state;
 
     const value = numbers.map(number => (
-      <Block>
+      <View>
         <View className={styles.day_group} onClick={() => this.select()}>
           <View className={styles.group_basic}>
             <Text>Saturday</Text>
@@ -93,15 +106,19 @@ class ForecastByDay extends Component {
             °F (8.9 °C).
           </Text>
         </View>
-      </Block>
+      </View>
     ));
 
     return (
       <View className={styles.forecast_day_conatainer}>
-        <Block>{value}</Block>
+        <View className={cs(styles.list, isFive ? styles.five_item : '')}>
+          {value}
+        </View>
         <View className={styles.day_picker}>
-          <Text className={styles.five_day}>5 DAY</Text>
-          <Text>10 DAY</Text>
+          <Text className={styles.five_day} onClick={() => this.handleDay(5)}>
+            5 DAY
+          </Text>
+          <Text onClick={() => this.handleDay(10)}>10 DAY</Text>
         </View>
       </View>
     );
