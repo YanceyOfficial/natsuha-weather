@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text } from '@tarojs/components';
+import { View, Image, Text, Block } from '@tarojs/components';
 import styles from './Summary.module.scss';
 import { observer, inject } from '@tarojs/mobx';
 import { IMeta, IWeather } from '../../types/weather';
@@ -28,8 +28,7 @@ interface Summary {
 class Summary extends Component {
   componentWillMount() {}
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {}
 
@@ -46,14 +45,16 @@ class Summary extends Component {
       ? weatherData.photos[0].resolutions[5].url
       : defaultPhotoUrl;
 
-    const timestamp = weatherData.observation ? weatherData.observation.localTime.timestamp : new Date().toJSON();
+    const timestamp = weatherData.observation
+      ? weatherData.observation.localTime.timestamp
+      : new Date().toJSON();
 
     return (
       <View
         className={styles.summary_wrapper}
-        style={{
-          backgroundImage: `url(${photoUrl})`
-        }}
+        // style={{
+        //   backgroundImage: `url(${photoUrl})`
+        // }}
       >
         <View className={styles.region_summary}>
           <Text className={styles.city}>
@@ -62,9 +63,7 @@ class Summary extends Component {
           <Text className={styles.country}>
             {weatherData.location.countryName}
           </Text>
-          <Text className={styles.cur_time}>
-            {hourTo12(timestamp)}
-          </Text>
+          <Text className={styles.cur_time}>{hourTo12(timestamp)}</Text>
         </View>
         <View className={styles.cur_temperature_summary}>
           <View className={styles.condition_summary}>
@@ -97,7 +96,7 @@ class Summary extends Component {
           </View>
           <View className={styles.flickr_info}>
             <Text className={styles.flickr_txt}>
-              © by {weatherData.photos[0].ownerName}{' '}on{' '}
+              © by {weatherData.photos[0].ownerName} on{' '}
             </Text>
             <Image
               style="width: 32px;height: 10px"
