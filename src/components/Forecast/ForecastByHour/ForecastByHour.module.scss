@@ -1,0 +1,65 @@
+.forecast_hour_container {
+  position: relative;
+  font-size: 28px;
+
+  .mask {
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    right: 0;
+    background: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .54) 100%);
+  }
+
+  .precipitation_contaienr {
+    position: relative;
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: smooth;
+
+    .precipitation_group {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 14px 32px 14px 0;
+      font-size: 24px;
+    }
+
+  }
+
+
+  .picker {
+    position: relative;
+    padding: 8px;
+    width: 220px;
+    border-bottom: 2px solid #fff;
+  }
+
+  .arrow {
+    position: absolute;
+    right: 14px;
+    bottom: 20px;
+    height: 4px;
+    transform: rotate(90deg);
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+      height: 4px;
+      width: 15px;
+      background: #fff;
+    }
+
+    &::before {
+      right: -3px;
+      bottom: -4px;
+      transform: rotate(-45deg);
+    }
+
+    &::after {
+      right: -3px;
+      top: -4px;
+      transform: rotate(45deg);
+    }
+  }
+}
