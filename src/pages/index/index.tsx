@@ -8,6 +8,7 @@ import Detail from '../../components/Detail/Detail';
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 import SunAndMoon from '../../components/SunAndMoon/SunAndMoon';
 import Wind from '../../components/Wind/Wind';
+import Forecast from '../../components/Forecast/Forecast';
 
 import './index.scss';
 
@@ -49,6 +50,7 @@ class Index extends Component {
     return (
       <View className="index">
         <Summary />
+        <Forecast />
         <Detail />
         <ContentWrapper />
         <SunAndMoon />

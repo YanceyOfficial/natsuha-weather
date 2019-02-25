@@ -1,0 +1,76 @@
+.forecast_day_conatainer {
+  font-size: 31.2px;
+
+  .day_group {
+    border-top: 2px dotted rgba(255, 255, 255, .12);
+
+    .group_basic {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .condition_img {
+      width: 25%;
+      text-align: center;
+    }
+
+    .precipitation_group {
+      display: flex;
+      align-items: center;
+
+      .precipitation {
+        padding: 10px;
+        font-size: 24px;
+      }
+    }
+
+    .low {
+      color: #a5d6ff;
+    }
+  }
+
+  .group_detail_container {
+    max-height: 0;
+    transition: .3s all;
+    overflow: hidden;
+
+    .group_detail {
+      display: block;
+      margin: 8px 0;
+      font-size: 26px;
+    }
+  }
+
+  .selected {
+    height: auto;
+    max-height: 168px;
+  }
+
+  .day_picker {
+    padding-top: 20px;
+    font-size: 24px;
+    border-top: 2px dotted rgba(255, 255, 255, .12);
+
+    .five_day {
+      display: inline-block;
+      padding-right: 20px;
+      margin-right: 20px;
+      line-height: 1.4;
+      border-right: 2px solid rgba(255, 255, 255, .3);
+    }
+  }
+
+  .list {
+    max-height: 800px;
+    overflow: hidden;
+    transition: max-height 300ms linear;
+  }
+
+  .five_item {
+    max-height: 380px;
+    overflow: hidden;
+    transition: max-height 300ms linear;
+  }
+
+}
