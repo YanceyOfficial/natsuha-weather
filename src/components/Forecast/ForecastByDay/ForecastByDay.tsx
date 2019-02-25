@@ -18,8 +18,15 @@ type PageStateProps = {
   };
 };
 
+type IForecastByDayStates = {
+  isSelected: boolean;
+  numbers: number[];
+  isFive: boolean;
+};
+
 interface ForecastByDay {
   props: PageStateProps;
+  state: IForecastByDayStates;
 }
 
 @inject('weatherStore')
@@ -28,7 +35,7 @@ class ForecastByDay extends Component {
   constructor(props: any) {
     super(props);
     this.state = {
-      selected: false,
+      isSelected: false,
       numbers: [...Array(10).keys()],
       isFive: true
     };
@@ -46,7 +53,7 @@ class ForecastByDay extends Component {
 
   public select = () => {
     this.setState({
-      selected: true
+      isSelected: true
     });
   };
 
@@ -67,9 +74,9 @@ class ForecastByDay extends Component {
       weatherStore: { curSkyCode }
     } = this.props;
 
-    const { selected, numbers, isFive } = this.state;
+    const { isSelected, numbers, isFive } = this.state;
 
-    const value = numbers.map(number => (
+    const value = numbers.map((number: number) => (
       <View>
         <View className={styles.day_group} onClick={() => this.select()}>
           <View className={styles.group_basic}>
@@ -94,7 +101,7 @@ class ForecastByDay extends Component {
         <View
           className={cs(
             styles.group_detail_container,
-            selected ? styles.selected : ''
+            isSelected ? styles.isSelected : ''
           )}
         >
           <Text className={styles.group_detail}>
