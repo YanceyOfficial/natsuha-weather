@@ -1,0 +1,17 @@
+@import '../../assets/styles/mixins.scss';
+@import '../../assets/styles/variables.scss';
+
+.precipitation_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 28px;
+  margin-top: 20px;
+
+  .precipitation_group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+}

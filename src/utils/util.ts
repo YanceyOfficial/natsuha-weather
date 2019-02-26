@@ -1,4 +1,9 @@
 import Taro from '@tarojs/taro';
+import {
+  imageBaseUrl,
+  imageType,
+  hd,
+} from '../constants/constants';
 
 export const setToast = (title: string = '', icon: string = 'success', mask: boolean = false, duration: number = 1500) => {
   return Taro.showToast({
@@ -48,4 +53,15 @@ export const hourTo12 = date => {
   } else {
     return `${month}/${day}, ${hour}:${minute} AM`;
   }
+}
+
+
+export const upperFirstLetter = (str: string) => {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
+    return index == 0 ? letter.toUpperCase() : letter.toLowerCase();
+  }).replace(/\s+/g, '');
+}
+
+export const getImageUrl = (type: string, iconName: string, size = '60x60') => {
+  return `${imageBaseUrl}/${imageType[type]}/${size}/${iconName}${hd}`
 }

@@ -1,13 +1,13 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text } from '@tarojs/components';
 import cs from 'classnames';
 import styles from './Wind.module.scss';
 import { observer, inject } from '@tarojs/mobx';
 import { IMeta, IWeather } from '../../types/weather';
+import ContentWrapper from '../ContentWrapper/ContentWrapper';
 
 type PageStateProps = {
-  title: string;
   weatherStore: {
     weatherData: IWeather;
     metaData: IMeta;
@@ -38,14 +38,11 @@ class Wind extends Component {
 
   render() {
     const {
-      title,
       weatherStore: { curSkyCode }
     } = this.props;
 
     return (
-      <View className={styles.content_wrapper}>
-        <Text className={styles.header}>{title}</Text>
-        {/* content */}
+      <ContentWrapper title="Wind & Pressure">
         <View className={styles.wind_container}>
           <View className={styles.wind_main}>
             <View className={styles.wind_graph_group}>
@@ -71,8 +68,7 @@ class Wind extends Component {
           </View>
           <View className={styles.split} />
         </View>
-        {/* content */}
-      </View>
+      </ContentWrapper>
     );
   }
 }

@@ -5,7 +5,6 @@ import styles from './Summary.module.scss';
 import { observer, inject } from '@tarojs/mobx';
 import { IMeta, IWeather } from '../../types/weather';
 import { hourTo12 } from '../../utils/util';
-import { defaultPhotoUrl } from '../../constants/constants';
 
 type PageStateProps = {
   weatherStore: {
@@ -41,10 +40,6 @@ class Summary extends Component {
       weatherStore: { weatherData, curSkyCode }
     } = this.props;
 
-    const photoUrl = weatherData.photos
-      ? weatherData.photos[0].resolutions[5].url
-      : defaultPhotoUrl;
-
     const timestamp = weatherData.observation
       ? weatherData.observation.localTime.timestamp
       : new Date().toJSON();
@@ -52,9 +47,6 @@ class Summary extends Component {
     return (
       <View
         className={styles.summary_wrapper}
-        // style={{
-        //   backgroundImage: `url(${photoUrl})`
-        // }}
       >
         <View className={styles.region_summary}>
           <Text className={styles.city}>
@@ -91,8 +83,10 @@ class Summary extends Component {
             <Text className={styles.cur_temperature}>
               {weatherData.observation.temperature.now}°
             </Text>
-            {/* <Text>F</Text>
-            <Text>C</Text> */}
+            {/* <View>
+              <View>F</View>
+              <View>C</View>
+            </View> */}
           </View>
           <View className={styles.flickr_info}>
             <Text className={styles.flickr_txt}>

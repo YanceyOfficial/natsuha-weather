@@ -1,23 +1,6 @@
 @import '../../assets/styles/mixins.scss';
 @import '../../assets/styles/variables.scss';
 
-.content_wrapper {
-  // clear BFC
-  display: inline-block;
-  margin: 20px;
-  padding: 20px;
-  width: calc(100% - 80px);
-  background: rgba(0, 0, 0, .54);
-
-  .header {
-    display: block;
-    margin-bottom: 8px;
-    padding-bottom: 4px;
-    font-size: 36px;
-    @include border_1px('bottom', $white, 0);
-  }
-}
-
 .wind_container {
   position: relative;
 
