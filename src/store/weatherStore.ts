@@ -43,7 +43,8 @@ class WeatherStore {
         uvDescription: 'low',
         humidity: 100,
         dayPartTexts: [],
-      }
+      },
+      precipitations: [],
     };
     this.metaData = {
       conditionMap: {},
@@ -52,12 +53,11 @@ class WeatherStore {
     this.curSkyCode = 'clear_day';
   }
 
-  // @action
   public getWeatherById = (woeid = '2151330', lang = 'zh-CN') => {
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid,
+        woeid: '2151849',
         lang: 'en-US',
       }
     }).then((res) => {

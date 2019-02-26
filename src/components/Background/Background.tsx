@@ -2,60 +2,38 @@ import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../types/weather';
+import cs from 'classnames';
+import { IWeather } from '../../types/weather';
 import { defaultPhotoUrl } from '../../constants/constants';
+const styles = require('./Background.module.scss');
 
-type PageStateProps = {
-  title: string;
+interface IBackgroundProps {
+  needBlur: boolean;
   weatherStore: {
     weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
   };
-};
-
-interface Background {
-  props: PageStateProps;
 }
 
 @inject('weatherStore')
 @observer
-class Background extends Component {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
+class Background extends Component<IBackgroundProps, {}> {
   render() {
     const {
-      weatherStore: { weatherData }
+      weatherStore: { weatherData },
+      needBlur
     } = this.props;
     const photoUrl = weatherData.photos
       ? weatherData.photos[0].resolutions[5].url
       : defaultPhotoUrl;
-    const style = {
-      position: 'fixed',
-      backgroundImage: `url(${photoUrl})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center center',
-      backgroundSize: 'cover',
-      width: '100%',
-      height: '100%',
-      top: 0,
-      left: 0,
-      willChange: 'transform',
-      zIndex: -1
-    };
-    return <View style={style} />;
+    return (
+      <View
+        className={cs(
+          styles.background,
+          needBlur ? styles.background_blur : ''
+        )}
+        style={{ backgroundImage: `url(${photoUrl})` }}
+      />
+    );
   }
 }
 

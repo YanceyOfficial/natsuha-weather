@@ -14,8 +14,8 @@ export const defaultPhotoUrl = 'https://s.yimg.com/un/api/res/1.2/XykPrfVNHyl_xs
 export const imageBaseUrl = 'https://s.yimg.com/os/weather/1.0.1';
 
 export const imageType = {
-  condition: 'shadow_icon',
-  precipitation: 'precipitation',
+  Temperature: 'shadow_icon',
+  Precipitation: 'precipitation',
 }
 
 export const hd = '@2x.png';

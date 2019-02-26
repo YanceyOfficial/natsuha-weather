@@ -1,36 +1,20 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Picker, Image } from '@tarojs/components';
-import styles from './ForecastByHour.module.scss';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../../types/weather';
+import { IWeatherProps } from '../../../types/weather';
+import { getImageUrl } from '../../../utils/util';
+const styles = require('./ForecastByHour.module.scss');
 
-type PageStateProps = {
-  weatherStore: {
-    weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
-  };
-};
-
-type IForecastByHourStates = {
+interface IForecastByHourStates {
   numbers: number[];
   typeList: string[];
   selected: string;
-};
-
-interface ForecastByHour {
-  props: PageStateProps;
-  state: IForecastByHourStates;
 }
 
 @inject('weatherStore')
 @observer
-class ForecastByHour extends Component {
+class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -39,16 +23,6 @@ class ForecastByHour extends Component {
       selected: 'Temperature'
     };
   }
-
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
 
   public onSelectChange = e => {
     this.setState({
@@ -67,8 +41,8 @@ class ForecastByHour extends Component {
       <View className={styles.precipitation_group}>
         <Text>11AM</Text>
         <Image
-          style="display: block; width: 28px;height: 28px; margin: 4px 0"
-          src={`https://s.yimg.com/os/weather/1.0.1/shadow_icon/60x60/clear_day@2x.png`}
+        className={styles.icon}
+          src={getImageUrl('Temperature', curSkyCode)}
         />
         <Text>59°</Text>
       </View>

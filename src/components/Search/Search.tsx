@@ -43,7 +43,7 @@ class Search extends Component {
     return (
       <ContentWrapper title='shabi'>
         <View className={styles.summary_wrapper}>
-          <Text>caoncimabi</Text>
+          <Text>fuck yeah</Text>
         </View>
       </ContentWrapper>
     );

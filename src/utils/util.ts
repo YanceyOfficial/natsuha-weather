@@ -57,11 +57,14 @@ export const hourTo12 = date => {
 
 
 export const upperFirstLetter = (str: string) => {
-  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
-    return index == 0 ? letter.toUpperCase() : letter.toLowerCase();
-  }).replace(/\s+/g, '');
+  if (str.includes('_')) {
+    str = str.split('_').join(' ');
+  }
+  return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
 }
 
-export const getImageUrl = (type: string, iconName: string, size = '60x60') => {
+export const getImageUrl = (type: string, iconName: string | number, size = '60x60') => {
   return `${imageBaseUrl}/${imageType[type]}/${size}/${iconName}${hd}`
 }
+
+export const getRainfallIconName = (value: number) => parseInt(value / 10, 10) * 10;

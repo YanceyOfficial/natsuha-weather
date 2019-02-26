@@ -1,81 +1,42 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
-import styles from './Precipitation.module.scss';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../types/weather';
+import { IWeatherProps } from '../../types/weather';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
-
-type PageStateProps = {
-  weatherStore: {
-    weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
-  };
-};
-
-interface Precipitation {
-  props: PageStateProps;
-}
+import {
+  upperFirstLetter,
+  getImageUrl,
+  getRainfallIconName
+} from '../../utils/util';
+const styles = require('./Precipitation.module.scss');
 
 @inject('weatherStore')
 @observer
-class Precipitation extends Component {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
+class Precipitation extends Component<IWeatherProps, {}> {
   render() {
     const {
-      weatherStore: { curSkyCode }
+      weatherStore: { weatherData }
     } = this.props;
+
+    const list = weatherData.precipitations.slice(0, 4).map(value => (
+      <View className={styles.precipitation_group}>
+        <Text>{upperFirstLetter(value.timeSlot)}</Text>
+        <Image
+          className={styles.icon}
+          src={getImageUrl(
+            'Precipitation',
+            `rain_ico_${getRainfallIconName(value.probability)}`,
+            '54x60'
+          )}
+        />
+        <Text>{value.probability}%</Text>
+      </View>
+    ));
 
     return (
       <ContentWrapper title="Precipitation">
-        <View className={styles.precipitation_container}>
-          <View className={styles.precipitation_group}>
-            <Text>Afternoon</Text>
-            <Image
-              style="display: block; width: 27px;height: 27px; margin: 5px 0"
-              src={`https://s.yimg.com/os/weather/1.0.1/precipitation/54x60/rain_ico_0@2x.png`}
-            />
-            <Text>0%</Text>
-          </View>
-          <View className={styles.precipitation_group}>
-            <Text>Afternoon</Text>
-            <Image
-              style="display: block; width: 27px;height: 27px; margin: 5px 0"
-              src={`https://s.yimg.com/os/weather/1.0.1/precipitation/54x60/rain_ico_0@2x.png`}
-            />
-            <Text>0%</Text>
-          </View>
-          <View className={styles.precipitation_group}>
-            <Text>Afternoon</Text>
-            <Image
-              style="display: block; width: 27px;height: 27px; margin: 5px 0"
-              src={`https://s.yimg.com/os/weather/1.0.1/precipitation/54x60/rain_ico_0@2x.png`}
-            />
-            <Text>0%</Text>
-          </View>
-          <View className={styles.precipitation_group}>
-            <Text>Afternoon</Text>
-            <Image
-              style="display: block; width: 27px;height: 27px; margin: 5px 0"
-              src={`https://s.yimg.com/os/weather/1.0.1/precipitation/54x60/rain_ico_0@2x.png`}
-            />
-            <Text>0%</Text>
-          </View>
-        </View>
+        <View className={styles.precipitation_container}>{list}</View>
       </ContentWrapper>
     );
   }

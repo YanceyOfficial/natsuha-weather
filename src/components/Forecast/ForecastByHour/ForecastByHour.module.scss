@@ -2,6 +2,13 @@
   position: relative;
   font-size: 28px;
 
+  .icon {
+    display: block;
+    width: 56px;
+    height: 56px;
+    margin: 8px 0;
+  }
+
   .mask {
     position: absolute;
     width: 100px;
