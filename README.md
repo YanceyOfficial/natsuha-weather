@@ -175,10 +175,4 @@ An awesome weather app for WeChat mini program.
 
 #### 风速图
 
-0,1,2,3,4           3.5625
-5,6,7,8,9    animation-duration: 3.125s;
-10,11,12,13,14       animation-duration: 2.6875s;
-15,16,17,18,19            2.25
->20              1.8125
-
-0.4375
+关于转速函数参考 `src/utils/util.ts` 的 `getWindSpeed()`

@@ -89,16 +89,16 @@ export const getWindSpeed = (windSpeed: number) => {
       result = 3.5625;
       break;
     case windSpeedKey === 1:
-      result = 3.125;
+      result = result - 0.4375;
       break;
     case windSpeedKey === 2:
-      result = 2.6875;
+      result = result - 0.4375 * 2;
       break;
     case windSpeedKey === 3:
-      result = 2.25;
+      result = result - 0.4375 * 3;
       break;
     case windSpeedKey > 3:
-      result = 1.8125;
+      result = result - 0.4375 * 4;
       break;
     default:
       result = 3.5625;
