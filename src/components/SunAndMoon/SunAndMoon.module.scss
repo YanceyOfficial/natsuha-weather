@@ -1,16 +1,22 @@
-@import '../../assets/styles/mixins.scss';
 @import '../../assets/styles/variables.scss';
 
 .sun_moon_container {
   margin-bottom: 60px;
   font-size: 24px;
 
+  .icon {
+    width: 40px;
+    height: 40px;
+    vertical-align: bottom;
+    float: left;
+  }
+
   .moon_parse {
     margin-top: 20px;
     width: 25%;
-    float: right;
     font-size: 28px;
     line-height: 1.2;
+    float: right;
 
     .sun_icon_container {
       display: table-cell;
@@ -18,19 +24,19 @@
     }
 
     .moon_parse_name {
-      vertical-align: middle;
       display: table-cell;
       padding-left: 12px;
       max-width: 20%;
+      vertical-align: middle;
     }
   }
 
   .sun_graph {
-    position: relative;
     display: inline-block;
+    position: relative;
     width: 552px;
     height: 132px;
-    background: url('https://s.yimg.com/os/weather/1.0.1/sun/suncurve_static@2x.png') no-repeat center center;
+    background: url($sun_graph_profile) no-repeat center center;
     background-size: cover;
 
     .graph_container {
@@ -38,30 +44,32 @@
 
       .sun_icon {
         position: absolute;
-        width: 42px;
-        height: 42px;
-        background: url('https://s.yimg.com/os/weather/1.0.1/sun/sun@2x.png') no-repeat center center;
-        background-size: cover;
-        transform: rotate(144deg);
-        transition-duration: 3s;
-        transform-origin: 190px;
-        transition-timing-function: linear;
         left: 44px;
         bottom: -60px;
+        width: 42px;
+        height: 42px;
+        background: url($sun_graph_icon) no-repeat center center;
+        background-size: cover;
+        // 决定太阳icon位置
+        // transform: rotate(100deg);
+        transform-origin: 190px;
+        transition-timing-function: linear;
       }
 
       .during_container {
-        width: 308px;
-        height: 128px;
         position: absolute;
-        left: 60px;
-        overflow: hidden;
         top: 0;
+        left: 60px;
+        // width 决定光照面位置
+        // width: 308px;
+        height: 128px;
+        overflow: hidden;
+
 
         .during {
           width: 340px;
           height: 100%;
-          background-image: url(https://s.yimg.com/os/weather/1.0.1/sun/weather_circle.png);
+          background-image: url($sun_graph_circle);
           background-size: cover;
         }
       }

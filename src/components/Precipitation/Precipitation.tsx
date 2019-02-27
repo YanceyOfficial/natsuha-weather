@@ -26,8 +26,7 @@ class Precipitation extends Component<IWeatherProps, {}> {
           className={styles.icon}
           src={getImageUrl(
             'Precipitation',
-            `rain_ico_${getRainfallIconName(value.probability)}`,
-            '54x60'
+            getRainfallIconName(value.probability)
           )}
         />
         <Text>{value.probability}%</Text>

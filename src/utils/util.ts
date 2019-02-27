@@ -2,7 +2,8 @@ import Taro from '@tarojs/taro'
 import {
   imageBaseUrl,
   imageType,
-  hd,
+  hd2,
+  hd3,
 } from '../constants/constants'
 
 export const setToast = (title: string = '', icon: string = 'success', mask: boolean = false, duration: number = 1500) => {
@@ -63,8 +64,15 @@ export const upperFirstLetter = (str: string) => {
   return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase())
 }
 
-export const getImageUrl = (type: string, iconName: string | number, size = '60x60') => {
-  return `${imageBaseUrl}/${imageType[type]}/${size}/${iconName}${hd}`
+export const getImageUrl = (type: string, iconName: string | number) => {
+  const base = `${imageBaseUrl}/${imageType[type]}`;
+  if (type === 'Temperature') {
+    return `${base}/60x60/${iconName}${hd2}`;
+  } else if (type === 'Precipitation') {
+    return `${base}/54x60/rain_ico_${iconName}${hd2}`;
+  } else {
+    return `${base}/ic_moonphase_${iconName}${hd3}`;
+  }
 }
 
 export const getRainfallIconName = (value: number) => parseInt((value / 10).toString(), 10) * 10
@@ -104,4 +112,27 @@ export const getWindSpeed = (windSpeed: number) => {
       result = 3.5625;
   }
   return result;
+}
+
+export const sunRiseSet = (value: number) => {
+  let minute = '';
+  const hour = new Date(value * 1000).getUTCHours() % 12 || 12;
+  const _minute = new Date(value * 1000).getUTCMinutes();
+  if (_minute < 10) {
+    minute = `0${_minute}`;
+  } else {
+    minute = _minute.toString();
+  }
+  return `${hour}:${minute}`;
+}
+
+export const sunPosition = (sunrise: number, sunset: number, base: number) => {
+  const oDate = new Date();
+  const now = oDate.getHours() * 60 * 60 + oDate.getMinutes() * 60;
+  const result = (now - sunrise) / (sunset - sunrise);
+  if (result < 0 || result > 1) {
+    return 0;
+  } else {
+    return (result * base).toFixed(0);
+  }
 }
