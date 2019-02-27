@@ -1,57 +1,33 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image, Block } from '@tarojs/components';
-import styles from './ForecastByDay.module.scss';
+import { View, Text, Image } from '@tarojs/components';
 import cs from 'classnames';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../../types/weather';
+import { IWeatherProps } from '../../../types/weather';
+import {
+  formatWeek,
+  getImageUrl,
+  getRainfallIconName
+} from '../../../utils/util';
+const styles = require('./ForecastByDay.module.scss');
 
-type PageStateProps = {
-  weatherStore: {
-    weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
-  };
-};
-
-type IForecastByDayStates = {
+interface IForecastByDayStates {
   isSelected: boolean;
-  numbers: number[];
   isFive: boolean;
-};
-
-interface ForecastByDay {
-  props: PageStateProps;
-  state: IForecastByDayStates;
 }
 
 @inject('weatherStore')
 @observer
-class ForecastByDay extends Component {
+class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
   constructor(props: any) {
     super(props);
     this.state = {
       isSelected: false,
-      numbers: [...Array(10).keys()],
       isFive: true
     };
   }
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  public select = () => {
+  public handleSelect = () => {
     this.setState({
       isSelected: true
     });
@@ -71,43 +47,55 @@ class ForecastByDay extends Component {
 
   render() {
     const {
-      weatherStore: { curSkyCode }
+      weatherStore: {
+        weatherData: {
+          forecasts: { daily },
+          observation
+        },
+        metaData
+      }
     } = this.props;
 
-    const { isSelected, numbers, isFive } = this.state;
+    const { isSelected, isFive } = this.state;
 
-    const value = numbers.map((number: number) => (
-      <View>
-        <View className={styles.day_group} onClick={() => this.select()}>
+    const dailyList = daily.slice(0, 10).map((value, key) => (
+      <View key={key}>
+        <View className={styles.day_group} onClick={() => this.handleSelect()}>
           <View className={styles.group_basic}>
-            <Text>Saturday</Text>
+            <Text className={styles.week_name}>
+              {formatWeek(value.observationTime.weekday)}
+            </Text>
             <View className={styles.condition_img}>
               <Image
-                style="width: 32px;height: 32px;"
-                src="https://s.yimg.com/os/weather/1.0.1/shadow_icon/60x60/partly_cloudy_day@2x.png"
+                className={styles.condition_image}
+                src={getImageUrl(
+                  'Temperature',
+                  metaData.skycode[observation.conditionCode]
+                )}
               />
             </View>
             <View className={styles.precipitation_group}>
               <Image
-                style="width: 24px;height: 24px;"
-                src="https://s.yimg.com/os/weather/1.0.1/precipitation/54x60/rain_ico_0@2x.png"
+                className={styles.precipitation_icon}
+                src={getImageUrl(
+                  'Precipitation',
+                  getRainfallIconName(value.precipitationProbability)
+                )}
               />
-              <Text className={styles.precipitation}>0%</Text>
+              <Text className={styles.precipitation}>
+                {value.precipitationProbability}%
+              </Text>
             </View>
-            <Text className={styles.high}>62°</Text>
-            <Text className={styles.low}>42°</Text>
+            <Text className={styles.high}>{value.temperature.high}°</Text>
+            <Text className={styles.low}>{value.temperature.low}°</Text>
           </View>
         </View>
         <View
           className={cs(
             styles.group_detail_container,
-            isSelected ? styles.isSelected : ''
+            isSelected ? styles.selected : ''
           )}
         >
-          <Text className={styles.group_detail}>
-            Partly cloudy today with a high of 67 °F (19.4 °C) and a low of 48
-            °F (8.9 °C).
-          </Text>
           <Text className={styles.group_detail}>
             Partly cloudy today with a high of 67 °F (19.4 °C) and a low of 48
             °F (8.9 °C).
@@ -119,7 +107,7 @@ class ForecastByDay extends Component {
     return (
       <View className={styles.forecast_day_conatainer}>
         <View className={cs(styles.list, isFive ? styles.five_item : '')}>
-          {value}
+          {dailyList}
         </View>
         <View className={styles.day_picker}>
           <Text className={styles.five_day} onClick={() => this.handleDay(5)}>

@@ -4,6 +4,7 @@ import {
   imageType,
   hd2,
   hd3,
+  weekList,
 } from '../constants/constants'
 
 export const setToast = (title: string = '', icon: string = 'success', mask: boolean = false, duration: number = 1500) => {
@@ -55,7 +56,6 @@ export const hourTo12 = date => {
     return `${month}/${day}, ${hour}:${minute} AM`
   }
 }
-
 
 export const upperFirstLetter = (str: string) => {
   if (str.includes('_')) {
@@ -136,3 +136,5 @@ export const sunPosition = (sunrise: number, sunset: number, base: number) => {
     return (result * base).toFixed(0);
   }
 }
+
+export const formatWeek = (number: number) => weekList[number];

@@ -20,8 +20,6 @@ class Wind extends Component<IWeatherProps, {}> {
       }
     } = this.props;
 
-    // const windSpeed = windSpeed;
-
     const windSpeedFanStyle = {
       animationDuration: `${getWindSpeed(windSpeed)}s`
     };

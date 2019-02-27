@@ -21,3 +21,14 @@ export const imageType = {
 
 export const hd2 = '@2x.png';
 export const hd3 = '@3x.png';
+
+export const weekList = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+
+]

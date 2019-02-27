@@ -69,6 +69,11 @@ class WeatherStore {
         sunset: 64260,
         moonPhase: 1,
       },
+      forecasts: {
+        daily: [],
+        hourly: [],
+      }
+
     };
     this.metaData = {
       conditionMap: {},

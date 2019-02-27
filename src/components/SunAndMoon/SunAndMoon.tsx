@@ -30,12 +30,18 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
       }
     } = this.props;
 
+    const sunIconPosition = sunPosition(sunrise, sunset, 170);
+    const illuminationPosition = sunPosition(sunrise, sunset, 180);
+
     const sunIconStyle = {
-      transform: `rotate(${sunPosition(sunrise, sunset, 170)}deg)`
+      transform: `rotate(${sunIconPosition}deg)`,
+      display: `${
+        sunIconPosition <= 20 || sunIconPosition >= 160 ? 'none' : 'block'
+      }`
     };
 
     const illuminationStyle = {
-      width: `${sunPosition(sunrise, sunset, 180)}px`
+      width: `${illuminationPosition}px`
     };
 
     return (

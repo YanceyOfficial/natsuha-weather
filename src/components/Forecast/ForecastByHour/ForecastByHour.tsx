@@ -37,8 +37,8 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
 
     const { numbers, typeList, selected } = this.state;
 
-    const temperature = numbers.map(number => (
-      <View className={styles.precipitation_group}>
+    const temperature = numbers.map((value, key) => (
+      <View className={styles.precipitation_group} key={key}>
         <Text>11AM</Text>
         <Image
         className={styles.icon}
