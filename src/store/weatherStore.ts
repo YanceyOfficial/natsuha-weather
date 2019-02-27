@@ -11,33 +11,14 @@ import {
 import Taro from '@tarojs/taro';
 
 class WeatherStore {
-  @observable public weatherData: IWeather = {
-    location: {
-      countryName: '',
-      displayName: '',
-    },
-    observation: {
-      conditionDescription: '',
-      conditionCode: 0,
-      localTime: {
-        timestamp: new Date(),
-      },
-      temperature: {
-        now: 0,
-        high: 0,
-        low: 0,
-        feelsLike: 0,
-      },
-      photos: [],
-    }
-  };
+  @observable public weatherData: IWeather = {};
 
   @observable public metaData: IMeta = {
     conditionMap: {},
     skycode: {},
   }
 
-  @observable public curSkyCode = '';
+  @observable public curSkyCode = 'clear_day';
 
   constructor() {
     this.weatherData = {
@@ -57,8 +38,32 @@ class WeatherStore {
           low: 0,
           feelsLike: 0,
         },
-        photos: [],
-      }
+        visibility: 0,
+        uvIndex: 1,
+        uvDescription: 'low',
+        humidity: 100,
+        dayPartTexts: [],
+        windSpeed: 0,
+        windDirectionCode: 'South South East',
+        barometricPressure: 0,
+      },
+      precipitations: [{
+          timeSlot: "MORNING",
+          probability: 0,
+        },
+        {
+          timeSlot: "AFTERNOON",
+          probability: 0,
+        },
+        {
+          timeSlot: "EVENING",
+          probability: 0,
+        },
+        {
+          timeSlot: "NIGHT",
+          probability: 0,
+        },
+      ],
     };
     this.metaData = {
       conditionMap: {},
@@ -67,13 +72,12 @@ class WeatherStore {
     this.curSkyCode = 'clear_day';
   }
 
-  // @action
   public getWeatherById = (woeid = '2151330', lang = 'zh-CN') => {
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid,
-        lang,
+        woeid: '2151849',
+        lang: 'en-US',
       }
     }).then((res) => {
       runInAction(() => {
@@ -83,6 +87,7 @@ class WeatherStore {
         this.curSkyCode = this.metaData.skycode[this.weatherData.observation.conditionCode];
       })
     }).catch((e) => {
+      // 一般来讲这里会报错 在这里加toast即可
       console.log(e);
     });
   }
@@ -114,7 +119,7 @@ class WeatherStore {
         })
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   }
 
@@ -127,7 +132,7 @@ class WeatherStore {
       const lon = res.longitude;
       this.getWoeid(lat, lon);
     }).catch(e => {
-      console.log(e)
+      console.error(e)
     })
   }
 }

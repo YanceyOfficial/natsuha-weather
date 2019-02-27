@@ -8,6 +8,7 @@ declare module "*.svg";
 declare module "*.css";
 declare module "*.less";
 declare module "*.scss";
+declare module "*.module.scss";
 declare module "*.sass";
 declare module "*.styl";
 
@@ -35,3 +36,4 @@ declare module '*.module.sass' {
   const classes: { [key: string]: string };
   export default classes;
 }
+

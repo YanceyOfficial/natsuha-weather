@@ -4,9 +4,9 @@ import { View, Text, Image } from '@tarojs/components';
 import styles from './SunAndMoon.module.scss';
 import { observer, inject } from '@tarojs/mobx';
 import { IMeta, IWeather } from '../../types/weather';
+import ContentWrapper from '../ContentWrapper/ContentWrapper';
 
 type PageStateProps = {
-  title: string;
   weatherStore: {
     weatherData: IWeather;
     metaData: IMeta;
@@ -37,14 +37,11 @@ class SunAndMoon extends Component {
 
   render() {
     const {
-      title,
       weatherStore: { curSkyCode }
     } = this.props;
 
     return (
-      <View className={styles.content_wrapper}>
-        <Text className={styles.header}>{title}</Text>
-        {/* content */}
+      <ContentWrapper title="Sun & Moon">
         <View className={styles.sun_moon_container}>
           <View className={styles.moon_parse}>
             <View className={styles.sun_icon_container}>
@@ -68,8 +65,7 @@ class SunAndMoon extends Component {
             </View>
           </View>
         </View>
-        {/* content */}
-      </View>
+        </ContentWrapper>
     );
   }
 }
