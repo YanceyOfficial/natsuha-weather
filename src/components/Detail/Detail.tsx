@@ -20,12 +20,10 @@ class Detail extends Component<IWeatherProps, {}> {
       weatherStore: { curSkyCode, weatherData }
     } = this.props;
 
-    const dayPartTextsData = weatherData.observation.dayPartTexts;
-
-    const dayPartTexts = dayPartTextsData.map(value => (
+    const dayPartTexts = weatherData.observation.dayPartTexts.map(value => (
       <Text className={styles.content_detail_txt}>
         {/* Taro编译忽略前空格的bug https://github.com/NervJS/taro/issues/2261 */}
-        {upperFirstLetter(value.dayPart)}{' '}- {value.text}
+        {upperFirstLetter(value.dayPart)}{' '}-{' '}{value.text}
       </Text>
     ));
 
@@ -58,10 +56,7 @@ class Detail extends Component<IWeatherProps, {}> {
             </View>
           </View>
         </View>
-        {/* 只有当语言为英语时才有 dayPartTexts */}
-        {dayPartTextsData.length === 0 ? null : (
-          <View className={styles.content_detail}>{dayPartTexts}</View>
-        )}
+        <View className={styles.content_detail}>{dayPartTexts}</View>
       </ContentWrapper>
     );
   }

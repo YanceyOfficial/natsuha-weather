@@ -43,8 +43,27 @@ class WeatherStore {
         uvDescription: 'low',
         humidity: 100,
         dayPartTexts: [],
+        windSpeed: 0,
+        windDirectionCode: 'South South East',
+        barometricPressure: 0,
       },
-      precipitations: [],
+      precipitations: [{
+          timeSlot: "MORNING",
+          probability: 0,
+        },
+        {
+          timeSlot: "AFTERNOON",
+          probability: 0,
+        },
+        {
+          timeSlot: "EVENING",
+          probability: 0,
+        },
+        {
+          timeSlot: "NIGHT",
+          probability: 0,
+        },
+      ],
     };
     this.metaData = {
       conditionMap: {},
