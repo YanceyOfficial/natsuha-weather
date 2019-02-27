@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
 import { sunRiseSet, getImageUrl, sunPosition } from '../../utils/util';
-import { moonPhase } from '../../constants/constants';
+import { moonPhases } from '../../constants/constants';
 const styles = require('./SunAndMoon.module.scss');
 
 @inject('weatherStore')
@@ -23,23 +23,19 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
 
   render() {
     const {
-      weatherStore: { weatherData }
+      weatherStore: {
+        weatherData: {
+          sunAndMoon: { sunrise, sunset, moonPhase }
+        }
+      }
     } = this.props;
 
     const sunIconStyle = {
-      transform: `rotate(${sunPosition(
-        weatherData.sunAndMoon.sunrise,
-        weatherData.sunAndMoon.sunset,
-        170,
-      )}deg)`
+      transform: `rotate(${sunPosition(sunrise, sunset, 170)}deg)`
     };
 
     const illuminationStyle = {
-      width: `${sunPosition(
-        weatherData.sunAndMoon.sunrise,
-        weatherData.sunAndMoon.sunset,
-        180,
-      )}px`
+      width: `${sunPosition(sunrise, sunset, 180)}px`
     };
 
     return (
@@ -49,11 +45,11 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
             <View className={styles.sun_icon_container}>
               <Image
                 className={styles.icon}
-                src={getImageUrl('Moon', weatherData.sunAndMoon.moonPhase)}
+                src={getImageUrl('Moon', moonPhase)}
               />
             </View>
             <Text className={styles.moon_parse_name}>
-              {moonPhase[weatherData.sunAndMoon.moonPhase]}
+              {moonPhases[moonPhase]}
             </Text>
           </View>
           <View className={styles.sun_graph}>
@@ -67,12 +63,8 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
               </View>
             </View>
             <View className={styles.sunrise_sunset_txt}>
-              <Text className={styles.sunrise}>
-                {sunRiseSet(weatherData.sunAndMoon.sunrise)}{' '}AM
-              </Text>
-              <Text className={styles.sunset}>
-                {sunRiseSet(weatherData.sunAndMoon.sunset)}{' '}PM
-              </Text>
+              <Text className={styles.sunrise}>{sunRiseSet(sunrise)}{' '}AM</Text>
+              <Text className={styles.sunset}>{sunRiseSet(sunset)}{' '}PM</Text>
             </View>
           </View>
         </View>

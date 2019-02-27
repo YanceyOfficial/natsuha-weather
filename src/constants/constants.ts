@@ -1,4 +1,4 @@
-export const moonPhase = {
+export const moonPhases = {
   0: 'New Moon', // 新月、朔
   1: 'Waxing Crescent', // 眉月
   2: 'First Quarter', // 上弦月
