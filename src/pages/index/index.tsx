@@ -5,28 +5,36 @@ import { observer, inject } from '@tarojs/mobx';
 
 import Summary from '../../components/Summary/Summary';
 import Detail from '../../components/Detail/Detail';
-import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 import SunAndMoon from '../../components/SunAndMoon/SunAndMoon';
 import Wind from '../../components/Wind/Wind';
 import Forecast from '../../components/Forecast/Forecast';
+import Background from '../../components/Background/Background';
+import Precipitation from '../../components/Precipitation/Precipitation';
+import Search from '../../components/Search/Search';
 
 import './index.scss';
 
-type PageStateProps = {
+interface IIndexProps {
   weatherStore: {
     getWeatherById: Function;
     getRegion: Function;
     getPosition: Function;
   };
-};
+}
 
-interface Index {
-  props: PageStateProps;
+interface IIndexStates {
+  needBlur: boolean;
 }
 
 @inject('weatherStore')
 @observer
-class Index extends Component {
+class Index extends Component<IIndexProps, IIndexStates> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      needBlur: false
+    };
+  }
   config: Config = {
     navigationBarTitleText: '夏葉'
   };
@@ -46,15 +54,35 @@ class Index extends Component {
 
   componentDidHide() {}
 
+  // public onPullDownRefresh = () => {
+  //   const { weatherStore } = this.props;
+  //   weatherStore.getPosition();
+  // };
+
+  public onPageScroll(e: any) {
+    if (e.scrollTop >= 100) {
+      this.setState({
+        needBlur: true
+      });
+    } else {
+      this.setState({
+        needBlur: false
+      });
+    }
+  }
+
   render() {
+    const { needBlur } = this.state;
     return (
       <View className="index">
+        <Background needBlur={needBlur} />
         <Summary />
         <Forecast />
         <Detail />
-        <ContentWrapper />
+        <Precipitation />
         <SunAndMoon />
         <Wind />
+        <Search />
       </View>
     );
   }

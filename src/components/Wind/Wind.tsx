@@ -1,78 +1,63 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text } from '@tarojs/components';
 import cs from 'classnames';
-import styles from './Wind.module.scss';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../types/weather';
-
-type PageStateProps = {
-  title: string;
-  weatherStore: {
-    weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
-  };
-};
-
-interface Wind {
-  props: PageStateProps;
-}
+import { IWeatherProps } from '../../types/weather';
+import ContentWrapper from '../ContentWrapper/ContentWrapper';
+import { windDirectFormat, getWindSpeed } from '../../utils/util';
+const styles = require('./Wind.module.scss');
 
 @inject('weatherStore')
 @observer
-class Wind extends Component {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
+class Wind extends Component<IWeatherProps, {}> {
   render() {
     const {
-      title,
-      weatherStore: { curSkyCode }
+      weatherStore: {
+        weatherData: {
+          observation: { windSpeed, windDirectionCode, barometricPressure }
+        }
+      }
     } = this.props;
 
+    // const windSpeed = windSpeed;
+
+    const windSpeedFanStyle = {
+      animationDuration: `${getWindSpeed(windSpeed)}s`
+    };
+
     return (
-      <View className={styles.content_wrapper}>
-        <Text className={styles.header}>{title}</Text>
-        {/* content */}
+      <ContentWrapper title="Wind & Pressure">
         <View className={styles.wind_container}>
           <View className={styles.wind_main}>
             <View className={styles.wind_graph_group}>
               <View className={styles.wind_graph}>
-                <View className={styles.graph_fan} />
+                <View className={styles.graph_fan} style={windSpeedFanStyle} />
                 <View className={styles.graph_pole} />
               </View>
               <View className={cs(styles.wind_graph, styles.wind_graph_small)}>
-                <View className={styles.graph_fan} />
+                <View className={styles.graph_fan} style={windSpeedFanStyle} />
                 <View className={styles.graph_pole} />
               </View>
             </View>
 
             <View className={styles.wind_info}>
               <Text className={styles.wind_txt}>Wind</Text>
-              <Text className={styles.wind_txt}>6 mph SSW</Text>
+              <Text className={styles.wind_txt}>
+                {windSpeed}{' '}mph{' '}{windDirectFormat(windDirectionCode)}
+              </Text>
             </View>
 
             <View className={styles.barometric_pressure}>
               <Text className={styles.wind_txt}>Barometer</Text>
-              <Text className={styles.wind_txt}>30.1 inches</Text>
+              <Text className={styles.wind_txt}>
+                {barometricPressure.toFixed(1)}{' '}inches
+              </Text>
             </View>
           </View>
           <View className={styles.split} />
         </View>
-        {/* content */}
-      </View>
+      </ContentWrapper>
     );
   }
 }

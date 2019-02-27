@@ -1,87 +1,74 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
-import styles from './Detail.module.scss';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../types/weather';
+import { IWeatherProps } from '../../types/weather';
+import { upperFirstLetter, getImageUrl } from '../../utils/util';
+import ContentWrapper from '../ContentWrapper/ContentWrapper';
 
-type PageStateProps = {
-  title: string;
-  weatherStore: {
-    weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
-  };
-};
-
-interface Detail {
-  props: PageStateProps;
-}
+// 目前使用 import styles from '...' 报 Cannot find module '...'
+// Taro官方给我的回复是在声明里写 declare module "*.scss", 然并卵
+// 暂时用 commonjs 吧
+// 妈的
+const styles = require('./Detail.module.scss');
 
 @inject('weatherStore')
 @observer
-class Detail extends Component {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
+class Detail extends Component<IWeatherProps, {}> {
   render() {
     const {
-      title,
-      weatherStore: { curSkyCode }
+      weatherStore: {
+        curSkyCode,
+        weatherData: {
+          observation: {
+            temperature,
+            visibility,
+            uvIndex,
+            uvDescription,
+            dayPartTexts,
+            humidity
+          }
+        }
+      }
     } = this.props;
 
+    const dayPartTextList = dayPartTexts.map(value => (
+      <Text className={styles.content_detail_txt}>
+        {/* Taro编译忽略前空格的bug https://github.com/NervJS/taro/issues/2261 */}
+        {upperFirstLetter(value.dayPart)}{' '}- {value.text}
+      </Text>
+    ));
+
     return (
-      <View className={styles.content_wrapper}>
-        <Text className={styles.header}>{title}</Text>
-        {/* content */}
+      <ContentWrapper title="Details">
         <View className={styles.detail_content_container}>
           <Image
-            style="width: 70px;height: 70px; margin:35px;"
-            src={`https://s.yimg.com/os/weather/1.0.1/shadow_icon/60x60/${
-              curSkyCode ? `${curSkyCode}` : 'clear_day'
-            }@2x.png`}
+            className={styles.icon}
+            src={getImageUrl('Temperature', curSkyCode)}
           />
           <View className={styles.content_groups}>
             <View className={styles.content_group}>
               <Text>Feels like</Text>
-              <Text>52°</Text>
+              <Text>{temperature.feelsLike}°</Text>
             </View>
             <View className={styles.content_group}>
               <Text>Humidity</Text>
-              <Text>14%</Text>
+              <Text>{humidity}%</Text>
             </View>
             <View className={styles.content_group}>
               <Text>Visibility</Text>
-              <Text>10.00 miles</Text>
+              <Text>{visibility.toFixed(2)}{' '}miles</Text>
             </View>
             <View className={styles.content_group}>
               <Text>UV Index</Text>
-              <Text>1 (Low)</Text>
+              <Text>
+                {uvIndex}{' '}({uvDescription})
+              </Text>
             </View>
           </View>
         </View>
-        <View className={styles.content_detail}>
-          <Text className={styles.content_detail_txt}>
-            Today - Cloudy with a high of 54 °F (12.2 °C). Winds from E to SE.
-          </Text>
-          <Text className={styles.content_detail_txt}>
-            Tonight - Cloudy. Winds variable. The overnight low will be 31 °F
-            (-0.6 °C).
-          </Text>
-        </View>
-        {/* content */}
-      </View>
+        <View className={styles.content_detail}>{dayPartTextList}</View>
+      </ContentWrapper>
     );
   }
 }

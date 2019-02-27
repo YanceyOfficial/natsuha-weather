@@ -1,30 +1,16 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
-import styles from './SunAndMoon.module.scss';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../types/weather';
-
-type PageStateProps = {
-  title: string;
-  weatherStore: {
-    weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
-  };
-};
-
-interface SunAndMoon {
-  props: PageStateProps;
-}
+import { IWeatherProps } from '../../types/weather';
+import ContentWrapper from '../ContentWrapper/ContentWrapper';
+import { sunRiseSet, getImageUrl, sunPosition } from '../../utils/util';
+import { moonPhases } from '../../constants/constants';
+const styles = require('./SunAndMoon.module.scss');
 
 @inject('weatherStore')
 @observer
-class SunAndMoon extends Component {
+class SunAndMoon extends Component<IWeatherProps, {}> {
   componentWillMount() {}
 
   componentDidMount() {}
@@ -37,39 +23,52 @@ class SunAndMoon extends Component {
 
   render() {
     const {
-      title,
-      weatherStore: { curSkyCode }
+      weatherStore: {
+        weatherData: {
+          sunAndMoon: { sunrise, sunset, moonPhase }
+        }
+      }
     } = this.props;
 
+    const sunIconStyle = {
+      transform: `rotate(${sunPosition(sunrise, sunset, 170)}deg)`
+    };
+
+    const illuminationStyle = {
+      width: `${sunPosition(sunrise, sunset, 180)}px`
+    };
+
     return (
-      <View className={styles.content_wrapper}>
-        <Text className={styles.header}>{title}</Text>
-        {/* content */}
+      <ContentWrapper title="Sun & Moon">
         <View className={styles.sun_moon_container}>
           <View className={styles.moon_parse}>
             <View className={styles.sun_icon_container}>
               <Image
-                style="width: 20px;height: 20px;float: left; vertical-align: bottom"
-                src="https://s.yimg.com/os/weather/1.0.1/moon/ic_moonphase_5@3x.png"
+                className={styles.icon}
+                src={getImageUrl('Moon', moonPhase)}
               />
             </View>
-            <Text className={styles.moon_parse_name}>Waning Gibbous</Text>
+            <Text className={styles.moon_parse_name}>
+              {moonPhases[moonPhase]}
+            </Text>
           </View>
           <View className={styles.sun_graph}>
             <View className={styles.graph_container}>
-              <View className={styles.sun_icon} />
-              <View className={styles.during_container}>
+              <View className={styles.sun_icon} style={sunIconStyle} />
+              <View
+                className={styles.during_container}
+                style={illuminationStyle}
+              >
                 <View className={styles.during} />
               </View>
             </View>
             <View className={styles.sunrise_sunset_txt}>
-              <Text className={styles.sunrise}>6:30 AM</Text>
-              <Text className={styles.sunset}>5:43 PM</Text>
+              <Text className={styles.sunrise}>{sunRiseSet(sunrise)}{' '}AM</Text>
+              <Text className={styles.sunset}>{sunRiseSet(sunset)}{' '}PM</Text>
             </View>
           </View>
         </View>
-        {/* content */}
-      </View>
+      </ContentWrapper>
     );
   }
 }
