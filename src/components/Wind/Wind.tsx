@@ -11,13 +11,16 @@ const styles = require('./Wind.module.scss');
 @inject('weatherStore')
 @observer
 class Wind extends Component<IWeatherProps, {}> {
-
   render() {
     const {
-      weatherStore: { weatherData }
+      weatherStore: {
+        weatherData: {
+          observation: { windSpeed, windDirectionCode, barometricPressure }
+        }
+      }
     } = this.props;
 
-    const windSpeed = weatherData.observation.windSpeed;
+    // const windSpeed = windSpeed;
 
     const windSpeedFanStyle = {
       animationDuration: `${getWindSpeed(windSpeed)}s`
@@ -41,15 +44,14 @@ class Wind extends Component<IWeatherProps, {}> {
             <View className={styles.wind_info}>
               <Text className={styles.wind_txt}>Wind</Text>
               <Text className={styles.wind_txt}>
-                {windSpeed}{' '}mph{' '}
-                {windDirectFormat(weatherData.observation.windDirectionCode)}
+                {windSpeed}{' '}mph{' '}{windDirectFormat(windDirectionCode)}
               </Text>
             </View>
 
             <View className={styles.barometric_pressure}>
               <Text className={styles.wind_txt}>Barometer</Text>
               <Text className={styles.wind_txt}>
-                {weatherData.observation.barometricPressure.toFixed(1)}{' '}inches
+                {barometricPressure.toFixed(1)}{' '}inches
               </Text>
             </View>
           </View>

@@ -17,13 +17,25 @@ const styles = require('./Detail.module.scss');
 class Detail extends Component<IWeatherProps, {}> {
   render() {
     const {
-      weatherStore: { curSkyCode, weatherData }
+      weatherStore: {
+        curSkyCode,
+        weatherData: {
+          observation: {
+            temperature,
+            visibility,
+            uvIndex,
+            uvDescription,
+            dayPartTexts,
+            humidity
+          }
+        }
+      }
     } = this.props;
 
-    const dayPartTexts = weatherData.observation.dayPartTexts.map(value => (
+    const dayPartTextList = dayPartTexts.map(value => (
       <Text className={styles.content_detail_txt}>
         {/* Taro编译忽略前空格的bug https://github.com/NervJS/taro/issues/2261 */}
-        {upperFirstLetter(value.dayPart)}{' '}-{' '}{value.text}
+        {upperFirstLetter(value.dayPart)}{' '}- {value.text}
       </Text>
     ));
 
@@ -37,26 +49,25 @@ class Detail extends Component<IWeatherProps, {}> {
           <View className={styles.content_groups}>
             <View className={styles.content_group}>
               <Text>Feels like</Text>
-              <Text>{weatherData.observation.temperature.feelsLike}°</Text>
+              <Text>{temperature.feelsLike}°</Text>
             </View>
             <View className={styles.content_group}>
               <Text>Humidity</Text>
-              <Text>{weatherData.observation.humidity}%</Text>
+              <Text>{humidity}%</Text>
             </View>
             <View className={styles.content_group}>
               <Text>Visibility</Text>
-              <Text>{weatherData.observation.visibility.toFixed(2)}{' '}miles</Text>
+              <Text>{visibility.toFixed(2)}{' '}miles</Text>
             </View>
             <View className={styles.content_group}>
               <Text>UV Index</Text>
               <Text>
-                {weatherData.observation.uvIndex}{' '}(
-                {weatherData.observation.uvDescription})
+                {uvIndex}{' '}({uvDescription})
               </Text>
             </View>
           </View>
         </View>
-        <View className={styles.content_detail}>{dayPartTexts}</View>
+        <View className={styles.content_detail}>{dayPartTextList}</View>
       </ContentWrapper>
     );
   }

@@ -64,6 +64,11 @@ class WeatherStore {
           probability: 0,
         },
       ],
+      sunAndMoon: {
+        sunrise: 22980,
+        sunset: 64260,
+        moonPhase: 1,
+      },
     };
     this.metaData = {
       conditionMap: {},

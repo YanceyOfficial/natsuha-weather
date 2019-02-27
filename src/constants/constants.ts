@@ -1,4 +1,4 @@
-export const moonPhase = {
+export const moonPhases = {
   0: 'New Moon', // 新月、朔
   1: 'Waxing Crescent', // 眉月
   2: 'First Quarter', // 上弦月
@@ -16,6 +16,8 @@ export const imageBaseUrl = 'https://s.yimg.com/os/weather/1.0.1';
 export const imageType = {
   Temperature: 'shadow_icon',
   Precipitation: 'precipitation',
+  Moon: 'moon',
 }
 
-export const hd = '@2x.png';
+export const hd2 = '@2x.png';
+export const hd3 = '@3x.png';
