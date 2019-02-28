@@ -19,6 +19,7 @@ interface IIndexProps {
     getWeatherById: Function;
     getRegion: Function;
     getPosition: Function;
+    handleTemperatureType: Function,
   };
 }
 

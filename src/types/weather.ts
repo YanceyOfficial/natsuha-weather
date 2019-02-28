@@ -3,6 +3,13 @@ export interface IWeatherProps {
     weatherData: IWeather;
     curSkyCode: string;
     metaData: IMeta;
+    isF: boolean;
+    updateKey: number;
+    getWeatherById: Function;
+    getRegion: Function;
+    getPosition: Function;
+    handleTemperatureType: Function;
+    renderTrigger: Function;
   };
 };
 

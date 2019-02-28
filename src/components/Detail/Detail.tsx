@@ -27,14 +27,18 @@ class Detail extends Component<IWeatherProps, {}> {
             dayPartTexts,
             humidity
           }
-        }
+        },
+        renderTrigger,
+        updateKey,
       }
     } = this.props;
+
+    renderTrigger(updateKey);
 
     const dayPartTextList = dayPartTexts.map((value, key) => (
       <Text className={styles.content_detail_txt} key={key}>
         {/* Taro编译忽略前空格的bug https://github.com/NervJS/taro/issues/2261 */}
-        {upperFirstLetter(value.dayPart)}{' '}- {value.text}
+        {upperFirstLetter(value.dayPart)} - {value.text}
       </Text>
     ));
 
@@ -56,12 +60,12 @@ class Detail extends Component<IWeatherProps, {}> {
             </View>
             <View className={styles.content_group}>
               <Text>Visibility</Text>
-              <Text>{visibility.toFixed(2)}{' '}miles</Text>
+              <Text>{visibility.toFixed(2)} miles</Text>
             </View>
             <View className={styles.content_group}>
               <Text>UV Index</Text>
               <Text>
-                {uvIndex}{' '}({uvDescription})
+                {uvIndex} ({uvDescription})
               </Text>
             </View>
           </View>
