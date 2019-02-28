@@ -10,7 +10,9 @@ import {
 } from '../types/weather';
 
 import {
-  convertCelsiusFahrenheit
+  convertCelsiusFahrenheit,
+  convertKmMiles,
+  convertMillibarsInches
 } from '../utils/convert';
 
 import Taro from '@tarojs/taro';
@@ -104,6 +106,19 @@ class WeatherStore {
     this.updateKey = Math.random();
     this.isF = type;
     this.weatherData.observation.temperature.feelsLike = convertCelsiusFahrenheit(this.isF, this.weatherData.observation.temperature.feelsLike);
+    this.weatherData.observation.temperature.now = convertCelsiusFahrenheit(this.isF, this.weatherData.observation.temperature.now);
+    this.weatherData.observation.temperature.low = convertCelsiusFahrenheit(this.isF, this.weatherData.observation.temperature.low);
+    this.weatherData.observation.temperature.high = convertCelsiusFahrenheit(this.isF, this.weatherData.observation.temperature.high);
+    this.weatherData.observation.visibility = convertKmMiles(this.isF, this.weatherData.observation.visibility);
+    this.weatherData.observation.windSpeed = convertKmMiles(this.isF, this.weatherData.observation.windSpeed);
+    this.weatherData.observation.barometricPressure = convertMillibarsInches(this.isF, this.weatherData.observation.barometricPressure);
+    for (let i = 0; i < this.weatherData.forecasts.daily.length; i += 1) {
+      this.weatherData.forecasts.daily[i].temperature.low = convertCelsiusFahrenheit(this.isF, this.weatherData.forecasts.daily[i].temperature.low);
+      this.weatherData.forecasts.daily[i].temperature.high = convertCelsiusFahrenheit(this.isF, this.weatherData.forecasts.daily[i].temperature.high);
+    }
+    for (let i = 0; i < this.weatherData.forecasts.hourly.length; i += 1) {
+      this.weatherData.forecasts.hourly[i].temperature.now = convertCelsiusFahrenheit(this.isF, this.weatherData.forecasts.hourly[i].temperature.now);
+    }
   }
 
   public getWeatherById = (woeid = '2151330', lang = 'zh-CN') => {
