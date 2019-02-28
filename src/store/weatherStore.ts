@@ -1,6 +1,7 @@
 import {
   observable,
   runInAction,
+  action,
 } from 'mobx';
 
 import {
@@ -8,10 +9,16 @@ import {
   IWeather
 } from '../types/weather';
 
+import {
+  convertCelsiusFahrenheit
+} from '../utils/convert';
+
 import Taro from '@tarojs/taro';
 
 class WeatherStore {
   @observable public weatherData: IWeather = {};
+
+  @observable updateKey = 0;
 
   @observable public metaData: IMeta = {
     conditionMap: {},
@@ -19,6 +26,8 @@ class WeatherStore {
   }
 
   @observable public curSkyCode = 'clear_day';
+
+  @observable public isF = true;
 
   constructor() {
     this.weatherData = {
@@ -84,6 +93,17 @@ class WeatherStore {
       skycode: {},
     };
     this.curSkyCode = 'clear_day';
+    this.isF = true;
+    this.updateKey = 0;
+  }
+
+  @action renderTrigger = () => {};
+
+  @action
+  public handleTemperatureType = (type: boolean) => {
+    this.updateKey = Math.random();
+    this.isF = type;
+    this.weatherData.observation.temperature.feelsLike = convertCelsiusFahrenheit(this.isF, this.weatherData.observation.temperature.feelsLike);
   }
 
   public getWeatherById = (woeid = '2151330', lang = 'zh-CN') => {

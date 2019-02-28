@@ -1,3 +1,5 @@
+@import '../../assets/styles/variables.scss';
+
 .summary_wrapper {
   position: relative;
   width: 100vw;
@@ -7,6 +9,16 @@
     position: absolute;
     bottom: 40px;
     width: 100%;
+
+    .temperature_type {
+      display: inline-block;
+      font-size: 44px;
+      font-weight: 200;
+
+      .temperature_type_btn {
+        padding: 12px;
+      }
+    }
 
     .condition_summary {
       margin-left: 10px;
@@ -98,6 +110,10 @@
     .cur_time {
       font-style: italic;
     }
+  }
+
+  .is_f {
+    color: $gray;
   }
 
 }

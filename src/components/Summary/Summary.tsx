@@ -12,24 +12,15 @@ const styles = require('./Summary.module.scss');
 @inject('weatherStore')
 @observer
 class Summary extends Component<IWeatherProps, {}> {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
   render() {
     const {
-      weatherStore: { weatherData, curSkyCode }
+      weatherStore: { weatherData, curSkyCode, handleTemperatureType, isF }
     } = this.props;
 
-    const ownerName = weatherData.photos[0].resolutions.length !== 0
-    ? weatherData.photos[0].ownerName
-    : 'Yancey';
+    const ownerName =
+      weatherData.photos[0].resolutions.length !== 0
+        ? weatherData.photos[0].ownerName
+        : 'Yancey';
 
     return (
       <View className={styles.summary_wrapper}>
@@ -40,7 +31,9 @@ class Summary extends Component<IWeatherProps, {}> {
           <Text className={styles.country}>
             {weatherData.location.countryName}
           </Text>
-          <Text className={styles.cur_time}>{hourTo12(weatherData.observation.localTime.timestamp)}</Text>
+          <Text className={styles.cur_time}>
+            {hourTo12(weatherData.observation.localTime.timestamp)}
+          </Text>
         </View>
 
         <View className={styles.cur_temperature_summary}>
@@ -62,10 +55,7 @@ class Summary extends Component<IWeatherProps, {}> {
             <Text className={styles.temperature}>
               {weatherData.observation.temperature.high}°
             </Text>
-            <Image
-              className={styles.arrow}
-              src={arrow}
-            />
+            <Image className={styles.arrow} src={arrow} />
             <Text className={styles.temperature}>
               {weatherData.observation.temperature.low}°
             </Text>
@@ -75,12 +65,21 @@ class Summary extends Component<IWeatherProps, {}> {
             <Text className={styles.cur_temperature}>
               {weatherData.observation.temperature.now}°
             </Text>
-            {/* <View>
-              <View>F</View>
-              <View>C</View>
-            </View> */}
+            <View className={styles.temperature_type}>
+              <View
+                className={cs(styles.temperature_type_btn, !isF ? styles.is_f : '')}
+                onClick={() => handleTemperatureType(true)}
+              >
+                F
+              </View>
+              <View
+                className={cs(styles.temperature_type_btn, isF ? styles.is_f : '')}
+                onClick={() => handleTemperatureType(false)}
+              >
+                C
+              </View>
+            </View>
           </View>
-
           <View className={styles.flickr_info}>
             <Text className={styles.flickr_txt}>
               © by {ownerName}{' '}on{' '}
