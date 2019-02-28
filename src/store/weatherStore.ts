@@ -23,14 +23,14 @@ class WeatherStore {
   constructor() {
     this.weatherData = {
       location: {
-        countryName: '',
-        displayName: '',
+        countryName: 'China',
+        displayName: 'Beijing',
       },
       observation: {
-        conditionDescription: '',
+        conditionDescription: 'Sunny',
         conditionCode: 0,
         localTime: {
-          timestamp: new Date(),
+          timestamp: '',
         },
         temperature: {
           now: 0,
@@ -65,14 +65,18 @@ class WeatherStore {
         },
       ],
       sunAndMoon: {
-        sunrise: 22980,
-        sunset: 64260,
+        sunrise: 0,
+        sunset: 0,
         moonPhase: 1,
       },
       forecasts: {
         daily: [],
         hourly: [],
-      }
+      },
+      photos: [{
+        ownerName: '',
+        resolutions: [],
+      }]
 
     };
     this.metaData = {
@@ -97,7 +101,7 @@ class WeatherStore {
         this.curSkyCode = this.metaData.skycode[this.weatherData.observation.conditionCode];
       })
     }).catch((e) => {
-      // 一般来讲这里会报错 在这里加toast即可
+      // 根据woeid拿不到天气信息
       console.log(e);
     });
   }
@@ -129,6 +133,7 @@ class WeatherStore {
         })
       })
       .catch((e) => {
+        // 根据经纬度拿不到woeid
         console.error(e);
       });
   }
@@ -142,6 +147,7 @@ class WeatherStore {
       const lon = res.longitude;
       this.getWoeid(lat, lon);
     }).catch(e => {
+      // 经纬度获取失败
       console.error(e)
     })
   }

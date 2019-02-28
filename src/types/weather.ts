@@ -39,9 +39,9 @@ interface IPrecipitation {
 }
 
 interface IPhoto {
-  dayOrNight: string;
-  id: string;
-  owner: string;
+  dayOrNight?: string;
+  id?: string;
+  owner?: string;
   ownerName: string;
   resolutions: IResolution[];
 }
@@ -67,11 +67,11 @@ interface IDayPartText {
 interface ILocation {
   countryName: string;
   displayName: string;
-  latitude: number;
-  longitude: number;
-  offsetSecs: number;
-  photoWoeid: number;
-  woeid: number;
+  latitude?: number;
+  longitude?: number;
+  offsetSecs?: number;
+  photoWoeid?: number;
+  woeid?: number;
 }
 
 interface IForecasts {
@@ -89,22 +89,22 @@ interface ICondition {
   dayPartTexts: IDayPartText[];
   humidity: number;
   localTime: {
-    day: number;
-    hour: number;
-    timestamp: Date;
-    weekday: number;
+    day?: number;
+    hour?: number;
+    timestamp: string;
+    weekday?: number;
   };
-  observationTime: {
+  observationTime?: {
     day: number;
     hour: number;
     timestamp: string;
     weekday: number;
   };
-  precipitationProbability: number;
+  precipitationProbability?: number;
 }
 
 interface IWind {
-  windDirection: number;
+  windDirection?: number;
   windDirectionCode: string;
   windSpeed: number;
 }

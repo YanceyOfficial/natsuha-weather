@@ -45,15 +45,27 @@ export const formatJSONDate = jsonDate => new Date(+new Date(new Date(jsonDate).
   .replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
 
 export const hourTo12 = date => {
-  const oDate = new Date(date)
-  const month = oDate.getUTCMonth() + 1
-  const day = oDate.getUTCDate()
-  const hour = oDate.getUTCHours()
-  const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
-  if (hour > 12) {
-    return `${month}/${day}, ${hour -12}:${minute} PM`
+  if (date === '') {
+    return '--'
   } else {
-    return `${month}/${day}, ${hour}:${minute} AM`
+    const oDate = new Date(date)
+    const month = oDate.getUTCMonth() + 1
+    const day = oDate.getUTCDate()
+    const hour = oDate.getUTCHours()
+    const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
+    if (hour > 12) {
+      return `${month}/${day}, ${hour -12}:${minute} PM`
+    } else {
+      return `${month}/${day}, ${hour}:${minute} AM`
+    }
+  }
+}
+
+export const hourTo12Lite = (hour: number) => {
+  if (hour > 12) {
+    return `${hour -12} PM`
+  } else {
+    return `${hour} AM`
   }
 }
 
@@ -126,14 +138,19 @@ export const sunRiseSet = (value: number) => {
   return `${hour}:${minute}`;
 }
 
-export const sunPosition = (sunrise: number, sunset: number, base: number) => {
+export const sunPosition = (type: string, sunrise: number, sunset: number) => {
   const oDate = new Date();
   const now = oDate.getHours() * 60 * 60 + oDate.getMinutes() * 60;
-  const result = (now - sunrise) / (sunset - sunrise);
-  if (result < 0 || result > 1) {
+  const proportion = (now - sunrise) / (sunset - sunrise);
+  // 当当前时间距离日出或日落时间较近时，小太阳因其自身面积会导致样式不好看，故在这种情况下返回0
+  if (proportion < 0.1 || proportion > 0.9) {
     return 0;
   } else {
-    return (result * base).toFixed(0);
+    if (type === 'sun') {
+      return (proportion * 170).toFixed(0);
+    } else {
+      return (proportion * 180).toFixed(0);
+    }
   }
 }
 

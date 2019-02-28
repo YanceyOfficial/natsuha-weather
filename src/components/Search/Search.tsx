@@ -1,10 +1,10 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
-import styles from './Search.module.scss';
 import { observer, inject } from '@tarojs/mobx';
 import { IMeta, IWeather } from '../../types/weather';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
+const styles = require('./Search.module.scss');
 
 type PageStateProps = {
   weatherStore: {
@@ -41,7 +41,7 @@ class Search extends Component {
     } = this.props;
 
     return (
-      <ContentWrapper title='shabi'>
+      <ContentWrapper title="shabi">
         <View className={styles.summary_wrapper}>
           <Text>fuck yeah</Text>
         </View>

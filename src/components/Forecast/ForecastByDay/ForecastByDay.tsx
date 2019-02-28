@@ -58,12 +58,12 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
 
     const { isSelected, isFive } = this.state;
 
-    const dailyList = daily.slice(0, 10).map((value, key) => (
+    const dailyList = daily.slice(0, 10).map((day, key) => (
       <View key={key}>
         <View className={styles.day_group} onClick={() => this.handleSelect()}>
           <View className={styles.group_basic}>
             <Text className={styles.week_name}>
-              {formatWeek(value.observationTime.weekday)}
+              {formatWeek(day.observationTime.weekday)}
             </Text>
             <View className={styles.condition_img}>
               <Image
@@ -79,15 +79,15 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
                 className={styles.precipitation_icon}
                 src={getImageUrl(
                   'Precipitation',
-                  getRainfallIconName(value.precipitationProbability)
+                  getRainfallIconName(day.precipitationProbability)
                 )}
               />
               <Text className={styles.precipitation}>
-                {value.precipitationProbability}%
+                {day.precipitationProbability}%
               </Text>
             </View>
-            <Text className={styles.high}>{value.temperature.high}°</Text>
-            <Text className={styles.low}>{value.temperature.low}°</Text>
+            <Text className={styles.high}>{day.temperature.high}°</Text>
+            <Text className={styles.low}>{day.temperature.low}°</Text>
           </View>
         </View>
         <View
