@@ -7,9 +7,8 @@ import { upperFirstLetter, getImageUrl } from '../../utils/util';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
 
 // 目前使用 import styles from '...' 报 Cannot find module '...'
-// Taro官方给我的回复是在声明里写 declare module "*.scss", 然并卵
+// Taro官方给的回复是在声明里写 declare module "*.scss", 然并卵
 // 暂时用 commonjs 吧
-// 妈的
 const styles = require('./Detail.module.scss');
 
 @inject('weatherStore')
@@ -32,8 +31,8 @@ class Detail extends Component<IWeatherProps, {}> {
       }
     } = this.props;
 
-    const dayPartTextList = dayPartTexts.map(value => (
-      <Text className={styles.content_detail_txt}>
+    const dayPartTextList = dayPartTexts.map((value, key) => (
+      <Text className={styles.content_detail_txt} key={key}>
         {/* Taro编译忽略前空格的bug https://github.com/NervJS/taro/issues/2261 */}
         {upperFirstLetter(value.dayPart)}{' '}- {value.text}
       </Text>

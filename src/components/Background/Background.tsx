@@ -22,7 +22,7 @@ class Background extends Component<IBackgroundProps, {}> {
       weatherStore: { weatherData },
       needBlur
     } = this.props;
-    const photoUrl = weatherData.photos
+    const photoUrl = weatherData.photos[0].resolutions.length !== 0
       ? weatherData.photos[0].resolutions[5].url
       : defaultPhotoUrl;
     return (

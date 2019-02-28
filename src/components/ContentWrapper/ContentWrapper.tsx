@@ -1,27 +1,9 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Block } from '@tarojs/components';
-import styles from './ContentWrapper.module.scss';
+import IContentWrapperProps from '../../types/contentWrapper';
+const styles = require('./ContentWrapper.module.scss');
 
-type PageStateProps = {
-  title: string;
-  children: any;
-};
-
-interface ContentWrapper {
-  props: PageStateProps;
-}
-
-class ContentWrapper extends Component {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
+class ContentWrapper extends Component<IContentWrapperProps, {}> {
   render() {
     const { title } = this.props;
 
