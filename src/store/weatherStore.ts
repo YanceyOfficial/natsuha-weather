@@ -99,7 +99,8 @@ class WeatherStore {
     this.updateKey = 0;
   }
 
-  @action renderTrigger = () => {};
+  @action
+  public renderTrigger = () => {};
 
   @action
   public handleTemperatureType = (type: boolean) => {
@@ -139,7 +140,12 @@ class WeatherStore {
         this.curSkyCode = this.metaData.skycode[this.weatherData.observation.conditionCode];
       })
     }).catch((e) => {
-      // 根据woeid拿不到天气信息
+      Taro.showToast({
+        title: '拿不到天气数据',
+        icon: 'success',
+        duration: 2000
+      })
+        .then(res => console.log(res))
       console.log(e);
     });
   }

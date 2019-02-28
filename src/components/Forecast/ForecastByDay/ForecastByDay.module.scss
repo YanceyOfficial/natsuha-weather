@@ -91,15 +91,16 @@
   }
 
   .list {
+    height: auto;
     max-height: 800px;
     overflow: hidden;
-    transition: max-height 300ms linear;
+    transition: max-height 350ms linear;
   }
 
   .five_item {
     max-height: 380px;
     overflow: hidden;
-    transition: max-height 300ms linear;
+    transition: max-height 350ms linear;
   }
 
 }
