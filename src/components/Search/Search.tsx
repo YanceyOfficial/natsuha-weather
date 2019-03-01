@@ -41,9 +41,9 @@ class Search extends Component {
     } = this.props;
 
     return (
-      <ContentWrapper title="shabi">
+      <ContentWrapper title="Search">
         <View className={styles.summary_wrapper}>
-          <Text>fuck yeah</Text>
+          <Text>test</Text>
         </View>
       </ContentWrapper>
     );

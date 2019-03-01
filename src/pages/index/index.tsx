@@ -77,7 +77,7 @@ class Index extends Component<IIndexProps, IIndexStates> {
         <Precipitation />
         <SunAndMoon />
         <Wind />
-        <Search />
+        {/* <Search /> */}
       </View>
     );
   }

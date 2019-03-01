@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { Image } from '@tarojs/components';
+import { defaultPhotoUrl } from '../../constants/constants';
 import cs from 'classnames';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeather } from '../../types/weather';
@@ -18,7 +19,12 @@ interface IBackgroundProps {
 @observer
 class Background extends Component<IBackgroundProps, {}> {
   public onError = () => {
-    console.log('图片加载失败！');
+    Taro.showToast({
+      title: '图片加载失败！',
+      icon: 'success',
+      duration: 2000
+    });
+    this.props.weatherStore.backgroudImageUrl = defaultPhotoUrl;
   };
 
   render() {

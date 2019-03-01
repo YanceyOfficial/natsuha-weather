@@ -43,8 +43,8 @@ class WeatherStore {
   constructor() {
     this.weatherData = {
       location: {
-        countryName: 'China',
-        displayName: 'Beijing',
+        countryName: '--',
+        displayName: '----',
       },
       observation: {
         conditionDescription: 'Sunny',
@@ -135,13 +135,13 @@ class WeatherStore {
     });
   }
 
-  public getWeatherById = (woeid = '2151330', lang = 'zh-CN') => {
+  public getWeatherById = (woeid, lang = 'zh-CN') => {
     setLoadingToast(true, '获取天气信息...');
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid: '2151849',
-        lang: 'en-US',
+        woeid,
+        lang,
       }
     }).then((res) => {
       runInAction(() => {
@@ -185,7 +185,10 @@ class WeatherStore {
         }
       }).then((res) => {
         runInAction(() => {
+          this.updateKey = Math.random();
           const curWoeid = JSON.parse(res.result).location.woeid;
+          this.weatherData.location.countryName = JSON.parse(res.result).location.country;
+          this.weatherData.location.displayName = JSON.parse(res.result).location.region;
           this.getWeatherById(curWoeid);
         })
       })

@@ -14,8 +14,17 @@ const styles = require('./Summary.module.scss');
 class Summary extends Component<IWeatherProps, {}> {
   render() {
     const {
-      weatherStore: { weatherData, curSkyCode, handleTemperatureType, isF }
+      weatherStore: {
+        weatherData,
+        curSkyCode,
+        handleTemperatureType,
+        isF,
+        renderTrigger,
+        updateKey
+      }
     } = this.props;
+
+    renderTrigger(updateKey);
 
     const ownerName =
       weatherData.photos[0].resolutions.length !== 0
