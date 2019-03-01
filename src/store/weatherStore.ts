@@ -10,7 +10,9 @@ import {
 } from '../types/weather';
 
 import {
-  convertCelsiusFahrenheit
+  convertCelsiusFahrenheit,
+  convertKmMiles,
+  convertMillibarsInches
 } from '../utils/convert';
 
 import Taro from '@tarojs/taro';
@@ -97,13 +99,30 @@ class WeatherStore {
     this.updateKey = 0;
   }
 
-  @action renderTrigger = () => {};
+  @action
+  public renderTrigger = () => {};
 
   @action
   public handleTemperatureType = (type: boolean) => {
     this.updateKey = Math.random();
     this.isF = type;
-    this.weatherData.observation.temperature.feelsLike = convertCelsiusFahrenheit(this.isF, this.weatherData.observation.temperature.feelsLike);
+    const observation = this.weatherData.observation;
+    const forecasts = this.weatherData.forecasts;
+    observation.temperature.feelsLike = convertCelsiusFahrenheit(this.isF, observation.temperature.feelsLike);
+    observation.temperature.now = convertCelsiusFahrenheit(this.isF, observation.temperature.now);
+    observation.temperature.low = convertCelsiusFahrenheit(this.isF, observation.temperature.low);
+    observation.temperature.high = convertCelsiusFahrenheit(this.isF, observation.temperature.high);
+    observation.visibility = convertKmMiles(this.isF, observation.visibility);
+    observation.windSpeed = convertKmMiles(this.isF, observation.windSpeed);
+    observation.barometricPressure = convertMillibarsInches(this.isF, observation.barometricPressure);
+    forecasts.daily.forEach(value => {
+      value.temperature.low = convertCelsiusFahrenheit(this.isF, value.temperature.low);
+      value.temperature.high = convertCelsiusFahrenheit(this.isF, value.temperature.high);
+    });
+
+    forecasts.hourly.forEach(value => {
+      value.temperature.now = convertCelsiusFahrenheit(this.isF, value.temperature.now);
+    });
   }
 
   public getWeatherById = (woeid = '2151330', lang = 'zh-CN') => {
@@ -121,7 +140,12 @@ class WeatherStore {
         this.curSkyCode = this.metaData.skycode[this.weatherData.observation.conditionCode];
       })
     }).catch((e) => {
-      // 根据woeid拿不到天气信息
+      Taro.showToast({
+        title: '拿不到天气数据',
+        icon: 'success',
+        duration: 2000
+      })
+        .then(res => console.log(res))
       console.log(e);
     });
   }

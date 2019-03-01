@@ -53,17 +53,17 @@ class Summary extends Component<IWeatherProps, {}> {
               src={arrow}
             />
             <Text className={styles.temperature}>
-              {weatherData.observation.temperature.high}°
+              {weatherData.observation.temperature.high.toFixed(0)}°
             </Text>
             <Image className={styles.arrow} src={arrow} />
             <Text className={styles.temperature}>
-              {weatherData.observation.temperature.low}°
+              {weatherData.observation.temperature.low.toFixed(0)}°
             </Text>
           </View>
 
           <View>
             <Text className={styles.cur_temperature}>
-              {weatherData.observation.temperature.now}°
+              {weatherData.observation.temperature.now.toFixed(0)}°
             </Text>
             <View className={styles.temperature_type}>
               <View

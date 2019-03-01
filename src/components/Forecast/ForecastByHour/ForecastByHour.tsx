@@ -40,9 +40,13 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
         weatherData: {
           forecasts: { hourly }
         },
-        metaData
+        metaData,
+        renderTrigger,
+        updateKey
       }
     } = this.props;
+
+    renderTrigger(updateKey);
 
     const { typeList, selected } = this.state;
 
@@ -80,7 +84,7 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
         ) : null}
 
         {selected === 'Temperature' ? (
-          <Text>{hour.temperature.now}°</Text>
+          <Text>{hour.temperature.now.toFixed(0)}°</Text>
         ) : null}
 
         {selected === 'Precipitation' ? (

@@ -181,3 +181,7 @@ Yahoo Weather API.
 ##### 风速图像
 
 关于转速函数参考 `src/utils/util.ts` 的 `getWindSpeed()`
+
+## 🐛bug
+
+    {/* Taro编译忽略前空格的bug https://github.com/NervJS/taro/issues/2261 */}

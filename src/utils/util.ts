@@ -147,9 +147,9 @@ export const sunPosition = (type: string, sunrise: number, sunset: number) => {
     return 0;
   } else {
     if (type === 'sun') {
-      return (proportion * 170).toFixed(0);
+      return (proportion * 190).toFixed(0);
     } else {
-      return (proportion * 180).toFixed(0);
+      return (proportion * 160).toFixed(0);
     }
   }
 }

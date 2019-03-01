@@ -52,9 +52,13 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
           forecasts: { daily },
           observation
         },
-        metaData
+        metaData,
+        renderTrigger,
+        updateKey
       }
     } = this.props;
+
+    renderTrigger(updateKey);
 
     const { isSelected, isFive } = this.state;
 
@@ -86,8 +90,12 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
                 {day.precipitationProbability}%
               </Text>
             </View>
-            <Text className={styles.high}>{day.temperature.high}°</Text>
-            <Text className={styles.low}>{day.temperature.low}°</Text>
+            <Text className={styles.high}>
+              {day.temperature.high.toFixed(0)}°
+            </Text>
+            <Text className={styles.low}>
+              {day.temperature.low.toFixed(0)}°
+            </Text>
           </View>
         </View>
         <View
