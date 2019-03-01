@@ -158,7 +158,6 @@ class WeatherStore {
         icon: 'success',
         duration: 2000
       })
-      console.log('获取天气' + e);
     });
   }
 
