@@ -2,6 +2,7 @@
 
 .forecast_day_conatainer {
   font-size: 31.2px;
+  text-align: center;
 
   .day_group {
     border-top: 2px dotted $dotted_border;
@@ -20,7 +21,6 @@
 
     .condition_img {
       width: 18%;
-      text-align: center;
 
       .condition_image {
         position: relative;
@@ -44,7 +44,6 @@
         padding: 10px 10px 10px 0;
         width: 80px;
         font-size: 24px;
-        text-align: center;
       }
     }
 

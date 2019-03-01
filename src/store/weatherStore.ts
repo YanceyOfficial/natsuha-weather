@@ -17,6 +17,14 @@ import {
 
 import Taro from '@tarojs/taro';
 
+import {
+  setLoadingToast
+} from '../utils/util';
+
+import {
+  defaultPhotoUrl
+} from '../constants/constants';
+
 class WeatherStore {
   @observable public weatherData: IWeather = {};
 
@@ -31,11 +39,12 @@ class WeatherStore {
 
   @observable public isF = true;
 
+  @observable public backgroudImageUrl = '';
   constructor() {
     this.weatherData = {
       location: {
-        countryName: 'China',
-        displayName: 'Beijing',
+        countryName: '--',
+        displayName: '----',
       },
       observation: {
         conditionDescription: 'Sunny',
@@ -97,6 +106,7 @@ class WeatherStore {
     this.curSkyCode = 'clear_day';
     this.isF = true;
     this.updateKey = 0;
+    this.backgroudImageUrl = defaultPhotoUrl;
   }
 
   @action
@@ -125,12 +135,13 @@ class WeatherStore {
     });
   }
 
-  public getWeatherById = (woeid = '2151330', lang = 'zh-CN') => {
+  public getWeatherById = (woeid, lang = 'zh-CN') => {
+    setLoadingToast(true, '获取天气信息...');
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid: '2151849',
-        lang: 'en-US',
+        woeid,
+        lang,
       }
     }).then((res) => {
       runInAction(() => {
@@ -138,6 +149,8 @@ class WeatherStore {
         this.weatherData = weatherResult.weathers[0];
         this.metaData = weatherResult.meta;
         this.curSkyCode = this.metaData.skycode[this.weatherData.observation.conditionCode];
+        this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
+        setLoadingToast(false);
       })
     }).catch((e) => {
       Taro.showToast({
@@ -145,8 +158,7 @@ class WeatherStore {
         icon: 'success',
         duration: 2000
       })
-        .then(res => console.log(res))
-      console.log(e);
+      console.log('获取天气' + e);
     });
   }
 
@@ -164,6 +176,7 @@ class WeatherStore {
   }
 
   public getWoeid = (lat: number, lon: number) => {
+    setLoadingToast(true, '获取城市信息...');
     wx.cloud.callFunction({
         name: 'getWoeid',
         data: {
@@ -172,18 +185,24 @@ class WeatherStore {
         }
       }).then((res) => {
         runInAction(() => {
+          this.updateKey = Math.random();
           const curWoeid = JSON.parse(res.result).location.woeid;
+          this.weatherData.location.countryName = JSON.parse(res.result).location.country;
+          this.weatherData.location.displayName = JSON.parse(res.result).location.region;
           this.getWeatherById(curWoeid);
         })
       })
       .catch((e) => {
-        // 根据经纬度拿不到woeid
-        console.error(e);
+        Taro.showToast({
+          title: '拿不到城市信息',
+          icon: 'success',
+          duration: 2000
+        })
       });
   }
 
-  // 通过接口将
   public getPosition = () => {
+    setLoadingToast(true, '获取经纬度...');
     Taro.getLocation({
       type: 'gcj02',
     }).then(res => {
@@ -191,8 +210,7 @@ class WeatherStore {
       const lon = res.longitude;
       this.getWoeid(lat, lon);
     }).catch(e => {
-      // 经纬度获取失败
-      console.error(e)
+      setLoadingToast(false);
     })
   }
 }

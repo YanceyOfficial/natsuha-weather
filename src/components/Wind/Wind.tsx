@@ -48,14 +48,14 @@ class Wind extends Component<IWeatherProps, {}> {
               <Text className={styles.wind_txt}>Wind</Text>
               <Text className={styles.wind_txt}>
                 {windSpeed.toFixed(0)}
-                {isF ? 'mph' : 'km/h'} {windDirectFormat(windDirectionCode)}
+                {isF ? 'mph' : 'km/h'}{' '}{windDirectFormat(windDirectionCode)}
               </Text>
             </View>
 
             <View className={styles.barometric_pressure}>
               <Text className={styles.wind_txt}>Barometer</Text>
               <Text className={styles.wind_txt}>
-                {barometricPressure.toFixed(1)} {isF ? 'inches' : 'millibars'}
+                {barometricPressure.toFixed(1)}{' '}{isF ? 'inches' : 'millibars'}
               </Text>
             </View>
           </View>
