@@ -16,11 +16,16 @@ export const setToast = (title: string = '', icon: string = 'success', mask: boo
   })
 }
 
-export const setLoadingToast = (title: string = 'Loading...', mask: boolean = false) => {
-  return Taro.showLoading({
-    title,
-    mask,
-  })
+export const setLoadingToast = (loading: boolean, title: string = 'Loading...', mask: boolean = true) => {
+  if (loading) {
+    return Taro.showLoading({
+      title,
+      mask,
+    })
+  } else {
+    Taro.hideLoading();
+  }
+
 }
 
 export const getSystemInfo = () => {
@@ -147,7 +152,10 @@ export const sunPosition = (type: string, sunrise: number, sunset: number) => {
     return 0;
   } else {
     if (type === 'sun') {
-      return (proportion * 190).toFixed(0);
+      if(proportion > 0.5){
+
+      }
+      return (proportion * 180).toFixed(0);
     } else {
       return (proportion * 160).toFixed(0);
     }

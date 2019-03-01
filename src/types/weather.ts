@@ -4,6 +4,7 @@ export interface IWeatherProps {
     curSkyCode: string;
     metaData: IMeta;
     isF: boolean;
+    backgroudImageUrl: string;
     updateKey: number;
     getWeatherById: Function;
     getRegion: Function;

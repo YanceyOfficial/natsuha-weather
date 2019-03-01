@@ -67,13 +67,19 @@ class Summary extends Component<IWeatherProps, {}> {
             </Text>
             <View className={styles.temperature_type}>
               <View
-                className={cs(styles.temperature_type_btn, !isF ? styles.is_f : '')}
+                className={cs(
+                  styles.temperature_type_btn,
+                  !isF ? styles.is_f : ''
+                )}
                 onClick={() => handleTemperatureType(true)}
               >
                 F
               </View>
               <View
-                className={cs(styles.temperature_type_btn, isF ? styles.is_f : '')}
+                className={cs(
+                  styles.temperature_type_btn,
+                  isF ? styles.is_f : ''
+                )}
                 onClick={() => handleTemperatureType(false)}
               >
                 C
@@ -81,9 +87,7 @@ class Summary extends Component<IWeatherProps, {}> {
             </View>
           </View>
           <View className={styles.flickr_info}>
-            <Text className={styles.flickr_txt}>
-              © by {ownerName}{' '}on{' '}
-            </Text>
+            <Text className={styles.flickr_txt}>© by {ownerName}{' '}on{' '}</Text>
             <Image className={styles.flickr_icon} src={flickr} />
           </View>
         </View>
