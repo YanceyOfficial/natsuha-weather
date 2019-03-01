@@ -19,7 +19,7 @@ class App extends Component {
       navigationBarTitleText: '夏葉',
       navigationBarTextStyle: 'black',
       navigationStyle: 'custom',
-      // enablePullDownRefresh: true,
+      enablePullDownRefresh: true,
     },
     permission: {
       'scope.userLocation': {

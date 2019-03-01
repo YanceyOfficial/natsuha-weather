@@ -2,6 +2,15 @@ export interface IWeatherProps {
   weatherStore: {
     weatherData: IWeather;
     curSkyCode: string;
+    metaData: IMeta;
+    isF: boolean;
+    backgroudImageUrl: string;
+    updateKey: number;
+    getWeatherById: Function;
+    getRegion: Function;
+    getPosition: Function;
+    handleTemperatureType: Function;
+    renderTrigger: Function;
   };
 };
 
@@ -11,8 +20,8 @@ export interface IMeta {
 }
 
 export interface IWeather {
-  woeid ? : number;
-  unit ? : string;
+  woeid: number;
+  unit: string;
   sunAndMoon: ISunAndMoon;
   provider: IProvider;
   precipitations: IPrecipitation[];
@@ -38,9 +47,9 @@ interface IPrecipitation {
 }
 
 interface IPhoto {
-  dayOrNight ? : string;
-  id ? : string;
-  owner ? : string;
+  dayOrNight?: string;
+  id?: string;
+  owner?: string;
   ownerName: string;
   resolutions: IResolution[];
 }
@@ -66,11 +75,11 @@ interface IDayPartText {
 interface ILocation {
   countryName: string;
   displayName: string;
-  latitude ? : number;
-  longitude ? : number;
-  offsetSecs ? : number;
-  photoWoeid ? : number;
-  woeid ? : number;
+  latitude?: number;
+  longitude?: number;
+  offsetSecs?: number;
+  photoWoeid?: number;
+  woeid?: number;
 }
 
 interface IForecasts {
@@ -88,10 +97,10 @@ interface ICondition {
   dayPartTexts: IDayPartText[];
   humidity: number;
   localTime: {
-    day ? : number;
-    hour ? : number;
-    timestamp: Date;
-    weekday ? : number;
+    day?: number;
+    hour?: number;
+    timestamp: string;
+    weekday?: number;
   };
   observationTime: {
     day: number;
@@ -103,16 +112,16 @@ interface ICondition {
 }
 
 interface IWind {
-  windDirection: number;
+  windDirection?: number;
   windDirectionCode: string;
   windSpeed: number;
 }
 
 interface ITemperature {
   temperature: {
-    feelsLike ? : number;
-    high ? : number;
-    low ? : number;
-    now ? : number;
+    feelsLike: number;
+    high: number;
+    low: number;
+    now: number;
   }
 }

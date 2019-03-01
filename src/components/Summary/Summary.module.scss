@@ -1,4 +1,4 @@
-@import '../../assets/styles/mixins.scss';
+@import '../../assets/styles/variables.scss';
 
 .summary_wrapper {
   position: relative;
@@ -10,8 +10,23 @@
     bottom: 40px;
     width: 100%;
 
+    .temperature_type {
+      display: inline-block;
+      font-size: 44px;
+      font-weight: 200;
+
+      .temperature_type_btn {
+        padding: 12px;
+      }
+    }
+
     .condition_summary {
       margin-left: 10px;
+    }
+
+    .condition_icon {
+      width: 64px;
+      height: 64px;
     }
 
     .condition_txt {
@@ -26,12 +41,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 220px;
+      width: 200px;
       margin-left: 20px;
     }
 
     .arrow {
-      @include arrow;
+      width: 32px;
+      height: 32px;
+    }
+
+    .arrow_reverse {
+      transform: rotate(180deg);
     }
 
     .temperature {
@@ -50,6 +70,11 @@
       text-align: right;
     }
 
+    .flickr_icon {
+      width: 64px;
+      height: 20px;
+    }
+
     .flickr_txt {
       position: relative;
       top: -1px;
@@ -58,7 +83,7 @@
   }
 
   .region_summary {
-    padding-top: 60px;
+    padding-top: 120px;
     margin-left: 20px;
 
     .city,
@@ -85,6 +110,10 @@
     .cur_time {
       font-style: italic;
     }
+  }
+
+  .is_f {
+    color: $gray;
   }
 
 }

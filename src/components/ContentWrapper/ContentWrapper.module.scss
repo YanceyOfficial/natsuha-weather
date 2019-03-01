@@ -1,14 +1,13 @@
-@import '../../assets/styles/mixins.scss';
 @import '../../assets/styles/variables.scss';
+@import '../../assets/styles/mixins.scss';
 
 .content_wrapper {
-  // clear BFC
   position: relative;
   display: inline-block;
   margin: 20px;
   padding: 20px;
   width: calc(100% - 80px);
-  background: rgba(0, 0, 0, .54);
+  background: $content_bg;
 
   .header {
     display: block;
@@ -30,6 +29,5 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
   }
 }

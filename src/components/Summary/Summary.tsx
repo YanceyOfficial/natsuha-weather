@@ -1,53 +1,38 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text, Block } from '@tarojs/components';
-import styles from './Summary.module.scss';
+import { View, Image, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../types/weather';
-import { hourTo12 } from '../../utils/util';
-
-type PageStateProps = {
-  weatherStore: {
-    weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
-  };
-};
-
-interface Summary {
-  props: PageStateProps;
-}
+import cs from 'classnames';
+import { IWeatherProps } from '../../types/weather';
+import { hourTo12, getImageUrl } from '../../utils/util';
+const flickr = require('../../assets/images/flickr.png');
+const arrow = require('../../assets/images/arrow.png');
+const styles = require('./Summary.module.scss');
 
 @inject('weatherStore')
 @observer
-class Summary extends Component {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
+class Summary extends Component<IWeatherProps, {}> {
   render() {
     const {
-      weatherStore: { weatherData, curSkyCode }
+      weatherStore: {
+        weatherData,
+        curSkyCode,
+        handleTemperatureType,
+        isF,
+        renderTrigger,
+        updateKey
+      }
     } = this.props;
 
-    const timestamp = weatherData.observation
-      ? weatherData.observation.localTime.timestamp
-      : new Date().toJSON();
+    renderTrigger(updateKey);
+
+    const ownerName =
+      weatherData.photos[0].resolutions.length !== 0
+        ? weatherData.photos[0].ownerName
+        : 'Yancey';
 
     return (
-      <View
-        className={styles.summary_wrapper}
-      >
+      <View className={styles.summary_wrapper}>
         <View className={styles.region_summary}>
           <Text className={styles.city}>
             {weatherData.location.displayName}
@@ -55,47 +40,64 @@ class Summary extends Component {
           <Text className={styles.country}>
             {weatherData.location.countryName}
           </Text>
-          <Text className={styles.cur_time}>{hourTo12(timestamp)}</Text>
+          <Text className={styles.cur_time}>
+            {hourTo12(weatherData.observation.localTime.timestamp)}
+          </Text>
         </View>
+
         <View className={styles.cur_temperature_summary}>
           <View className={styles.condition_summary}>
             <Image
-              style="width: 32px;height: 32px"
-              src={`https://s.yimg.com/os/weather/1.0.1/shadow_icon/60x60/${
-                curSkyCode ? curSkyCode : 'clear_day'
-              }@2x.png`}
+              className={styles.condition_icon}
+              src={getImageUrl('Temperature', curSkyCode)}
             />
             <Text className={styles.condition_txt}>
               {weatherData.observation.conditionDescription}
             </Text>
           </View>
+
           <View className={styles.high_low_temperature}>
-            <Text className={styles.arrow} />
+            <Image
+              className={cs(styles.arrow, styles.arrow_reverse)}
+              src={arrow}
+            />
             <Text className={styles.temperature}>
-              {weatherData.observation.temperature.high}°
+              {weatherData.observation.temperature.high.toFixed(0)}°
             </Text>
-            <Text className={styles.arrow} />
+            <Image className={styles.arrow} src={arrow} />
             <Text className={styles.temperature}>
-              {weatherData.observation.temperature.low}°
+              {weatherData.observation.temperature.low.toFixed(0)}°
             </Text>
           </View>
+
           <View>
             <Text className={styles.cur_temperature}>
-              {weatherData.observation.temperature.now}°
+              {weatherData.observation.temperature.now.toFixed(0)}°
             </Text>
-            {/* <View>
-              <View>F</View>
-              <View>C</View>
-            </View> */}
+            <View className={styles.temperature_type}>
+              <View
+                className={cs(
+                  styles.temperature_type_btn,
+                  !isF ? styles.is_f : ''
+                )}
+                onClick={() => handleTemperatureType(true)}
+              >
+                F
+              </View>
+              <View
+                className={cs(
+                  styles.temperature_type_btn,
+                  isF ? styles.is_f : ''
+                )}
+                onClick={() => handleTemperatureType(false)}
+              >
+                C
+              </View>
+            </View>
           </View>
           <View className={styles.flickr_info}>
-            <Text className={styles.flickr_txt}>
-              © by {weatherData.photos[0].ownerName} on{' '}
-            </Text>
-            <Image
-              style="width: 32px;height: 10px"
-              src="https://s.yimg.com/os/weather/1.0.1/flickr/logo@3x.png"
-            />
+            <Text className={styles.flickr_txt}>© by {ownerName}{' '}on{' '}</Text>
+            <Image className={styles.flickr_icon} src={flickr} />
           </View>
         </View>
       </View>

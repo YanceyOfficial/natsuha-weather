@@ -11,16 +11,6 @@ const styles = require('./SunAndMoon.module.scss');
 @inject('weatherStore')
 @observer
 class SunAndMoon extends Component<IWeatherProps, {}> {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
   render() {
     const {
       weatherStore: {
@@ -30,12 +20,16 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
       }
     } = this.props;
 
+    const sunIconPosition = sunPosition('sun', sunrise, sunset);
+    const illuminationPosition = sunPosition('illumination', sunrise, sunset);
+
     const sunIconStyle = {
-      transform: `rotate(${sunPosition(sunrise, sunset, 170)}deg)`
+      transform: `rotate(${sunIconPosition}deg)`,
+      display: `${sunIconPosition === 0 ? 'none' : 'block'}`
     };
 
     const illuminationStyle = {
-      width: `${sunPosition(sunrise, sunset, 180)}px`
+      width: `${illuminationPosition}px`
     };
 
     return (

@@ -19,6 +19,7 @@ interface IIndexProps {
     getWeatherById: Function;
     getRegion: Function;
     getPosition: Function;
+    handleTemperatureType: Function,
   };
 }
 
@@ -48,16 +49,10 @@ class Index extends Component<IIndexProps, IIndexStates> {
     weatherStore.getPosition();
   }
 
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  // public onPullDownRefresh = () => {
-  //   const { weatherStore } = this.props;
-  //   weatherStore.getPosition();
-  // };
+  public onPullDownRefresh = () => {
+    const { weatherStore } = this.props;
+    weatherStore.getPosition();
+  };
 
   public onPageScroll(e: any) {
     if (e.scrollTop >= 100) {
@@ -82,7 +77,7 @@ class Index extends Component<IIndexProps, IIndexStates> {
         <Precipitation />
         <SunAndMoon />
         <Wind />
-        <Search />
+        {/* <Search /> */}
       </View>
     );
   }

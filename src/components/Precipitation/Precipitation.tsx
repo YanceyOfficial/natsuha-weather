@@ -19,8 +19,8 @@ class Precipitation extends Component<IWeatherProps, {}> {
       weatherStore: { weatherData }
     } = this.props;
 
-    const list = weatherData.precipitations.slice(0, 4).map(value => (
-      <View className={styles.precipitation_group}>
+    const list = weatherData.precipitations.slice(0, 4).map((value, key) => (
+      <View className={styles.precipitation_group} key={key}>
         <Text>{upperFirstLetter(value.timeSlot)}</Text>
         <Image
           className={styles.icon}

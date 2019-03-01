@@ -40,7 +40,7 @@
     background-size: cover;
 
     .graph_container {
-      height: 128px;
+      height: 132px;
 
       .sun_icon {
         position: absolute;
@@ -50,8 +50,6 @@
         height: 42px;
         background: url($sun_graph_icon) no-repeat center center;
         background-size: cover;
-        // 决定太阳icon位置
-        // transform: rotate(100deg);
         transform-origin: 190px;
         transition-timing-function: linear;
       }
@@ -60,8 +58,6 @@
         position: absolute;
         top: 0;
         left: 60px;
-        // width 决定光照面位置
-        // width: 308px;
         height: 128px;
         overflow: hidden;
 

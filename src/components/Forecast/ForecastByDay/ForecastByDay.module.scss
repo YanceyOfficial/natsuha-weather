@@ -1,39 +1,67 @@
+@import '../../../assets/styles/variables.scss';
+
 .forecast_day_conatainer {
   font-size: 31.2px;
+  text-align: center;
 
   .day_group {
-    border-top: 2px dotted rgba(255, 255, 255, .12);
+    border-top: 2px dotted $dotted_border;
 
     .group_basic {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 74px;
+
+      .week_name {
+        display: inline-block;
+        width: 160px;
+      }
     }
 
     .condition_img {
-      width: 25%;
-      text-align: center;
+      width: 18%;
+
+      .condition_image {
+        position: relative;
+        top: 6px;
+        width: 64px;
+        height: 64px;
+      }
     }
 
     .precipitation_group {
       display: flex;
       align-items: center;
 
+      .precipitation_icon {
+        width: 48px;
+        height: 48px;
+      }
+
       .precipitation {
-        padding: 10px;
+        display: inline-block;
+        padding: 10px 10px 10px 0;
+        width: 80px;
         font-size: 24px;
       }
     }
 
+    .high,
     .low {
-      color: #a5d6ff;
+      display: inline-block;
+      width: 48px;
+    }
+
+    .low {
+      color: $blue;
     }
   }
 
   .group_detail_container {
     max-height: 0;
-    transition: .3s all;
     overflow: hidden;
+    transition: .3s all;
 
     .group_detail {
       display: block;
@@ -50,27 +78,28 @@
   .day_picker {
     padding-top: 20px;
     font-size: 24px;
-    border-top: 2px dotted rgba(255, 255, 255, .12);
+    border-top: 2px dotted $dotted_border;
 
     .five_day {
       display: inline-block;
-      padding-right: 20px;
       margin-right: 20px;
+      padding-right: 20px;
       line-height: 1.4;
-      border-right: 2px solid rgba(255, 255, 255, .3);
+      border-right: 2px solid $split;
     }
   }
 
   .list {
+    height: auto;
     max-height: 800px;
     overflow: hidden;
-    transition: max-height 300ms linear;
+    transition: max-height 350ms linear;
   }
 
   .five_item {
     max-height: 380px;
     overflow: hidden;
-    transition: max-height 300ms linear;
+    transition: max-height 350ms linear;
   }
 
 }

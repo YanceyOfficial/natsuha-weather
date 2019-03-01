@@ -1,12 +1,19 @@
+@import '../../../assets/styles/variables.scss';
+
 .forecast_hour_container {
   position: relative;
   font-size: 28px;
 
   .icon {
     display: block;
+    margin: 8px 0;
     width: 56px;
     height: 56px;
-    margin: 8px 0;
+  }
+
+  .wind_icon {
+    width: 40px;
+    height: 40px;
   }
 
   .mask {
@@ -14,31 +21,37 @@
     width: 100px;
     height: 100%;
     right: 0;
-    background: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .54) 100%);
+    background: linear-gradient(to right, transparent 0, $content_bg 100%);
   }
 
   .precipitation_contaienr {
     position: relative;
     display: flex;
     overflow-x: auto;
-    -webkit-overflow-scrolling: smooth;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch;
 
     .precipitation_group {
       display: inline-flex;
       flex-direction: column;
       align-items: center;
-      margin: 14px 32px 14px 0;
+      margin: 14px 28px 14px 0;
       font-size: 24px;
+      text-align: center;
+
+      .precipitation_txt {
+        display: inline-block;
+        width: 72px;
+      }
     }
 
   }
-
 
   .picker {
     position: relative;
     padding: 8px;
     width: 220px;
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid $white;
   }
 
   .arrow {
@@ -54,7 +67,7 @@
       content: '';
       height: 4px;
       width: 15px;
-      background: #fff;
+      background: $white;
     }
 
     &::before {

@@ -3,11 +3,16 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Picker, Image } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../../types/weather';
-import { getImageUrl } from '../../../utils/util';
+import {
+  getImageUrl,
+  hourTo12Lite,
+  getRainfallIconName
+} from '../../../utils/util';
+
+const arrow = require('../../../assets/images/arrow.png');
 const styles = require('./ForecastByHour.module.scss');
 
 interface IForecastByHourStates {
-  numbers: number[];
   typeList: string[];
   selected: string;
 }
@@ -18,7 +23,6 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      numbers: [...Array(25).keys()],
       typeList: ['Temperature', 'Precipitation', 'Wind'],
       selected: 'Temperature'
     };
@@ -32,19 +36,62 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
 
   render() {
     const {
-      weatherStore: { curSkyCode }
+      weatherStore: {
+        weatherData: {
+          forecasts: { hourly }
+        },
+        metaData,
+        renderTrigger,
+        updateKey
+      }
     } = this.props;
 
-    const { numbers, typeList, selected } = this.state;
+    renderTrigger(updateKey);
 
-    const temperature = numbers.map(number => (
-      <View className={styles.precipitation_group}>
-        <Text>11AM</Text>
-        <Image
-        className={styles.icon}
-          src={getImageUrl('Temperature', curSkyCode)}
-        />
-        <Text>59°</Text>
+    const { typeList, selected } = this.state;
+
+    const hourlyList = hourly.map((hour, key) => (
+      <View className={styles.precipitation_group} key={key}>
+        <Text className={styles.precipitation_txt}>
+          {hourTo12Lite(hour.observationTime.hour)}
+        </Text>
+        {selected === 'Temperature' ? (
+          <Image
+            className={styles.icon}
+            src={getImageUrl(
+              'Temperature',
+              metaData.skycode[hour.conditionCode]
+            )}
+          />
+        ) : null}
+
+        {selected === 'Precipitation' ? (
+          <Image
+            className={styles.icon}
+            src={getImageUrl(
+              'Precipitation',
+              getRainfallIconName(hour.precipitationProbability)
+            )}
+          />
+        ) : null}
+
+        {selected === 'Wind' ? (
+          <Image
+            className={styles.icon}
+            src={arrow}
+            style={{ transform: `rotate(${hour.windDirection}deg)` }}
+          />
+        ) : null}
+
+        {selected === 'Temperature' ? (
+          <Text>{hour.temperature.now.toFixed(0)}°</Text>
+        ) : null}
+
+        {selected === 'Precipitation' ? (
+          <Text>{hour.precipitationProbability}%</Text>
+        ) : null}
+
+        {selected === 'Wind' ? <Text>{hour.windSpeed}</Text> : null}
       </View>
     ));
 
@@ -62,7 +109,7 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
             <View className={styles.arrow} />
           </View>
         </Picker>
-        <View className={styles.precipitation_contaienr}>{temperature}</View>
+        <View className={styles.precipitation_contaienr}>{hourlyList}</View>
       </View>
     );
   }
