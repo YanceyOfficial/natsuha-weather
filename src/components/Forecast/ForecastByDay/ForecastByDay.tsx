@@ -98,7 +98,7 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
             </Text>
           </View>
         </View>
-        {/* <View
+        <View
           className={cs(
             styles.group_detail_container,
             isSelected ? styles.selected : ''
@@ -108,7 +108,7 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
             Partly cloudy today with a high of 67 °F (19.4 °C) and a low of 48
             °F (8.9 °C).
           </Text>
-        </View> */}
+        </View>
       </View>
     ));
 
