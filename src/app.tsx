@@ -16,7 +16,7 @@ class App extends Component {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: '夏葉',
+      navigationBarTitleText: 'Natsuha',
       navigationBarTextStyle: 'black',
       navigationStyle: 'custom',
       enablePullDownRefresh: true,

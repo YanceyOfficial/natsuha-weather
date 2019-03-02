@@ -16,6 +16,7 @@
       .week_name {
         display: inline-block;
         width: 160px;
+        text-align: left;
       }
     }
 
@@ -92,13 +93,13 @@
 
   .list {
     height: auto;
-    max-height: 800px;
+    max-height: 760px;
     overflow: hidden;
     transition: max-height 350ms linear;
   }
 
   .five_item {
-    max-height: 380px;
+    max-height: 376px;
     overflow: hidden;
     transition: max-height 350ms linear;
   }

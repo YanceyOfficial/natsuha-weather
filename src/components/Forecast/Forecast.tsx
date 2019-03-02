@@ -10,7 +10,7 @@ import ForecastByDay from './ForecastByDay/ForecastByDay';
 class Forecast extends Component {
   render() {
     return (
-      <ContentWrapper title="Forecast">
+      <ContentWrapper title='Forecast'>
         <ForecastByHour />
         <ForecastByDay />
       </ContentWrapper>

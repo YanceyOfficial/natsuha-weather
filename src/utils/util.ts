@@ -7,11 +7,14 @@ import {
   weekList,
 } from '../constants/constants'
 
-export const setToast = (title: string = '', icon: string = 'success', mask: boolean = false, duration: number = 1500) => {
+const fail = require('../assets/images/fail.png');
+
+export const setToast = (title = '', icon = 'success', mask = true, duration = 1500, image = fail) => {
   return Taro.showToast({
     title,
     icon,
     mask,
+    image,
     duration,
   })
 }
@@ -152,7 +155,7 @@ export const sunPosition = (type: string, sunrise: number, sunset: number) => {
     return 0;
   } else {
     if (type === 'sun') {
-      if(proportion > 0.5){
+      if (proportion > 0.5) {
 
       }
       return (proportion * 180).toFixed(0);

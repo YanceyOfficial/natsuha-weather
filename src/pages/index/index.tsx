@@ -2,6 +2,7 @@ import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
+import { IWeatherProps } from '../../types/weather';
 
 import Summary from '../../components/Summary/Summary';
 import Detail from '../../components/Detail/Detail';
@@ -14,30 +15,21 @@ import Search from '../../components/Search/Search';
 
 import './index.scss';
 
-interface IIndexProps {
-  weatherStore: {
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    handleTemperatureType: Function,
-  };
-}
-
 interface IIndexStates {
   needBlur: boolean;
 }
 
 @inject('weatherStore')
 @observer
-class Index extends Component<IIndexProps, IIndexStates> {
+class Index extends Component<IWeatherProps, IIndexStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      needBlur: false
+      needBlur: false,
     };
   }
   config: Config = {
-    navigationBarTitleText: '夏葉'
+    navigationBarTitleText: '夏葉',
   };
 
   componentWillMount() {
@@ -46,22 +38,22 @@ class Index extends Component<IIndexProps, IIndexStates> {
 
   componentDidMount() {
     const { weatherStore } = this.props;
-    weatherStore.getPosition();
+    weatherStore.getLanguage();
   }
 
   public onPullDownRefresh = () => {
     const { weatherStore } = this.props;
-    weatherStore.getPosition();
+    weatherStore.getLanguage();
   };
 
   public onPageScroll(e: any) {
     if (e.scrollTop >= 100) {
       this.setState({
-        needBlur: true
+        needBlur: true,
       });
     } else {
       this.setState({
-        needBlur: false
+        needBlur: false,
       });
     }
   }
@@ -69,7 +61,7 @@ class Index extends Component<IIndexProps, IIndexStates> {
   render() {
     const { needBlur } = this.state;
     return (
-      <View className="index">
+      <View className='index'>
         <Background needBlur={needBlur} />
         <Summary />
         <Forecast />
