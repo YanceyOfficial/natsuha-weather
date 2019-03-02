@@ -149,10 +149,6 @@ class WeatherStore {
         value.temperature.now = convertCelsiusFahrenheit(this.isF, value.temperature.now);
       });
     }
-
-
-
-
   }
 
   public getWeatherById = (woeid) => {
@@ -225,7 +221,7 @@ class WeatherStore {
       this.systemLanguage = res.language;
       this.getPosition();
     }).catch(() => {
-      // todo
+      setToast('获取系统语言失败', 'none');
     })
   }
 
