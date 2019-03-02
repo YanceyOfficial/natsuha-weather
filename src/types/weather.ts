@@ -5,6 +5,7 @@ export interface IWeatherProps {
     metaData: IMeta;
     isF: boolean;
     backgroudImageUrl: string;
+    widthBackgroudImageUrl: string;
     updateKey: number;
     getLanguage: Function;
     getWeatherById: Function;

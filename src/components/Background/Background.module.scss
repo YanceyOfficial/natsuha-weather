@@ -5,16 +5,13 @@
   top: 0;
   left: 0;
   object-fit: cover;
-  filter:blur(0);
+  filter: blur(0);
   z-index: -1;
   transition: 350ms all linear;
 }
 
 .background_blur {
-  top:-14px;
-  left:-14px;
-  width:calc(100% + 28px);
-  height:calc(100% + 28px);
-  filter:blur(7px);
+  filter: blur(7px);
+  overflow: hidden;
   transition: 350ms all linear;
 }

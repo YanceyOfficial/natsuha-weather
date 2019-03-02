@@ -45,6 +45,10 @@ class WeatherStore {
   @observable public systemLanguage = '';
 
   @observable public backgroudImageUrl = '';
+
+  @observable public widthBackgroudImageUrl = '';
+
+
   constructor() {
     this.weatherData = {
       location: {
@@ -114,6 +118,7 @@ class WeatherStore {
     this.backgroudImageUrl = defaultPhotoUrl;
     this.FFlag = false;
     this.systemLanguage = '';
+    this.widthBackgroudImageUrl = '';
   }
 
   @action
@@ -167,6 +172,7 @@ class WeatherStore {
         this.metaData = weatherResult.meta;
         this.curSkyCode = this.metaData.skycode[this.weatherData.observation.conditionCode];
         this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
+        this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
         setLoadingToast(false);
         Taro.stopPullDownRefresh();
       })
@@ -183,6 +189,7 @@ class WeatherStore {
         data: {
           lat: lat,
           lon: lon,
+          lang: this.systemLanguage
         }
       }).then((res) => {
         runInAction(() => {

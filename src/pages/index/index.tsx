@@ -46,6 +46,18 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     weatherStore.getLanguage();
   };
 
+  public onShareAppMessage = res => {
+    const { widthBackgroudImageUrl } = this.props.weatherStore;
+    if (res.from === 'button') {
+      // todo
+    }
+    return {
+      title: 'Natsuha Weather',
+      path: '/pages/index/index',
+      imageUrl: widthBackgroudImageUrl,
+    };
+  };
+
   public onPageScroll(e: any) {
     if (e.scrollTop >= 100) {
       this.setState({
