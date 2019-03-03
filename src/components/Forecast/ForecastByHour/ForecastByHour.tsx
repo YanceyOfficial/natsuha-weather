@@ -1,12 +1,12 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Picker, Image } from '@tarojs/components';
+import { View, Text, Picker, Image, ScrollView } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../../types/weather';
 import {
   getImageUrl,
   hourTo12Lite,
-  getRainfallIconName
+  getRainfallIconName,
 } from '../../../utils/util';
 
 const arrow = require('../../../assets/images/arrow.png');
@@ -15,6 +15,7 @@ const styles = require('./ForecastByHour.module.scss');
 interface IForecastByHourStates {
   typeList: string[];
   selected: string;
+  scrollLength: number;
 }
 
 @inject('weatherStore')
@@ -24,13 +25,21 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
     super(props);
     this.state = {
       typeList: ['Temperature', 'Precipitation', 'Wind'],
-      selected: 'Temperature'
+      selected: 'Temperature',
+      scrollLength: 0,
     };
   }
 
-  public onSelectChange = e => {
+  public onSelectChange = (e: any) => {
     this.setState({
-      selected: this.state.typeList[e.detail.value]
+      selected: this.state.typeList[e.detail.value],
+      scrollLength: 0,
+    });
+  };
+
+  public onScroll = (e: any) => {
+    this.setState({
+      scrollLength: e.detail.scrollLeft,
     });
   };
 
@@ -38,17 +47,17 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
     const {
       weatherStore: {
         weatherData: {
-          forecasts: { hourly }
+          forecasts: { hourly },
         },
         metaData,
         renderTrigger,
-        updateKey
-      }
+        updateKey,
+      },
     } = this.props;
 
     renderTrigger(updateKey);
 
-    const { typeList, selected } = this.state;
+    const { typeList, selected, scrollLength } = this.state;
 
     const hourlyList = hourly.map((hour, key) => (
       <View className={styles.precipitation_group} key={key}>
@@ -60,7 +69,7 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
             className={styles.icon}
             src={getImageUrl(
               'Temperature',
-              metaData.skycode[hour.conditionCode]
+              metaData.skycode[hour.conditionCode],
             )}
           />
         ) : null}
@@ -70,7 +79,7 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
             className={styles.icon}
             src={getImageUrl(
               'Precipitation',
-              getRainfallIconName(hour.precipitationProbability)
+              getRainfallIconName(hour.precipitationProbability),
             )}
           />
         ) : null}
@@ -99,7 +108,7 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
       <View className={styles.forecast_hour_container}>
         <View className={styles.mask} />
         <Picker
-          mode="selector"
+          mode='selector'
           range={typeList}
           value={0}
           onChange={e => this.onSelectChange(e)}
@@ -109,7 +118,14 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
             <View className={styles.arrow} />
           </View>
         </Picker>
-        <View className={styles.precipitation_contaienr}>{hourlyList}</View>
+        <ScrollView
+          scrollX={true}
+          scrollLeft={scrollLength}
+          onScroll={e => this.onScroll(e)}
+          className={styles.precipitation_contaienr}
+        >
+          {hourlyList}
+        </ScrollView>
       </View>
     );
   }

@@ -78,7 +78,7 @@ class Summary extends Component<IWeatherProps, {}> {
               <View
                 className={cs(
                   styles.temperature_type_btn,
-                  !isF ? styles.is_f : ''
+                  !isF ? styles.is_not_f : ''
                 )}
                 onClick={() => handleTemperatureType(true)}
               >
@@ -87,7 +87,7 @@ class Summary extends Component<IWeatherProps, {}> {
               <View
                 className={cs(
                   styles.temperature_type_btn,
-                  isF ? styles.is_f : ''
+                  isF ? styles.is_not_f : ''
                 )}
                 onClick={() => handleTemperatureType(false)}
               >
