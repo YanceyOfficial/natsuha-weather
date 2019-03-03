@@ -1,30 +1,18 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View, Text, Input, Image } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IMeta, IWeather } from '../../types/weather';
-import ContentWrapper from '../ContentWrapper/ContentWrapper';
+import { IWeatherProps } from '../../types/weather';
+import cs from 'classnames';
 const styles = require('./Search.module.scss');
-
-type PageStateProps = {
-  weatherStore: {
-    weatherData: IWeather;
-    metaData: IMeta;
-    curSkyCode: string;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    getWoeid: Function;
-  };
-};
-
-interface Search {
-  props: PageStateProps;
-}
+const search = require('../../assets/images/search.png');
+const location = require('../../assets/images/location.png');
+const history = require('../../assets/images/history.png');
 
 @inject('weatherStore')
 @observer
-class Search extends Component {
+class Search extends Component<IWeatherProps, {}> {
   componentWillMount() {}
 
   componentDidMount() {}
@@ -37,15 +25,53 @@ class Search extends Component {
 
   render() {
     const {
-      weatherStore: { weatherData, curSkyCode }
+      weatherStore: { showSearch },
     } = this.props;
 
+    const list = Array(4).map(vaule => (
+      <View className={styles.history_item}>
+        <Text>Sydney, NSW, Australia</Text>
+        <View className={styles.cancel_icon} />
+      </View>
+    ));
+
     return (
-      <ContentWrapper title="Search">
-        <View className={styles.summary_wrapper}>
-          <Text>test</Text>
+      <View
+        className={cs(
+          styles.search_wrapper,
+          !showSearch ? styles.hide_search_wrapper : '',
+        )}
+      >
+        <View className={cs(styles.container, styles.search_container)}>
+          <Image src={search} className={cs(styles.icon, styles.search_icon)} />
+          <Input
+            className={styles.input}
+            type='text'
+            placeholder='Enter City or ZIP code'
+            focus
+          />
+          <Text>Cancel</Text>
         </View>
-      </ContentWrapper>
+        <View
+          className={cs(styles.container, styles.detech_my_location_container)}
+        >
+          <Image
+            src={location}
+            className={cs(styles.icon, styles.location_icon)}
+          />
+          <Text>Detach my location</Text>
+        </View>
+        <View className={styles.history}>
+          <View className={cs(styles.container, styles.history_container)}>
+            <Image
+              src={history}
+              className={cs(styles.icon, styles.history_icon)}
+            />
+            <Text>History</Text>
+          </View>
+          <View className={styles.history_list}>{list}</View>
+        </View>
+      </View>
     );
   }
 }

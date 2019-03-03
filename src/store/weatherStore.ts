@@ -50,6 +50,8 @@ class WeatherStore {
 
   @observable public showModal = false;
 
+  @observable public showSearch = false;
+
 
   constructor() {
     this.weatherData = {
@@ -122,6 +124,7 @@ class WeatherStore {
     this.systemLanguage = '';
     this.widthBackgroudImageUrl = '';
     this.showModal = false;
+    this.showSearch = false;
   }
 
   @action
@@ -154,13 +157,18 @@ class WeatherStore {
     }
   }
 
+  @action
+  public handleSearchChange = () => {
+    this.showSearch = !this.showSearch;
+  }
+
   public getWeatherById = (woeid) => {
     setLoadingToast(true, '获取天气信息...');
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid: '2151849',
-        lang: this.systemLanguage,
+        woeid,
+        lang: 'en-US',
       }
     }).then((res) => {
       runInAction(() => {

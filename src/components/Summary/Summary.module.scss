@@ -84,11 +84,22 @@
     }
   }
 
+  .header {
+    display: flex;
+  }
+
   .region_summary {
     padding-top: 120px;
     margin-left: 20px;
 
-    .city,
+    .location_icon {
+      position: relative;
+      top: 8px;
+      margin-left: 20px;
+      width: 70px;
+      height: 70px;
+    }
+
     .country,
     .cur_time {
       display: block;

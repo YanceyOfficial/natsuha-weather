@@ -7,6 +7,7 @@ import { IWeatherProps } from '../../types/weather';
 import { hourTo12, getImageUrl } from '../../utils/util';
 const flickr = require('../../assets/images/flickr.png');
 const arrow = require('../../assets/images/arrow.png');
+const location_yellow = require('../../assets/images/location_yellow.png');
 const styles = require('./Summary.module.scss');
 
 @inject('weatherStore')
@@ -18,10 +19,11 @@ class Summary extends Component<IWeatherProps, {}> {
         weatherData,
         curSkyCode,
         handleTemperatureType,
+        handleSearchChange,
         isF,
         renderTrigger,
-        updateKey
-      }
+        updateKey,
+      },
     } = this.props;
 
     renderTrigger(updateKey);
@@ -34,9 +36,17 @@ class Summary extends Component<IWeatherProps, {}> {
     return (
       <View className={styles.summary_wrapper}>
         <View className={styles.region_summary}>
-          <Text className={styles.city}>
-            {weatherData.location.displayName}
-          </Text>
+          <View className={styles.header}>
+            <Text className={styles.city}>
+              {weatherData.location.displayName}
+            </Text>
+            <Image
+              className={styles.location_icon}
+              src={location_yellow}
+              onClick={() => handleSearchChange()}
+            />
+          </View>
+
           <Text className={styles.country}>
             {weatherData.location.countryName}
           </Text>
@@ -78,7 +88,7 @@ class Summary extends Component<IWeatherProps, {}> {
               <View
                 className={cs(
                   styles.temperature_type_btn,
-                  !isF ? styles.is_not_f : ''
+                  !isF ? styles.is_not_f : '',
                 )}
                 onClick={() => handleTemperatureType(true)}
               >
@@ -87,7 +97,7 @@ class Summary extends Component<IWeatherProps, {}> {
               <View
                 className={cs(
                   styles.temperature_type_btn,
-                  isF ? styles.is_not_f : ''
+                  isF ? styles.is_not_f : '',
                 )}
                 onClick={() => handleTemperatureType(false)}
               >

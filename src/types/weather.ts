@@ -7,6 +7,7 @@ export interface IWeatherProps {
     backgroudImageUrl: string;
     widthBackgroudImageUrl: string;
     showModal: false;
+    showSearch: false;
     updateKey: number;
     getLanguage: Function;
     getWeatherById: Function;
@@ -14,6 +15,7 @@ export interface IWeatherProps {
     getPosition: Function;
     handleTemperatureType: Function;
     renderTrigger: Function;
+    handleSearchChange: Function;
   };
 };
 
