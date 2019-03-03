@@ -65,8 +65,9 @@ Yahoo Weather API.
     exports.main = async (event, context) => new Promise((resolve, reject) => {
       const lat = event.lat;
       const lon = event.lon;
+      const lang = event.lang;
       request.get(
-        `https://weather-ydn-yql.media.yahoo.com/forecastrss?format=json&lat=${lat}&lon=${lon}`,
+        `https://weather-ydn-yql.media.yahoo.com/forecastrss?lang=${lang}&format=json&lat=${lat}&lon=${lon}`,
         null,
         null,
         (err, data, result) => {
@@ -74,6 +75,7 @@ Yahoo Weather API.
         }
       )
     })
+
 
 ## 关于接口说明
 
