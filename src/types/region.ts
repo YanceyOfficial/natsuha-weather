@@ -1,8 +1,4 @@
-export default interface IRegionList {
-  regionList: IRegion[];
-}
-
-interface IRegion {
+export default interface IRegion {
   woeid: number;
   lat: number;
   lon: number;

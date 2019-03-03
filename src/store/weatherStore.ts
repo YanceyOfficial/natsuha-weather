@@ -4,10 +4,14 @@ import {
   action,
 } from 'mobx';
 
+import _ from 'lodash';
+
 import {
   IMeta,
   IWeather
 } from '../types/weather';
+
+import IRegion from '../types/region';
 
 import {
   convertCelsiusFahrenheit,
@@ -27,6 +31,9 @@ import {
 } from '../constants/constants';
 
 class WeatherStore {
+  construtor() {
+    // this.getRegion = _.debounce(this.getRegion, 150);
+  }
   @observable public weatherData: IWeather = {};
 
   @observable updateKey = 0;
@@ -51,6 +58,10 @@ class WeatherStore {
   @observable public showModal = false;
 
   @observable public showSearch = false;
+
+  @observable public inputText = '';
+
+  @observable public regionList: IRegion[] = [];
 
 
   constructor() {
@@ -125,6 +136,8 @@ class WeatherStore {
     this.widthBackgroudImageUrl = '';
     this.showModal = false;
     this.showSearch = false;
+    this.inputText = '';
+    this.regionList = [];
   }
 
   @action
@@ -162,13 +175,19 @@ class WeatherStore {
     this.showSearch = !this.showSearch;
   }
 
+  @action
+  public handleInputTextChange = (e) => {
+    this.updateKey = Math.random();
+    this.getRegion(e.target.value);
+  }
+
   public getWeatherById = (woeid) => {
     setLoadingToast(true, '获取天气信息...');
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
         woeid,
-        lang: 'en-US',
+        lang: this.systemLanguage,
       }
     }).then((res) => {
       runInAction(() => {
@@ -247,18 +266,22 @@ class WeatherStore {
     })
   }
 
-  // public getRegion = () => {
-  //   wx.cloud.callFunction({
-  //     name: 'getRegion',
-  //     data: {
-  //       region: 'sh',
-  //     },
-  //     success(res) {
-  //       console.log(res)
-  //     },
-  //     fail: console.error
-  //   })
-  // }
+  public getRegion = (text: string) => {
+    wx.cloud.callFunction({
+        name: 'getRegion',
+        data: {
+          region: text,
+        },
+      }).then((res) => {
+        runInAction(() => {
+          this.regionList = res.result.regionList.slice(0, res.result.regionList.length);
+          console.log(this.regionList)
+        })
+      })
+      .catch(() => {
+        setToast('获取城市信息失败', 'none');
+      });
+  }
 }
 
 const weatherStore = new WeatherStore();

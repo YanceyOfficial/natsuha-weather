@@ -2,7 +2,6 @@ import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Input, Image } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-import { IMeta, IWeather } from '../../types/weather';
 import { IWeatherProps } from '../../types/weather';
 import cs from 'classnames';
 const styles = require('./Search.module.scss');
@@ -25,12 +24,20 @@ class Search extends Component<IWeatherProps, {}> {
 
   render() {
     const {
-      weatherStore: { showSearch },
+      weatherStore: {
+        showSearch,
+        handleInputTextChange,
+        regionList,
+        renderTrigger,
+        updateKey,
+      },
     } = this.props;
 
-    const list = Array(4).map(vaule => (
-      <View className={styles.history_item}>
-        <Text>Sydney, NSW, Australia</Text>
+    renderTrigger(updateKey);
+
+    const list = regionList.map(vaule => (
+      <View key={vaule.woeid} className={styles.history_item}>
+        <Text>{vaule.qualifiedName}</Text>
         <View className={styles.cancel_icon} />
       </View>
     ));
@@ -48,7 +55,7 @@ class Search extends Component<IWeatherProps, {}> {
             className={styles.input}
             type='text'
             placeholder='Enter City or ZIP code'
-            focus
+            onInput={e => handleInputTextChange(e)}
           />
           <Text>Cancel</Text>
         </View>
