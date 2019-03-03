@@ -1,0 +1,63 @@
+@import '../../assets/styles/variables.scss';
+@import '../../assets/styles/mixins.scss';
+
+.modal_wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 75%;
+  height: 240px;
+  background: $white;
+  font-size: 28px;
+  text-shadow: none;
+  color: rgb(38, 38, 38);
+  border-radius: 16px;
+  z-index: 9999;
+
+  .title {
+    display: block;
+    text-align: center;
+    padding: 54px 0;
+    @include border_1px('bottom', #dcdcdc, 0);
+  }
+
+  .button_group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .button {
+      position: static;
+      background: transparent;
+      border: none;
+      line-height: 92px;
+      border-radius: none;
+      margin: 0;
+      padding: 0;
+      color: #535353
+    }
+
+    .button_cancel {
+      @include border_1px('right', #dcdcdc, 0);
+      font-size: 36px;
+      text-align: center;
+    }
+
+    .button_confirm {
+      color: #fda009;
+    }
+  }
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: rgba($black, .75);
+  z-index: 9998;
+}

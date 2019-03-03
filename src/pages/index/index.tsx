@@ -11,6 +11,7 @@ import Wind from '../../components/Wind/Wind';
 import Forecast from '../../components/Forecast/Forecast';
 import Background from '../../components/Background/Background';
 import Precipitation from '../../components/Precipitation/Precipitation';
+import Modal from '../../components/Modal/Modal';
 import Search from '../../components/Search/Search';
 
 import './index.scss';
@@ -31,6 +32,11 @@ class Index extends Component<IWeatherProps, IIndexStates> {
   config: Config = {
     navigationBarTitleText: '夏葉',
   };
+
+  componentDidShow(){
+    const { weatherStore } = this.props;
+    weatherStore.getLanguage();
+  }
 
   componentWillMount() {
     wx.cloud.init();
@@ -72,8 +78,10 @@ class Index extends Component<IWeatherProps, IIndexStates> {
 
   render() {
     const { needBlur } = this.state;
+    const { showModal } = this.props.weatherStore;
     return (
       <View className='index'>
+        {showModal ? <Modal /> : null}
         <Background needBlur={needBlur} />
         <Summary />
         <Forecast />

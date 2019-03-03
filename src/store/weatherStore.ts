@@ -48,6 +48,8 @@ class WeatherStore {
 
   @observable public widthBackgroudImageUrl = '';
 
+  @observable public showModal = false;
+
 
   constructor() {
     this.weatherData = {
@@ -119,6 +121,7 @@ class WeatherStore {
     this.FFlag = false;
     this.systemLanguage = '';
     this.widthBackgroudImageUrl = '';
+    this.showModal = false;
   }
 
   @action
@@ -156,7 +159,7 @@ class WeatherStore {
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid,
+        woeid: '2151849',
         lang: this.systemLanguage,
       }
     }).then((res) => {
@@ -212,11 +215,12 @@ class WeatherStore {
       this.getWoeid(lat, lon);
     }).catch(() => {
       setLoadingToast(false);
-      setToast('获取经纬度失败', 'none');
+      this.getSetting();
     })
   }
 
   public getLanguage = () => {
+    this.showModal = false;
     Taro.getSystemInfo().then(res => {
       this.systemLanguage = res.language;
       this.getPosition();
@@ -225,18 +229,28 @@ class WeatherStore {
     })
   }
 
-  public getRegion = () => {
-    wx.cloud.callFunction({
-      name: 'getRegion',
-      data: {
-        region: 'sh',
-      },
-      success(res) {
-        console.log(res)
-      },
-      fail: console.error
+  public getSetting = () => {
+    Taro.getSetting().then(res => {
+      if (!res.authSetting['scope.userLocation']) {
+        this.showModal = true;
+      } else {
+        setToast('获取经纬度失败', 'none');
+      }
     })
   }
+
+  // public getRegion = () => {
+  //   wx.cloud.callFunction({
+  //     name: 'getRegion',
+  //     data: {
+  //       region: 'sh',
+  //     },
+  //     success(res) {
+  //       console.log(res)
+  //     },
+  //     fail: console.error
+  //   })
+  // }
 }
 
 const weatherStore = new WeatherStore();

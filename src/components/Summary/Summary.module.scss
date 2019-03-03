@@ -59,7 +59,9 @@
     }
 
     .cur_temperature {
+      display: inline-block;
       margin-left: 10px;
+      width: 320px;
       font-size: 220px;
       font-weight: 100;
       line-height: 1;
