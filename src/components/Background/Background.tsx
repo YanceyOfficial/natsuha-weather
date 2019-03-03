@@ -21,8 +21,7 @@ interface IBackgroundProps {
 class Background extends Component<IBackgroundProps, {}> {
   constructor(props: any) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
   public onError = () => {
     setToast('图片加载失败', 'none');
