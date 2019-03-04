@@ -10,16 +10,16 @@ export interface IWeatherProps {
     showModal: false;
     showSearch: false;
     inputText: string;
-    updateKey: number;
     regionList: IRegion[];
     getLanguage: Function;
     getWeatherById: Function;
     getRegion: Function;
     getPosition: Function;
     handleTemperatureType: Function;
-    renderTrigger: Function;
     handleSearchChange: Function;
     handleInputTextChange: Function;
+    handleSelectRegionChange: Function;
+    hideSearch: Function;
   };
 };
 

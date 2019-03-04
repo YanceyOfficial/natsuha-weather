@@ -53,12 +53,8 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
           observation
         },
         metaData,
-        renderTrigger,
-        updateKey
       }
     } = this.props;
-
-    renderTrigger(updateKey);
 
     const { isSelected, isFive } = this.state;
 

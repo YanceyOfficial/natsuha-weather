@@ -32,11 +32,9 @@ import {
 
 class WeatherStore {
   construtor() {
-    // this.getRegion = _.debounce(this.getRegion, 150);
+    this.getRegion = _.debounce(this.getRegion, 150);
   }
   @observable public weatherData: IWeather = {};
-
-  @observable updateKey = 0;
 
   @observable public metaData: IMeta = {
     conditionMap: {},
@@ -67,8 +65,8 @@ class WeatherStore {
   constructor() {
     this.weatherData = {
       location: {
-        countryName: '--',
-        displayName: '----',
+        countryName: 'Loading...',
+        displayName: 'Loading...',
       },
       observation: {
         conditionDescription: 'Sunny',
@@ -129,7 +127,6 @@ class WeatherStore {
     };
     this.curSkyCode = 'clear_day';
     this.isF = true;
-    this.updateKey = 0;
     this.backgroudImageUrl = defaultPhotoUrl;
     this.FFlag = false;
     this.systemLanguage = '';
@@ -141,11 +138,7 @@ class WeatherStore {
   }
 
   @action
-  public renderTrigger = () => {};
-
-  @action
   public handleTemperatureType = (type: boolean) => {
-    this.updateKey = Math.random();
     this.isF = type;
     const observation = this.weatherData.observation;
     const forecasts = this.weatherData.forecasts;
@@ -172,13 +165,25 @@ class WeatherStore {
 
   @action
   public handleSearchChange = () => {
-    this.showSearch = !this.showSearch;
+    if (!this.showSearch) {
+      this.showSearch = !this.showSearch;
+    }
   }
 
   @action
   public handleInputTextChange = (e) => {
-    this.updateKey = Math.random();
     this.getRegion(e.target.value);
+  }
+
+  @action
+  public handleSelectRegionChange = (woeid: string) => {
+    this.getWeatherById(woeid);
+    this.showSearch = false;
+  }
+
+  @action
+  public hideSearch = () => {
+    this.showSearch = false;
   }
 
   public getWeatherById = (woeid) => {
@@ -219,7 +224,6 @@ class WeatherStore {
         }
       }).then((res) => {
         runInAction(() => {
-          this.updateKey = Math.random();
           const curWoeid = JSON.parse(res.result).location.woeid;
           this.weatherData.location.countryName = JSON.parse(res.result).location.country;
           this.weatherData.location.displayName = JSON.parse(res.result).location.region;
@@ -233,7 +237,7 @@ class WeatherStore {
   }
 
   public getPosition = () => {
-    setLoadingToast(true, '获取经纬度...');
+    setLoadingToast(true, '获取地理坐标...');
     Taro.getLocation({
       type: 'gcj02',
     }).then(res => {
@@ -261,7 +265,7 @@ class WeatherStore {
       if (!res.authSetting['scope.userLocation']) {
         this.showModal = true;
       } else {
-        setToast('获取经纬度失败', 'none');
+        setToast('获取地理坐标失败', 'none');
       }
     })
   }
@@ -274,8 +278,7 @@ class WeatherStore {
         },
       }).then((res) => {
         runInAction(() => {
-          this.regionList = res.result.regionList.slice(0, res.result.regionList.length);
-          console.log(this.regionList)
+          this.regionList = res.result.regionList;
         })
       })
       .catch(() => {

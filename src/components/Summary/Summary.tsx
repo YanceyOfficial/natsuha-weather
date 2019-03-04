@@ -21,12 +21,8 @@ class Summary extends Component<IWeatherProps, {}> {
         handleTemperatureType,
         handleSearchChange,
         isF,
-        renderTrigger,
-        updateKey,
       },
     } = this.props;
-
-    renderTrigger(updateKey);
 
     const ownerName =
       weatherData.photos[0].resolutions.length !== 0

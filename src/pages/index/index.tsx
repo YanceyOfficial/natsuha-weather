@@ -37,15 +37,15 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     wx.cloud.init();
   }
 
-  componentDidShow(){
-    const { weatherStore } = this.props;
-    weatherStore.getLanguage();
-  }
-
-  // componentDidMount() {
+  // componentDidShow(){
   //   const { weatherStore } = this.props;
   //   weatherStore.getLanguage();
   // }
+
+  componentDidMount() {
+    const { weatherStore } = this.props;
+    weatherStore.getLanguage();
+  }
 
   public onPullDownRefresh = () => {
     const { weatherStore } = this.props;
@@ -78,9 +78,9 @@ class Index extends Component<IWeatherProps, IIndexStates> {
 
   render() {
     const { needBlur } = this.state;
-    const { showModal } = this.props.weatherStore;
+    const { showModal, showSearch } = this.props.weatherStore;
     return (
-      <View className='index'>
+      <View className='index' style={showSearch ? { position: 'fixed' } : {}}>
         {showModal ? <Modal /> : null}
         <Background needBlur={needBlur} />
         <Summary />
