@@ -33,6 +33,7 @@ class Search extends Component<IWeatherProps, {}> {
         handleSelectRegionChange,
         hideSearch,
         deleteHistoryItemByWoeid,
+        getPosition,
       },
     } = this.props;
 
@@ -79,7 +80,7 @@ class Search extends Component<IWeatherProps, {}> {
             src={location}
             className={cs(styles.icon, styles.location_icon)}
           />
-          <Text>Detach my location</Text>
+          <Text onClick={() => getPosition()}>Detach my location</Text>
         </View>
         <View className={styles.history}>
           <View className={cs(styles.container, styles.history_container)}>
