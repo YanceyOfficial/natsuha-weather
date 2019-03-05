@@ -102,7 +102,10 @@ class Summary extends Component<IWeatherProps, {}> {
             </View>
           </View>
           <View className={styles.flickr_info}>
-            <Text className={styles.flickr_txt}>© by {ownerName}{' '}on{' '}</Text>
+            <Text className={styles.flickr_txt}>
+              © by <Text className={styles.flickr_txt_user}>{ownerName}</Text>{' '}
+              on{' '}
+            </Text>
             <Image className={styles.flickr_icon} src={flickr} />
           </View>
         </View>
