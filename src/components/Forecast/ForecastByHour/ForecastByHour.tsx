@@ -50,12 +50,8 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
           forecasts: { hourly },
         },
         metaData,
-        renderTrigger,
-        updateKey,
       },
     } = this.props;
-
-    renderTrigger(updateKey);
 
     const { typeList, selected, scrollLength } = this.state;
 

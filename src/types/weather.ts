@@ -1,3 +1,4 @@
+import IRegion from './region';
 export interface IWeatherProps {
   weatherStore: {
     weatherData: IWeather;
@@ -7,13 +8,20 @@ export interface IWeatherProps {
     backgroudImageUrl: string;
     widthBackgroudImageUrl: string;
     showModal: false;
-    updateKey: number;
+    showSearch: false;
+    isSearching: false;
+    inputText: string;
+    regionList: IRegion[];
     getLanguage: Function;
     getWeatherById: Function;
     getRegion: Function;
     getPosition: Function;
     handleTemperatureType: Function;
-    renderTrigger: Function;
+    handleSearchChange: Function;
+    handleInputTextChange: Function;
+    handleSelectRegionChange: Function;
+    hideSearch: Function;
+    deleteHistoryItemByWoeid: Function;
   };
 };
 

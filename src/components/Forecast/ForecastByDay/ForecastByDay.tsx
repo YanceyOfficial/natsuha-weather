@@ -7,7 +7,7 @@ import { IWeatherProps } from '../../../types/weather';
 import {
   formatWeek,
   getImageUrl,
-  getRainfallIconName
+  getRainfallIconName,
 } from '../../../utils/util';
 const styles = require('./ForecastByDay.module.scss');
 
@@ -23,24 +23,24 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
     super(props);
     this.state = {
       isSelected: false,
-      isFive: true
+      isFive: true,
     };
   }
 
   public handleSelect = () => {
     this.setState({
-      isSelected: true
+      isSelected: true,
     });
   };
 
   public handleDay = (day: number) => {
     if (day === 5) {
       this.setState({
-        isFive: true
+        isFive: true,
       });
     } else {
       this.setState({
-        isFive: false
+        isFive: false,
       });
     }
   };
@@ -50,15 +50,11 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
       weatherStore: {
         weatherData: {
           forecasts: { daily },
-          observation
+          observation,
         },
         metaData,
-        renderTrigger,
-        updateKey
-      }
+      },
     } = this.props;
-
-    renderTrigger(updateKey);
 
     const { isSelected, isFive } = this.state;
 
@@ -74,7 +70,7 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
                 className={styles.condition_image}
                 src={getImageUrl(
                   'Temperature',
-                  metaData.skycode[observation.conditionCode]
+                  metaData.skycode[observation.conditionCode],
                 )}
               />
             </View>
@@ -83,7 +79,7 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
                 className={styles.precipitation_icon}
                 src={getImageUrl(
                   'Precipitation',
-                  getRainfallIconName(day.precipitationProbability)
+                  getRainfallIconName(day.precipitationProbability),
                 )}
               />
               <Text className={styles.precipitation}>
@@ -118,10 +114,18 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
           {dailyList}
         </View>
         <View className={styles.day_picker}>
-          <Text className={styles.five_day} onClick={() => this.handleDay(5)}>
+          <Text
+            className={cs(styles.five_day, isFive ? '' : styles.unselected_picker)}
+            onClick={() => this.handleDay(5)}
+          >
             5 DAY
           </Text>
-          <Text onClick={() => this.handleDay(10)}>10 DAY</Text>
+          <Text
+            className={isFive ? styles.unselected_picker : ''}
+            onClick={() => this.handleDay(10)}
+          >
+            10 DAY
+          </Text>
         </View>
       </View>
     );

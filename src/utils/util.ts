@@ -150,7 +150,6 @@ export const sunPosition = (type: string, sunrise: number, sunset: number) => {
   const oDate = new Date();
   const now = oDate.getHours() * 60 * 60 + oDate.getMinutes() * 60;
   const proportion = (now - sunrise) / (sunset - sunrise);
-  // 当当前时间距离日出或日落时间较近时，小太阳因其自身面积会导致样式不好看，故在这种情况下返回0
   if (proportion < 0.1 || proportion > 0.9) {
     return 0;
   } else {
@@ -158,7 +157,8 @@ export const sunPosition = (type: string, sunrise: number, sunset: number) => {
       if (proportion > 0.5) {
 
       }
-      return (proportion * 180).toFixed(0);
+      // return (proportion * 180).toFixed(0);
+      return (proportion * 150 + 15).toFixed(0);
     } else {
       return (proportion * 160).toFixed(0);
     }
