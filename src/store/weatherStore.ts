@@ -145,6 +145,7 @@ class WeatherStore {
 
   public getStorage = () => {
     Taro.getStorageInfo().then(res => {
+      this.regionList = [];
       res.keys.forEach(key => Taro.getStorage({
         key: key
       }).then(res => {
@@ -184,11 +185,9 @@ class WeatherStore {
 
   @action
   public handleSearchChange = () => {
-    this.isSearching = true;
     if (!this.showSearch) {
       this.regionList = [];
-      Taro.getStorageInfo().then(res => {
-        this.regionList = [];
+      Taro.getStorageInfo().then(() => {
         this.getStorage();
       })
       this.showSearch = true;
@@ -196,7 +195,8 @@ class WeatherStore {
   }
 
   @action
-  public handleInputTextChange = (e) => {
+  public handleInputTextChange = (e: any) => {
+    this.isSearching = true;
     this.getRegion(e.target.value);
   }
 
@@ -216,7 +216,6 @@ class WeatherStore {
   public hideSearch = () => {
     this.isSearching = false;
     this.showSearch = false;
-    this.inputText = '';
   }
 
   @action

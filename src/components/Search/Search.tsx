@@ -46,10 +46,12 @@ class Search extends Component<IWeatherProps, {}> {
         >
           {vaule.qualifiedName}
         </View>
-        <View
-          className={styles.cancel_icon}
-          onClick={() => deleteHistoryItemByWoeid(vaule.woeid)}
-        />
+        {isSearching ? null : (
+          <View
+            className={styles.cancel_icon}
+            onClick={() => deleteHistoryItemByWoeid(vaule.woeid)}
+          />
+        )}
       </View>
     ));
 
@@ -65,13 +67,10 @@ class Search extends Component<IWeatherProps, {}> {
           <Input
             className={styles.input}
             type='text'
-            value={inputText}
             placeholder='Enter City or ZIP code'
             onInput={e => handleInputTextChange(e)}
           />
-          {isSearching ? null : (
-            <Text onClick={() => hideSearch()}>Cancel</Text>
-          )}
+          <Text onClick={() => hideSearch()}>Cancel</Text>
         </View>
         <View
           className={cs(styles.container, styles.detech_my_location_container)}
