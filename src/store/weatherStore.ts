@@ -280,6 +280,9 @@ class WeatherStore {
   }
 
   public getPosition = () => {
+    if (this.showSearch) {
+      this.showSearch = false;
+    }
     setLoadingToast(true, '获取地理坐标...');
     Taro.getLocation({
       type: 'gcj02',
