@@ -43,6 +43,8 @@ class WeatherStore {
 
   @observable public curSkyCode = 'clear_day';
 
+  @observable public curWoeid = '';
+
   @observable public isF = true;
 
   @observable public FFlag = false;
@@ -135,6 +137,7 @@ class WeatherStore {
     this.showSearch = false;
     this.inputText = '';
     this.regionList = [];
+    this.curWoeid = '';
   }
 
   @action
@@ -177,7 +180,8 @@ class WeatherStore {
 
   @action
   public handleSelectRegionChange = (woeid: string) => {
-    this.getWeatherById(woeid);
+    this.curWoeid = woeid;
+    this.getWeatherById();
     this.showSearch = false;
   }
 
@@ -186,12 +190,12 @@ class WeatherStore {
     this.showSearch = false;
   }
 
-  public getWeatherById = (woeid) => {
+  public getWeatherById = () => {
     setLoadingToast(true, '获取天气信息...');
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid,
+        woeid: this.curWoeid,
         lang: this.systemLanguage,
       }
     }).then((res) => {
@@ -224,10 +228,10 @@ class WeatherStore {
         }
       }).then((res) => {
         runInAction(() => {
-          const curWoeid = JSON.parse(res.result).location.woeid;
+          this.curWoeid = JSON.parse(res.result).location.woeid;
           this.weatherData.location.countryName = JSON.parse(res.result).location.country;
           this.weatherData.location.displayName = JSON.parse(res.result).location.region;
-          this.getWeatherById(curWoeid);
+          this.getWeatherById();
         })
       })
       .catch(() => {

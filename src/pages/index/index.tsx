@@ -49,7 +49,7 @@ class Index extends Component<IWeatherProps, IIndexStates> {
 
   public onPullDownRefresh = () => {
     const { weatherStore } = this.props;
-    weatherStore.getLanguage();
+    weatherStore.getWeatherById();
   };
 
   public onShareAppMessage = res => {
