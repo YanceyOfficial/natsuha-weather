@@ -78,8 +78,9 @@ class Summary extends Component<IWeatherProps, {}> {
 
           <View>
             <Text className={styles.cur_temperature}>
-              {weatherData.observation.temperature.now.toFixed(0)}°
+              {weatherData.observation.temperature.now.toFixed(0)}
             </Text>
+            <Text className={styles.cur_temperature_symbol}>°</Text>
             <View className={styles.temperature_type}>
               <View
                 className={cs(

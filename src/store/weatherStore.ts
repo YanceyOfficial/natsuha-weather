@@ -6,6 +6,8 @@ import {
 
 import _ from 'lodash';
 
+import Taro from '@tarojs/taro';
+
 import {
   IMeta,
   IWeather
@@ -18,8 +20,6 @@ import {
   convertKmMiles,
   convertMillibarsInches
 } from '../utils/convert';
-
-import Taro from '@tarojs/taro';
 
 import {
   setLoadingToast,
@@ -58,6 +58,8 @@ class WeatherStore {
   @observable public showModal = false;
 
   @observable public showSearch = false;
+
+  @observable public isSearching = false;
 
   @observable public inputText = '';
 
@@ -138,6 +140,20 @@ class WeatherStore {
     this.inputText = '';
     this.regionList = [];
     this.curWoeid = '';
+    this.isSearching = false;
+  }
+
+  public getStorage = () => {
+    Taro.getStorageInfo().then(res => {
+      res.keys.forEach(key => Taro.getStorage({
+        key: key
+      }).then(res => {
+        this.regionList.push({
+          woeid: parseInt(key, 10),
+          qualifiedName: res.data,
+        })
+      }))
+    })
   }
 
   @action
@@ -168,8 +184,14 @@ class WeatherStore {
 
   @action
   public handleSearchChange = () => {
+    this.isSearching = true;
     if (!this.showSearch) {
-      this.showSearch = !this.showSearch;
+      this.regionList = [];
+      Taro.getStorageInfo().then(res => {
+        this.regionList = [];
+        this.getStorage();
+      })
+      this.showSearch = true;
     }
   }
 
@@ -179,15 +201,32 @@ class WeatherStore {
   }
 
   @action
-  public handleSelectRegionChange = (woeid: string) => {
+  public handleSelectRegionChange = (woeid: string, qualifiedName: string) => {
     this.curWoeid = woeid;
-    this.getWeatherById();
     this.showSearch = false;
+    Taro.setStorage({
+      key: woeid.toString(),
+      data: qualifiedName,
+    }).then(res => {
+      this.getWeatherById();
+    })
   }
 
   @action
   public hideSearch = () => {
+    this.isSearching = false;
     this.showSearch = false;
+    this.inputText = '';
+  }
+
+  @action
+  public deleteHistoryItemByWoeid = (woeid: string) => {
+    Taro.removeStorage({
+      key: woeid.toString()
+    }).then(res => {
+      setToast('删除成功', 'success');
+      this.getStorage();
+    })
   }
 
   public getWeatherById = () => {
@@ -198,7 +237,7 @@ class WeatherStore {
         woeid: this.curWoeid,
         lang: this.systemLanguage,
       }
-    }).then((res) => {
+    }).then((res: any) => {
       runInAction(() => {
         this.isF = true;
         this.FFlag = false;
@@ -226,11 +265,12 @@ class WeatherStore {
           lon: lon,
           lang: this.systemLanguage
         }
-      }).then((res) => {
+      }).then((res: any) => {
         runInAction(() => {
-          this.curWoeid = JSON.parse(res.result).location.woeid;
-          this.weatherData.location.countryName = JSON.parse(res.result).location.country;
-          this.weatherData.location.displayName = JSON.parse(res.result).location.region;
+          const location = JSON.parse(res.result);
+          this.curWoeid = location.woeid;
+          this.weatherData.location.countryName = location.country;
+          this.weatherData.location.displayName = location.region;
           this.getWeatherById();
         })
       })
@@ -280,7 +320,7 @@ class WeatherStore {
         data: {
           region: text,
         },
-      }).then((res) => {
+      }).then((res: any) => {
         runInAction(() => {
           this.regionList = res.result.regionList;
         })

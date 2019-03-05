@@ -25,22 +25,31 @@ class Search extends Component<IWeatherProps, {}> {
   render() {
     const {
       weatherStore: {
+        inputText,
+        isSearching,
         showSearch,
         handleInputTextChange,
         regionList,
         handleSelectRegionChange,
         hideSearch,
+        deleteHistoryItemByWoeid,
       },
     } = this.props;
 
     const list = regionList.map(vaule => (
-      <View
-        key={vaule.woeid}
-        className={styles.history_item}
-        onClick={() => handleSelectRegionChange(vaule.woeid)}
-      >
-        <Text>{vaule.qualifiedName}</Text>
-        <View className={styles.cancel_icon} />
+      <View key={vaule.woeid} className={styles.history_item}>
+        <View
+          className={styles.qualified_name}
+          onClick={() =>
+            handleSelectRegionChange(vaule.woeid, vaule.qualifiedName)
+          }
+        >
+          {vaule.qualifiedName}
+        </View>
+        <View
+          className={styles.cancel_icon}
+          onClick={() => deleteHistoryItemByWoeid(vaule.woeid)}
+        />
       </View>
     ));
 
@@ -56,10 +65,13 @@ class Search extends Component<IWeatherProps, {}> {
           <Input
             className={styles.input}
             type='text'
+            value={inputText}
             placeholder='Enter City or ZIP code'
             onInput={e => handleInputTextChange(e)}
           />
-          <Text onClick={() => hideSearch()}>Cancel</Text>
+          {isSearching ? null : (
+            <Text onClick={() => hideSearch()}>Cancel</Text>
+          )}
         </View>
         <View
           className={cs(styles.container, styles.detech_my_location_container)}

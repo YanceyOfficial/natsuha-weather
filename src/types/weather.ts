@@ -9,6 +9,7 @@ export interface IWeatherProps {
     widthBackgroudImageUrl: string;
     showModal: false;
     showSearch: false;
+    isSearching: false;
     inputText: string;
     regionList: IRegion[];
     getLanguage: Function;
@@ -20,6 +21,7 @@ export interface IWeatherProps {
     handleInputTextChange: Function;
     handleSelectRegionChange: Function;
     hideSearch: Function;
+    deleteHistoryItemByWoeid: Function;
   };
 };
 

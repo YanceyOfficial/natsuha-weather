@@ -61,15 +61,24 @@
     .history_item {
       display: flex;
       justify-content: space-between;
-      padding: 28px;
+      align-items: center;
       @include border_1px('bottom', rgba($white, .3), 0);
+
+      .qualified_name {
+        position: relative;
+        padding: 28px;
+        z-index: 1;
+      }
+
 
       .cancel_icon {
         position: relative;
+        margin-right: 28px;
         width: 40px;
         height: 40px;
         background: rgba(255, 51, 60, .8);
         border-radius: 50%;
+        z-index: 1;
 
         &::before {
           position: absolute;
