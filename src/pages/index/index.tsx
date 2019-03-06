@@ -13,7 +13,6 @@ import Background from '../../components/Background/Background';
 import Precipitation from '../../components/Precipitation/Precipitation';
 import Search from '../../components/Search/Search';
 import Modal from '../../components/Widget/Modal/Modal';
-import Toast from '../../components/Widget/Toast/Toast';
 
 import './index.scss';
 
@@ -78,7 +77,6 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     return (
       <View className='index' style={showSearch ? { position: 'fixed' } : {}}>
         {showModal ? <Modal /> : null}
-        {/* <Toast type='fail' mask text='天気情報の取得に失敗しました' /> */}
         <Background needBlur={needBlur} />
         <Summary />
         <Forecast />

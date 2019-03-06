@@ -7,8 +7,6 @@ import {
   weekList,
 } from '../constants/constants'
 
-const fail = require('../assets/images/fail.png');
-
 /**
  * Package the common toast component
  *
@@ -19,12 +17,11 @@ const fail = require('../assets/images/fail.png');
  * @param {String} iamge Current wind speed amount
  * @returns {String} Returns the first letter capitalize string.
  */
-export const setToast = (title = '', icon = 'success', image = fail, mask = true, duration = 1500) => {
+export const setToast = (title = '', icon = 'none', mask = true, duration = 1500) => {
   return Taro.showToast({
     title,
     icon,
     mask,
-    image,
     duration,
   })
 }
