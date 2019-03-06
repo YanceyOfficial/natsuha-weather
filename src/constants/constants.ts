@@ -30,5 +30,4 @@ export const weekList = [
   'Thursday',
   'Friday',
   'Saturday',
-
 ]

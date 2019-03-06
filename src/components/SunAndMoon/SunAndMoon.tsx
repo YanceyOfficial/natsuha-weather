@@ -4,7 +4,7 @@ import { View, Text, Image } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
-import { sunRiseSet, getImageUrl, sunPosition } from '../../utils/util';
+import { formatSunRiseAndSetDate, getImageUrl, sunPosition } from '../../utils/util';
 import { moonPhases } from '../../constants/constants';
 const styles = require('./SunAndMoon.module.scss');
 
@@ -57,8 +57,8 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
               </View>
             </View>
             <View className={styles.sunrise_sunset_txt}>
-              <Text className={styles.sunrise}>{sunRiseSet(sunrise)}{' '}AM</Text>
-              <Text className={styles.sunset}>{sunRiseSet(sunset)}{' '}PM</Text>
+              <Text className={styles.sunrise}>{formatSunRiseAndSetDate(sunrise)}{' '}AM</Text>
+              <Text className={styles.sunset}>{formatSunRiseAndSetDate(sunset)}{' '}PM</Text>
             </View>
           </View>
         </View>
