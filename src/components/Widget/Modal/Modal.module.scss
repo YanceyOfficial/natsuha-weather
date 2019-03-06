@@ -1,5 +1,5 @@
-@import '../../assets/styles/variables.scss';
-@import '../../assets/styles/mixins.scss';
+@import '../../../assets/styles/variables.scss';
+@import '../../../assets/styles/mixins.scss';
 
 .modal_wrapper {
   position: fixed;
@@ -9,7 +9,7 @@
   left: 0;
   margin: auto;
   width: 75%;
-  height: 240px;
+  height: 250px;
   background: $white;
   font-size: 28px;
   text-shadow: none;
@@ -20,7 +20,7 @@
   .title {
     display: block;
     text-align: center;
-    padding: 54px 0;
+    padding: 40px 20px;
     @include border_1px('bottom', #dcdcdc, 0);
   }
 

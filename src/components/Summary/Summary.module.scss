@@ -21,10 +21,14 @@
     }
 
     .condition_summary {
-      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
     }
 
     .condition_icon {
+      position: relative;
+      top: -4px;
       width: 64px;
       height: 64px;
     }

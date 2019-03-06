@@ -30,6 +30,13 @@ import {
   defaultPhotoUrl
 } from '../constants/constants';
 
+Promise.prototype.finally = function (callback) {
+  let P = this.constructor;
+  return this.then(value => P.resolve(callback && callback()).then(() => value), reason => P.resolve(callback && callback()).then(() => {
+    throw reason
+  }));
+};
+
 class WeatherStore {
   construtor() {
     this.getRegion = _.debounce(this.getRegion, 150);
@@ -223,13 +230,13 @@ class WeatherStore {
     Taro.removeStorage({
       key: woeid.toString()
     }).then(res => {
-      setToast('削除は成功しました', 'success', null);
+      setToast('削除しました', 'success');
       this.getStorage();
     })
   }
 
   public getWeatherById = () => {
-    setLoadingToast(true, '天気情報を取得しています...');
+    setLoadingToast(true, '天気情報取得中...');
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
@@ -247,26 +254,26 @@ class WeatherStore {
         this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
         this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
         setLoadingToast(false);
-        Taro.stopPullDownRefresh();
       })
     }).catch((e: any) => {
-      setToast('天気情報の取得に失敗しました', 'none');
+      setToast('天気情報の取得に失敗しました');
+    }).finally(() => {
       Taro.stopPullDownRefresh();
     })
   }
 
   public getWoeid = (lat: number, lon: number) => {
-    setLoadingToast(true, '都市を取得しています...');
+    setLoadingToast(true, '现在地取得中...');
     wx.cloud.callFunction({
         name: 'getWoeid',
         data: {
-          lat: lat,
-          lon: lon,
+          lat,
+          lon,
           lang: this.systemLanguage
         }
       }).then((res: any) => {
         runInAction(() => {
-          const location = JSON.parse(res.result);
+          const location = JSON.parse(res.result).location;
           this.curWoeid = location.woeid;
           this.weatherData.location.countryName = location.country;
           this.weatherData.location.displayName = location.region;
@@ -275,7 +282,7 @@ class WeatherStore {
       })
       .catch(() => {
         setLoadingToast(false);
-        setToast('都市の取得に失敗しました', 'none');
+        setToast('都市の取得に失敗しました');
       });
   }
 
@@ -283,7 +290,7 @@ class WeatherStore {
     if (this.showSearch) {
       this.showSearch = false;
     }
-    setLoadingToast(true, '地理座標を取得しています...');
+    setLoadingToast(true, '地理座標取得中...');
     Taro.getLocation({
       type: 'gcj02',
     }).then(res => {
@@ -302,7 +309,7 @@ class WeatherStore {
       this.systemLanguage = res.language;
       this.getPosition();
     }).catch(() => {
-      setToast('システム言語の取得に失敗しました', 'none');
+      setToast('システム言語の取得に失敗しました');
     })
   }
 
@@ -311,7 +318,7 @@ class WeatherStore {
       if (!res.authSetting['scope.userLocation']) {
         this.showModal = true;
       } else {
-        setToast('地理座標の取得に失敗しました', 'none');
+        setToast('地理座標の取得に失敗しました');
       }
     })
   }
@@ -328,7 +335,7 @@ class WeatherStore {
         })
       })
       .catch(() => {
-        setToast('都市の取得に失敗しました', 'none');
+        setToast('都市の取得に失敗しました');
       });
   }
 }
