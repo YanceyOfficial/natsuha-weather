@@ -47,7 +47,7 @@ class WeatherStore {
 
   @observable public isF = true;
 
-  @observable public FFlag = false;
+  @observable public fFlag = false;
 
   @observable public systemLanguage = '';
 
@@ -76,7 +76,7 @@ class WeatherStore {
         conditionDescription: 'Sunny',
         conditionCode: 0,
         localTime: {
-          timestamp: '',
+          timestamp: (new Date()).toString(),
         },
         temperature: {
           now: 0,
@@ -132,7 +132,7 @@ class WeatherStore {
     this.curSkyCode = 'clear_day';
     this.isF = true;
     this.backgroudImageUrl = defaultPhotoUrl;
-    this.FFlag = false;
+    this.fFlag = false;
     this.systemLanguage = '';
     this.widthBackgroudImageUrl = '';
     this.showModal = false;
@@ -163,8 +163,8 @@ class WeatherStore {
     const observation = this.weatherData.observation;
     const forecasts = this.weatherData.forecasts;
 
-    if (this.FFlag === this.isF) {
-      this.FFlag = !this.isF;
+    if (this.fFlag === this.isF) {
+      this.fFlag = !this.isF;
       observation.temperature.feelsLike = convertCelsiusFahrenheit(this.isF, observation.temperature.feelsLike);
       observation.temperature.now = convertCelsiusFahrenheit(this.isF, observation.temperature.now);
       observation.temperature.low = convertCelsiusFahrenheit(this.isF, observation.temperature.low);
@@ -223,13 +223,13 @@ class WeatherStore {
     Taro.removeStorage({
       key: woeid.toString()
     }).then(res => {
-      setToast('删除成功', 'success');
+      setToast('削除は成功しました', 'success', null);
       this.getStorage();
     })
   }
 
   public getWeatherById = () => {
-    setLoadingToast(true, '获取天气信息...');
+    setLoadingToast(true, '天気情報を取得しています...');
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
@@ -239,7 +239,7 @@ class WeatherStore {
     }).then((res: any) => {
       runInAction(() => {
         this.isF = true;
-        this.FFlag = false;
+        this.fFlag = false;
         const weatherResult = res.result.weatherResult;
         this.weatherData = weatherResult.weathers[0];
         this.metaData = weatherResult.meta;
@@ -249,14 +249,14 @@ class WeatherStore {
         setLoadingToast(false);
         Taro.stopPullDownRefresh();
       })
-    }).catch((e) => {
-      setToast('获取天气失败', 'none');
+    }).catch((e: any) => {
+      setToast('天気情報の取得に失敗しました', 'none');
       Taro.stopPullDownRefresh();
     })
   }
 
   public getWoeid = (lat: number, lon: number) => {
-    setLoadingToast(true, '获取城市信息...');
+    setLoadingToast(true, '都市を取得しています...');
     wx.cloud.callFunction({
         name: 'getWoeid',
         data: {
@@ -275,7 +275,7 @@ class WeatherStore {
       })
       .catch(() => {
         setLoadingToast(false);
-        setToast('获取城市信息失败', 'none');
+        setToast('都市の取得に失敗しました', 'none');
       });
   }
 
@@ -283,7 +283,7 @@ class WeatherStore {
     if (this.showSearch) {
       this.showSearch = false;
     }
-    setLoadingToast(true, '获取地理坐标...');
+    setLoadingToast(true, '地理座標を取得しています...');
     Taro.getLocation({
       type: 'gcj02',
     }).then(res => {
@@ -302,7 +302,7 @@ class WeatherStore {
       this.systemLanguage = res.language;
       this.getPosition();
     }).catch(() => {
-      setToast('获取系统语言失败', 'none');
+      setToast('システム言語の取得に失敗しました', 'none');
     })
   }
 
@@ -311,7 +311,7 @@ class WeatherStore {
       if (!res.authSetting['scope.userLocation']) {
         this.showModal = true;
       } else {
-        setToast('获取地理坐标失败', 'none');
+        setToast('地理座標の取得に失敗しました', 'none');
       }
     })
   }
@@ -328,7 +328,7 @@ class WeatherStore {
         })
       })
       .catch(() => {
-        setToast('获取城市信息失败', 'none');
+        setToast('都市の取得に失敗しました', 'none');
       });
   }
 }
