@@ -11,7 +11,7 @@ import Wind from '../../components/Wind/Wind';
 import Forecast from '../../components/Forecast/Forecast';
 import Background from '../../components/Background/Background';
 import Precipitation from '../../components/Precipitation/Precipitation';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../../components/Widget/Modal/Modal';
 import Search from '../../components/Search/Search';
 
 import './index.scss';
@@ -36,11 +36,6 @@ class Index extends Component<IWeatherProps, IIndexStates> {
   componentWillMount() {
     wx.cloud.init();
   }
-
-  // componentDidShow(){
-  //   const { weatherStore } = this.props;
-  //   weatherStore.getLanguage();
-  // }
 
   componentDidMount() {
     const { weatherStore } = this.props;

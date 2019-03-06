@@ -24,7 +24,7 @@ class Background extends Component<IBackgroundProps, {}> {
     this.state = {};
   }
   public onError = () => {
-    setToast('图片加载失败', 'none');
+    setToast('画像のロードに失敗しました', 'none');
     this.props.weatherStore.backgroudImageUrl = defaultPhotoUrl;
   };
 

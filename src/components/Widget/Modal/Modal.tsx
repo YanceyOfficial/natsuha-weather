@@ -3,7 +3,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Button, Text, Block } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import cs from 'classnames';
-import { IWeatherProps } from '../../types/weather';
+import { IWeatherProps } from '../../../types/weather';
 const styles = require('./Modal.module.scss');
 
 @inject('weatherStore')
