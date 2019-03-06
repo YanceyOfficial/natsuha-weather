@@ -16,7 +16,7 @@ class Modal extends Component<IWeatherProps, {}> {
         <View className={styles.modal_wrapper}>
           <View>
             <Text className={styles.title}>
-              傻逼玩意儿，不开位置授权咋看天气？
+              请开启授权以获取最新天气资讯
             </Text>
             <View className={styles.button_group}>
               <View className={cs(styles.button, styles.button_cancel)}>
