@@ -230,6 +230,7 @@ class WeatherStore {
 
   public getWeatherById = () => {
     setLoadingToast(true, '天気情報を取得しています...');
+
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
@@ -260,13 +261,13 @@ class WeatherStore {
     wx.cloud.callFunction({
         name: 'getWoeid',
         data: {
-          lat: lat,
-          lon: lon,
+          lat,
+          lon,
           lang: this.systemLanguage
         }
       }).then((res: any) => {
         runInAction(() => {
-          const location = JSON.parse(res.result);
+          const location = JSON.parse(res.result).location;
           this.curWoeid = location.woeid;
           this.weatherData.location.countryName = location.country;
           this.weatherData.location.displayName = location.region;

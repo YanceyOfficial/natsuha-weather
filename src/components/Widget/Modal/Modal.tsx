@@ -16,17 +16,17 @@ class Modal extends Component<IWeatherProps, {}> {
         <View className={styles.modal_wrapper}>
           <View>
             <Text className={styles.title}>
-              请开启授权以获取最新天气资讯
+              モバイすの設定で位置情報サービスをオンにしてください
             </Text>
             <View className={styles.button_group}>
               <View className={cs(styles.button, styles.button_cancel)}>
-                取消
+                Cancel
               </View>
               <Button
                 className={cs(styles.button, styles.button_confirm)}
                 openType='openSetting'
               >
-                去开启
+                OK
               </Button>
             </View>
           </View>
