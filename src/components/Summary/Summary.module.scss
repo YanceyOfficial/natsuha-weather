@@ -61,10 +61,17 @@
     .cur_temperature {
       display: inline-block;
       margin-left: 10px;
-      width: 320px;
+      width: 240px;
       font-size: 220px;
       font-weight: 100;
       line-height: 1;
+    }
+
+    .cur_temperature_symbol {
+      display: inline-block;
+      font-size: 160rpx;
+      font-weight: 100;
+      vertical-align: top;
     }
 
     .flickr_info {
@@ -81,14 +88,33 @@
       position: relative;
       top: -1px;
       font-size: 24px;
+
+      .flickr_txt_user {
+        display: inline-block;
+        max-width: 240px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
+  }
+
+  .header {
+    display: flex;
   }
 
   .region_summary {
     padding-top: 120px;
     margin-left: 20px;
 
-    .city,
+    .location_icon {
+      position: relative;
+      top: 4px;
+      margin-left: 20px;
+      width: 70px;
+      height: 70px;
+    }
+
     .country,
     .cur_time {
       display: block;

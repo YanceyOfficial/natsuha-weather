@@ -1,17 +1,17 @@
 @import '../../../assets/styles/variables.scss';
 
 .forecast_day_conatainer {
-  font-size: 31.2px;
+  font-size: 16PX;
   text-align: center;
 
   .day_group {
+    height: 37PX;
     border-top: 2px dotted $dotted_border;
 
     .group_basic {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 74px;
 
       .week_name {
         display: inline-block;
@@ -26,8 +26,8 @@
       .condition_image {
         position: relative;
         top: 6px;
-        width: 64px;
-        height: 64px;
+        width: 32PX;
+        height: 32PX;
       }
     }
 
@@ -36,8 +36,8 @@
       align-items: center;
 
       .precipitation_icon {
-        width: 48px;
-        height: 48px;
+        width: 24PX;
+        height: 24PX;
       }
 
       .precipitation {
@@ -89,19 +89,23 @@
       line-height: 1.4;
       border-right: 2px solid $split;
     }
+
+    .unselected_picker {
+      color: rgba($white, .24);
+      text-shadow: none;
+    }
   }
 
   .list {
     height: auto;
-    max-height: 760px;
+    max-height: 380PX;
     overflow: hidden;
     transition: max-height 350ms linear;
   }
 
   .five_item {
-    max-height: 376px;
+    max-height: 190PX;
     overflow: hidden;
     transition: max-height 350ms linear;
   }
-
 }

@@ -24,13 +24,9 @@ class Detail extends Component<IWeatherProps, {}> {
             humidity
           }
         },
-        renderTrigger,
-        updateKey,
         isF
       }
     } = this.props;
-
-    renderTrigger(updateKey);
 
     const dayPartTextList = dayPartTexts.map((value, key) => (
       <Text className={styles.content_detail_txt} key={key}>

@@ -1,0 +1,103 @@
+@import '../../assets/styles/variables.scss';
+@import '../../assets/styles/mixins.scss';
+
+.search_wrapper {
+  position: fixed;
+  bottom: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 80%;
+  font-size: 32px;
+  background: $black;
+  transform: translateY(0);
+  transition: 350ms all linear;
+
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    padding: 20px 28px;
+    font-size: 28px;
+  }
+
+  .search_container {
+    background: rgba($white, .12);
+
+    .input {
+      margin-left: 20px;
+      margin-right: 60px;
+      padding: 6px;
+      width: 65%;
+      font-size: 28px;
+      background: rgba($white, .3);
+      text-shadow: none;
+    }
+  }
+
+  .detech_my_location_container {
+    padding: 28px;
+
+    .location_icon {
+      margin-right: 20px;
+    }
+  }
+
+  .history {
+    height: 880px;
+    overflow-y: auto;
+
+    .history_container {
+      @include border_1px('bottom', rgba($white, .7), 0);
+
+      .history_icon {
+        margin-right: 20px;
+      }
+    }
+
+    .history_item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include border_1px('bottom', rgba($white, .3), 0);
+
+      .qualified_name {
+        position: relative;
+        padding: 28px;
+        z-index: 1;
+      }
+
+
+      .cancel_icon {
+        position: relative;
+        margin-right: 28px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 51, 60, .8);
+        border-radius: 50%;
+        z-index: 1;
+
+        &::before {
+          position: absolute;
+          content: '';
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          margin: auto;
+          width: 28px;
+          height: 4px;
+          background: $white;
+        }
+      }
+    }
+  }
+}
+
+.hide_search_wrapper {
+  transform: translateY(120%);
+  transition: 350ms all linear;
+}

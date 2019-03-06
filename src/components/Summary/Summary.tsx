@@ -7,6 +7,7 @@ import { IWeatherProps } from '../../types/weather';
 import { hourTo12, getImageUrl } from '../../utils/util';
 const flickr = require('../../assets/images/flickr.png');
 const arrow = require('../../assets/images/arrow.png');
+const location_yellow = require('../../assets/images/location_yellow.png');
 const styles = require('./Summary.module.scss');
 
 @inject('weatherStore')
@@ -18,13 +19,10 @@ class Summary extends Component<IWeatherProps, {}> {
         weatherData,
         curSkyCode,
         handleTemperatureType,
+        handleSearchChange,
         isF,
-        renderTrigger,
-        updateKey
-      }
+      },
     } = this.props;
-
-    renderTrigger(updateKey);
 
     const ownerName =
       weatherData.photos[0].resolutions.length !== 0
@@ -34,9 +32,17 @@ class Summary extends Component<IWeatherProps, {}> {
     return (
       <View className={styles.summary_wrapper}>
         <View className={styles.region_summary}>
-          <Text className={styles.city}>
-            {weatherData.location.displayName}
-          </Text>
+          <View className={styles.header}>
+            <Text className={styles.city}>
+              {weatherData.location.displayName}
+            </Text>
+            <Image
+              className={styles.location_icon}
+              src={location_yellow}
+              onClick={() => handleSearchChange()}
+            />
+          </View>
+
           <Text className={styles.country}>
             {weatherData.location.countryName}
           </Text>
@@ -72,13 +78,14 @@ class Summary extends Component<IWeatherProps, {}> {
 
           <View>
             <Text className={styles.cur_temperature}>
-              {weatherData.observation.temperature.now.toFixed(0)}°
+              {weatherData.observation.temperature.now.toFixed(0)}
             </Text>
+            <Text className={styles.cur_temperature_symbol}>°</Text>
             <View className={styles.temperature_type}>
               <View
                 className={cs(
                   styles.temperature_type_btn,
-                  !isF ? styles.is_not_f : ''
+                  !isF ? styles.is_not_f : '',
                 )}
                 onClick={() => handleTemperatureType(true)}
               >
@@ -87,7 +94,7 @@ class Summary extends Component<IWeatherProps, {}> {
               <View
                 className={cs(
                   styles.temperature_type_btn,
-                  isF ? styles.is_not_f : ''
+                  isF ? styles.is_not_f : '',
                 )}
                 onClick={() => handleTemperatureType(false)}
               >
@@ -96,7 +103,10 @@ class Summary extends Component<IWeatherProps, {}> {
             </View>
           </View>
           <View className={styles.flickr_info}>
-            <Text className={styles.flickr_txt}>© by {ownerName}{' '}on{' '}</Text>
+            <Text className={styles.flickr_txt}>
+              © by <Text className={styles.flickr_txt_user}>{ownerName}</Text>{' '}
+              on{' '}
+            </Text>
             <Image className={styles.flickr_icon} src={flickr} />
           </View>
         </View>

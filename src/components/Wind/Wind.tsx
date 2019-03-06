@@ -17,8 +17,6 @@ class Wind extends Component<IWeatherProps, {}> {
         weatherData: {
           observation: { windSpeed, windDirectionCode, barometricPressure }
         },
-        renderTrigger,
-        updateKey,
         isF
       }
     } = this.props;
@@ -26,8 +24,6 @@ class Wind extends Component<IWeatherProps, {}> {
     const windSpeedFanStyle = {
       animationDuration: `${getWindSpeed(windSpeed)}s`
     };
-
-    renderTrigger(updateKey);
 
     return (
       <ContentWrapper title="Wind & Pressure">

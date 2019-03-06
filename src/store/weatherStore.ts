@@ -4,18 +4,22 @@ import {
   action,
 } from 'mobx';
 
+import _ from 'lodash';
+
+import Taro from '@tarojs/taro';
+
 import {
   IMeta,
   IWeather
 } from '../types/weather';
+
+import IRegion from '../types/region';
 
 import {
   convertCelsiusFahrenheit,
   convertKmMiles,
   convertMillibarsInches
 } from '../utils/convert';
-
-import Taro from '@tarojs/taro';
 
 import {
   setLoadingToast,
@@ -27,9 +31,10 @@ import {
 } from '../constants/constants';
 
 class WeatherStore {
+  construtor() {
+    this.getRegion = _.debounce(this.getRegion, 150);
+  }
   @observable public weatherData: IWeather = {};
-
-  @observable updateKey = 0;
 
   @observable public metaData: IMeta = {
     conditionMap: {},
@@ -38,9 +43,11 @@ class WeatherStore {
 
   @observable public curSkyCode = 'clear_day';
 
+  @observable public curWoeid = '';
+
   @observable public isF = true;
 
-  @observable public FFlag = false;
+  @observable public fFlag = false;
 
   @observable public systemLanguage = '';
 
@@ -50,18 +57,26 @@ class WeatherStore {
 
   @observable public showModal = false;
 
+  @observable public showSearch = false;
+
+  @observable public isSearching = false;
+
+  @observable public inputText = '';
+
+  @observable public regionList: IRegion[] = [];
+
 
   constructor() {
     this.weatherData = {
       location: {
-        countryName: '--',
-        displayName: '----',
+        countryName: 'Loading...',
+        displayName: 'Loading...',
       },
       observation: {
         conditionDescription: 'Sunny',
         conditionCode: 0,
         localTime: {
-          timestamp: '',
+          timestamp: (new Date()).toString(),
         },
         temperature: {
           now: 0,
@@ -116,26 +131,40 @@ class WeatherStore {
     };
     this.curSkyCode = 'clear_day';
     this.isF = true;
-    this.updateKey = 0;
     this.backgroudImageUrl = defaultPhotoUrl;
-    this.FFlag = false;
+    this.fFlag = false;
     this.systemLanguage = '';
     this.widthBackgroudImageUrl = '';
     this.showModal = false;
+    this.showSearch = false;
+    this.inputText = '';
+    this.regionList = [];
+    this.curWoeid = '';
+    this.isSearching = false;
+  }
+
+  public getStorage = () => {
+    Taro.getStorageInfo().then(res => {
+      this.regionList = [];
+      res.keys.forEach(key => Taro.getStorage({
+        key: key
+      }).then(res => {
+        this.regionList.push({
+          woeid: parseInt(key, 10),
+          qualifiedName: res.data,
+        })
+      }))
+    })
   }
 
   @action
-  public renderTrigger = () => {};
-
-  @action
   public handleTemperatureType = (type: boolean) => {
-    this.updateKey = Math.random();
     this.isF = type;
     const observation = this.weatherData.observation;
     const forecasts = this.weatherData.forecasts;
 
-    if (this.FFlag === this.isF) {
-      this.FFlag = !this.isF;
+    if (this.fFlag === this.isF) {
+      this.fFlag = !this.isF;
       observation.temperature.feelsLike = convertCelsiusFahrenheit(this.isF, observation.temperature.feelsLike);
       observation.temperature.now = convertCelsiusFahrenheit(this.isF, observation.temperature.now);
       observation.temperature.low = convertCelsiusFahrenheit(this.isF, observation.temperature.low);
@@ -154,18 +183,63 @@ class WeatherStore {
     }
   }
 
-  public getWeatherById = (woeid) => {
-    setLoadingToast(true, '获取天气信息...');
+  @action
+  public handleSearchChange = () => {
+    if (!this.showSearch) {
+      this.regionList = [];
+      Taro.getStorageInfo().then(() => {
+        this.getStorage();
+      })
+      this.showSearch = true;
+    }
+  }
+
+  @action
+  public handleInputTextChange = (e: any) => {
+    this.isSearching = true;
+    this.getRegion(e.target.value);
+  }
+
+  @action
+  public handleSelectRegionChange = (woeid: string, qualifiedName: string) => {
+    this.curWoeid = woeid;
+    this.showSearch = false;
+    Taro.setStorage({
+      key: woeid.toString(),
+      data: qualifiedName,
+    }).then(res => {
+      this.getWeatherById();
+    })
+  }
+
+  @action
+  public hideSearch = () => {
+    this.isSearching = false;
+    this.showSearch = false;
+  }
+
+  @action
+  public deleteHistoryItemByWoeid = (woeid: string) => {
+    Taro.removeStorage({
+      key: woeid.toString()
+    }).then(res => {
+      setToast('削除は成功しました', 'success', null);
+      this.getStorage();
+    })
+  }
+
+  public getWeatherById = () => {
+    setLoadingToast(true, '天気情報を取得しています...');
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
-        woeid: '2151849',
+        woeid: this.curWoeid,
         lang: this.systemLanguage,
       }
-    }).then((res) => {
+    }).then((res: any) => {
       runInAction(() => {
         this.isF = true;
-        this.FFlag = false;
+        this.fFlag = false;
         const weatherResult = res.result.weatherResult;
         this.weatherData = weatherResult.weathers[0];
         this.metaData = weatherResult.meta;
@@ -175,14 +249,14 @@ class WeatherStore {
         setLoadingToast(false);
         Taro.stopPullDownRefresh();
       })
-    }).catch((e) => {
-      setToast('获取天气失败', 'none');
+    }).catch((e: any) => {
+      setToast('天気情報の取得に失敗しました', 'none');
       Taro.stopPullDownRefresh();
     })
   }
 
   public getWoeid = (lat: number, lon: number) => {
-    setLoadingToast(true, '获取城市信息...');
+    setLoadingToast(true, '都市を取得しています...');
     wx.cloud.callFunction({
         name: 'getWoeid',
         data: {
@@ -190,23 +264,26 @@ class WeatherStore {
           lon: lon,
           lang: this.systemLanguage
         }
-      }).then((res) => {
+      }).then((res: any) => {
         runInAction(() => {
-          this.updateKey = Math.random();
-          const curWoeid = JSON.parse(res.result).location.woeid;
-          this.weatherData.location.countryName = JSON.parse(res.result).location.country;
-          this.weatherData.location.displayName = JSON.parse(res.result).location.region;
-          this.getWeatherById(curWoeid);
+          const location = JSON.parse(res.result);
+          this.curWoeid = location.woeid;
+          this.weatherData.location.countryName = location.country;
+          this.weatherData.location.displayName = location.region;
+          this.getWeatherById();
         })
       })
       .catch(() => {
         setLoadingToast(false);
-        setToast('获取城市信息失败', 'none');
+        setToast('都市の取得に失敗しました', 'none');
       });
   }
 
   public getPosition = () => {
-    setLoadingToast(true, '获取经纬度...');
+    if (this.showSearch) {
+      this.showSearch = false;
+    }
+    setLoadingToast(true, '地理座標を取得しています...');
     Taro.getLocation({
       type: 'gcj02',
     }).then(res => {
@@ -225,7 +302,7 @@ class WeatherStore {
       this.systemLanguage = res.language;
       this.getPosition();
     }).catch(() => {
-      setToast('获取系统语言失败', 'none');
+      setToast('システム言語の取得に失敗しました', 'none');
     })
   }
 
@@ -234,23 +311,26 @@ class WeatherStore {
       if (!res.authSetting['scope.userLocation']) {
         this.showModal = true;
       } else {
-        setToast('获取经纬度失败', 'none');
+        setToast('地理座標の取得に失敗しました', 'none');
       }
     })
   }
 
-  // public getRegion = () => {
-  //   wx.cloud.callFunction({
-  //     name: 'getRegion',
-  //     data: {
-  //       region: 'sh',
-  //     },
-  //     success(res) {
-  //       console.log(res)
-  //     },
-  //     fail: console.error
-  //   })
-  // }
+  public getRegion = (text: string) => {
+    wx.cloud.callFunction({
+        name: 'getRegion',
+        data: {
+          region: text,
+        },
+      }).then((res: any) => {
+        runInAction(() => {
+          this.regionList = res.result.regionList;
+        })
+      })
+      .catch(() => {
+        setToast('都市の取得に失敗しました', 'none');
+      });
+  }
 }
 
 const weatherStore = new WeatherStore();

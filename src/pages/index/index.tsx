@@ -33,14 +33,14 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     navigationBarTitleText: '夏葉',
   };
 
-  componentDidShow(){
-    const { weatherStore } = this.props;
-    weatherStore.getLanguage();
-  }
-
   componentWillMount() {
     wx.cloud.init();
   }
+
+  // componentDidShow(){
+  //   const { weatherStore } = this.props;
+  //   weatherStore.getLanguage();
+  // }
 
   componentDidMount() {
     const { weatherStore } = this.props;
@@ -49,7 +49,7 @@ class Index extends Component<IWeatherProps, IIndexStates> {
 
   public onPullDownRefresh = () => {
     const { weatherStore } = this.props;
-    weatherStore.getLanguage();
+    weatherStore.getWeatherById();
   };
 
   public onShareAppMessage = res => {
@@ -78,9 +78,9 @@ class Index extends Component<IWeatherProps, IIndexStates> {
 
   render() {
     const { needBlur } = this.state;
-    const { showModal } = this.props.weatherStore;
+    const { showModal, showSearch } = this.props.weatherStore;
     return (
-      <View className='index'>
+      <View className='index' style={showSearch ? { position: 'fixed' } : {}}>
         {showModal ? <Modal /> : null}
         <Background needBlur={needBlur} />
         <Summary />
@@ -89,7 +89,7 @@ class Index extends Component<IWeatherProps, IIndexStates> {
         <Precipitation />
         <SunAndMoon />
         <Wind />
-        {/* <Search /> */}
+        <Search />
       </View>
     );
   }

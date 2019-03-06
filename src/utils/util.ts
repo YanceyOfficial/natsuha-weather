@@ -9,7 +9,17 @@ import {
 
 const fail = require('../assets/images/fail.png');
 
-export const setToast = (title = '', icon = 'success', mask = true, duration = 1500, image = fail) => {
+/**
+ * Package the common toast component
+ *
+ * @param {String} title Current wind speed amount
+ * @param {String} icon Current wind speed amount
+ * @param {Boolean} mask Current wind speed amount
+ * @param {Number} duration Current wind speed amount
+ * @param {String} iamge Current wind speed amount
+ * @returns {String} Returns the first letter capitalize string.
+ */
+export const setToast = (title = '', icon = 'success', image = fail, mask = true, duration = 1500) => {
   return Taro.showToast({
     title,
     icon,
@@ -19,8 +29,16 @@ export const setToast = (title = '', icon = 'success', mask = true, duration = 1
   })
 }
 
-export const setLoadingToast = (loading: boolean, title: string = 'Loading...', mask: boolean = true) => {
-  if (loading) {
+/**
+ * Package the loading toast component
+ *
+ * @param {Boolean} showLoadingToast Judge whether toast is turned on or off
+ * @param {String} title Current wind speed amount
+ * @param {Boolean} mask Current wind speed amount
+ * @returns {String} Returns the first letter capitalize string.
+ */
+export const setLoadingToast = (showLoadingToast: boolean, title: string = 'Loading...', mask: boolean = true): void | any => {
+  if (showLoadingToast) {
     return Taro.showLoading({
       title,
       mask,
@@ -28,44 +46,22 @@ export const setLoadingToast = (loading: boolean, title: string = 'Loading...', 
   } else {
     Taro.hideLoading();
   }
-
 }
 
-export const getSystemInfo = () => {
-  const res = Taro.getSystemInfoSync()
-  console.log(res.brand)
-  console.log(res.model)
-  console.log(res.system) // 可拿到系统版本 iOS 12.1.4
-  console.log(res.screenWidth)
-  console.log(res.screenHeight)
-  console.log(res.pixelRatio)
-  console.log(res.windowWidth)
-  console.log(res.windowHeight)
-  console.log(res.version) // 微信版本 7.0.3
-  console.log(res.statusBarHeight)
-  console.log(res.platform) // 可用于判断安卓还是iOS ios
-  console.log(res.language) // 判断语言 zh-CN ja 注：这里的语言跟系统语言设置无关，因为微信在设置里可以自定义语言
-  console.log(res.fontSizeSetting)
-  console.log(res.SDKVersion)
-}
-
-export const formatJSONDate = jsonDate => new Date(+new Date(new Date(jsonDate).toJSON()) + 8 * 3600 * 1000).toISOString()
+export const formatJSONDate = (jsonDate: string): string =>
+  new Date(+new Date(new Date(jsonDate).toJSON()) + 8 * 3600 * 1000).toISOString()
   .replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
 
 export const hourTo12 = date => {
-  if (date === '') {
-    return '--'
+  const oDate = new Date(date)
+  const month = oDate.getUTCMonth() + 1
+  const day = oDate.getUTCDate()
+  const hour = oDate.getUTCHours()
+  const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
+  if (hour > 12) {
+    return `${month}/${day}, ${hour -12}:${minute} PM`
   } else {
-    const oDate = new Date(date)
-    const month = oDate.getUTCMonth() + 1
-    const day = oDate.getUTCDate()
-    const hour = oDate.getUTCHours()
-    const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
-    if (hour > 12) {
-      return `${month}/${day}, ${hour -12}:${minute} PM`
-    } else {
-      return `${month}/${day}, ${hour}:${minute} AM`
-    }
+    return `${month}/${day}, ${hour}:${minute} AM`
   }
 }
 
@@ -77,14 +73,27 @@ export const hourTo12Lite = (hour: number) => {
   }
 }
 
-export const upperFirstLetter = (str: string) => {
+/**
+ * Capitalize the first letter of words in a string
+ *
+ * @param {String} number Current wind speed amount
+ * @returns {String} Returns the first letter capitalize string.
+ */
+export const upperFirstLetter = (str: string): string => {
   if (str.includes('_')) {
     str = str.split('_').join(' ')
   }
   return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase())
 }
 
-export const getImageUrl = (type: string, iconName: string | number) => {
+/**
+ * Capitalize the first letter of words in a string
+ *
+ * @param {String} type Temperature or Precipitation or Moonphase
+ * @param {String | Number} iconName The icon name
+ * @returns {String} Returns full url of icon.
+ */
+export const getImageUrl = (type: string, iconName: string | number): string => {
   const base = `${imageBaseUrl}/${imageType[type]}`;
   if (type === 'Temperature') {
     return `${base}/60x60/${iconName}${hd2}`;
@@ -95,9 +104,21 @@ export const getImageUrl = (type: string, iconName: string | number) => {
   }
 }
 
-export const getRainfallIconName = (value: number) => parseInt((value / 10).toString(), 10) * 10
+/**
+ * Simulate the speed of anemometer by current wind speed.
+ *
+ * @param {Number} number Current wind speed amount
+ * @returns {Number} Returns the rainfall icon Name.
+ */
+export const getRainfallIconName = (number: number): number => parseInt((number / 10).toString(), 10) * 10
 
-export const windDirectFormat = (value: string) => {
+/**
+ * Extract the first letter of each word in the string.
+ *
+ * @param {String} value Current wind speed amount
+ * @returns {String} Returns a new string with the first letter of each word in the string.
+ */
+export const windDirectFormat = (value: string): string => {
   const arr = value.match(/\b(\w)/g);
   if (arr) {
     if (arr.length > 1) {
@@ -109,7 +130,13 @@ export const windDirectFormat = (value: string) => {
   return value;
 }
 
-export const getWindSpeed = (windSpeed: number) => {
+/**
+ * Simulate the speed of anemometer by current wind speed.
+ *
+ * @param {Number} windSpeed Current wind speed amount
+ * @returns {Number} Returns the time required to make one rotation.
+ */
+export const getWindSpeed = (windSpeed: number): number => {
   const windSpeedKey = parseInt((windSpeed / 5).toString(), 10);
   let result = 3.5625;
   switch (true) {
@@ -134,10 +161,16 @@ export const getWindSpeed = (windSpeed: number) => {
   return result;
 }
 
-export const sunRiseSet = (value: number) => {
+/**
+ * Format timestamp with 12-hour system.
+ *
+ * @param {Number} timestamp A timestamp
+ * @returns {String} Returns the time of 12-hour system.
+ */
+export const formatSunRiseAndSetDate = (timestamp: number): string => {
   let minute = '';
-  const hour = new Date(value * 1000).getUTCHours() % 12 || 12;
-  const _minute = new Date(value * 1000).getUTCMinutes();
+  const hour = new Date(timestamp * 1000).getUTCHours() % 12 || 12;
+  const _minute = new Date(timestamp * 1000).getUTCMinutes();
   if (_minute < 10) {
     minute = `0${_minute}`;
   } else {
@@ -146,23 +179,33 @@ export const sunRiseSet = (value: number) => {
   return `${hour}:${minute}`;
 }
 
-export const sunPosition = (type: string, sunrise: number, sunset: number) => {
+/**
+ * Compute the offset amount of sun's position or light area.
+ *
+ * @param {String} type Light Area or position of the sun
+ * @param {Number} sunrise An UTC timestamp of sunrise
+ * @param {Number} sunset An UTC timestamp of sunset
+ * @returns {String} Returns the offset amount.
+ */
+export const sunPosition = (type: string, sunrise: number, sunset: number): string | number => {
   const oDate = new Date();
   const now = oDate.getHours() * 60 * 60 + oDate.getMinutes() * 60;
   const proportion = (now - sunrise) / (sunset - sunrise);
-  // 当当前时间距离日出或日落时间较近时，小太阳因其自身面积会导致样式不好看，故在这种情况下返回0
   if (proportion < 0.1 || proportion > 0.9) {
     return 0;
   } else {
     if (type === 'sun') {
-      if (proportion > 0.5) {
-
-      }
-      return (proportion * 180).toFixed(0);
+      return (proportion * 150 + 15).toFixed(0);
     } else {
       return (proportion * 160).toFixed(0);
     }
   }
 }
 
-export const formatWeek = (number: number) => weekList[number];
+/**
+ * Get the name of weekday by week code in the related api.
+ *
+ * @param {Number} weekNum An UTC timestamp of sunset
+ * @returns {String} Returns the name of weekday.
+ */
+export const formatWeek = (weekNum: number): string => weekList[weekNum];
