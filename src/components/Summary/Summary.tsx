@@ -18,7 +18,7 @@ class Summary extends Component<IWeatherProps, {}> {
       weatherStore: {
         weatherData,
         handleTemperatureTypeChange,
-        handleSearchChange,
+        showSearchDialog,
         isFahrenheit,
         metaData,
       },
@@ -39,7 +39,7 @@ class Summary extends Component<IWeatherProps, {}> {
             <Image
               className={styles.location_icon}
               src={location_yellow}
-              onClick={() => handleSearchChange()}
+              onClick={() => showSearchDialog()}
             />
           </View>
 

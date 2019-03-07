@@ -20,8 +20,6 @@ declare global {
   }
 }
 
-declare var wx: any;
-
 declare module '*.module.css' {
   const classes: { [key: string]: string };
   export default classes;

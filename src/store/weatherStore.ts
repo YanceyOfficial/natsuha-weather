@@ -1,4 +1,8 @@
-import { observable, runInAction, action } from 'mobx';
+import {
+  observable,
+  runInAction,
+  action
+} from 'mobx';
 import Taro from '@tarojs/taro';
 import _ from 'lodash';
 import {
@@ -6,20 +10,30 @@ import {
   convertKmMiles,
   convertMillibarsInches,
 } from '../utils/convert';
-import { setLoadingToast, setToast } from '../utils/util';
-import { defaultPhotoUrl, toastTxt } from '../constants/constants';
-import { IMeta, IWeather } from '../types/weather';
+import {
+  setLoadingToast,
+  setToast,
+  httpClient,
+} from '../utils/util';
+import {
+  defaultPhotoUrl,
+  toastTxt
+} from '../constants/constants';
+import {
+  IMeta,
+  IWeather
+} from '../types/weather';
 import IRegion from '../types/region';
 
 // 让Taro的Prosise支持finally
-Promise.prototype.finally = function(callback) {
+Promise.prototype.finally = function (callback) {
   let P = this.constructor;
   return this.then(
     value => P.resolve(callback && callback()).then(() => value),
     reason =>
-      P.resolve(callback && callback()).then(() => {
-        throw reason;
-      }),
+    P.resolve(callback && callback()).then(() => {
+      throw reason;
+    }),
   );
 };
 
@@ -69,7 +83,7 @@ class WeatherStore {
     this.weatherData = {
       location: {
         countryName: 'Loading...',
-        displayName: 'Loading...',
+        displayName: '--',
       },
       observation: {
         conditionDescription: 'Sunny',
@@ -92,8 +106,7 @@ class WeatherStore {
         windDirectionCode: 'South South East',
         barometricPressure: 0,
       },
-      precipitations: [
-        {
+      precipitations: [{
           timeSlot: 'MORNING',
           probability: 0,
         },
@@ -119,12 +132,10 @@ class WeatherStore {
         daily: [],
         hourly: [],
       },
-      photos: [
-        {
-          ownerName: '',
-          resolutions: [],
-        },
-      ],
+      photos: [{
+        ownerName: '',
+        resolutions: [],
+      }, ],
     };
     this.metaData = {
       conditionMap: {},
@@ -214,7 +225,7 @@ class WeatherStore {
   };
 
   @action
-  public handleSearchChange = () => {
+  public showSearchDialog = () => {
     if (!this.showSearch) {
       this.regionList = [];
       Taro.getStorageInfo().then(() => {
@@ -263,26 +274,20 @@ class WeatherStore {
 
   public getWeatherById = () => {
     setLoadingToast(true, toastTxt.weatherLoading);
-    wx.cloud
-      .callFunction({
-        name: 'getWeatherById',
-        data: {
-          woeid: this.curWoeid,
-          lang: this.systemLanguage,
-        },
-      })
-      .then((res: any) => {
+    httpClient('getWeatherById', {
+        woeid: this.curWoeid,
+        lang: this.systemLanguage,
+      }).then(res => {
         runInAction(() => {
           this.isFahrenheit = true;
-          const weatherResult = res.result.weatherResult;
+          const weatherResult = res.weatherResult;
           this.weatherData = weatherResult.weathers[0];
           this.metaData = weatherResult.meta;
           this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
           this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
           setLoadingToast(false);
         });
-      })
-      .catch((e: any) => {
+      }).catch((e: any) => {
         setToast(toastTxt.deleteHistoryFail);
       })
       .finally(() => {
@@ -290,20 +295,17 @@ class WeatherStore {
       });
   };
 
+  // 根据经纬度反查城市
   public getWoeid = (lat: number, lon: number) => {
     setLoadingToast(true, toastTxt.locationLoading);
-    wx.cloud
-      .callFunction({
-        name: 'getWoeid',
-        data: {
-          lat,
-          lon,
-          lang: this.systemLanguage,
-        },
+    httpClient('getWoeid', {
+        lat,
+        lon,
+        lang: this.systemLanguage,
       })
       .then((res: any) => {
         runInAction(() => {
-          const location = JSON.parse(res.result).location;
+          const location = JSON.parse(res).location;
           this.curWoeid = location.woeid;
           this.weatherData.location.countryName = location.country;
           this.weatherData.location.displayName = location.region;
@@ -322,8 +324,8 @@ class WeatherStore {
     }
     setLoadingToast(true, toastTxt.coordinatesLoading);
     Taro.getLocation({
-      type: 'gcj02',
-    })
+        type: 'gcj02',
+      })
       .then(res => {
         const lat = res.latitude;
         const lon = res.longitude;
@@ -332,6 +334,22 @@ class WeatherStore {
       .catch(() => {
         setLoadingToast(false);
         this.getSetting();
+      });
+  };
+
+  public getRegion = (text: string) => {
+    httpClient('getRegion', {
+        region: encodeURI(text),
+      })
+      .then((res: any) => {
+        runInAction(() => {
+          if (!res.statesCode) {
+            this.regionList = res.regionList;
+          }
+        });
+      })
+      .catch(() => {
+        setToast(toastTxt.cityFail);
       });
   };
 
@@ -355,26 +373,6 @@ class WeatherStore {
         setToast(toastTxt.coordinatesFail);
       }
     });
-  };
-
-  public getRegion = (text: string) => {
-    wx.cloud
-      .callFunction({
-        name: 'getRegion',
-        data: {
-          region: encodeURI(text),
-        },
-      })
-      .then((res: any) => {
-        runInAction(() => {
-          if (!res.result.statesCode) {
-            this.regionList = res.result.regionList;
-          }
-        });
-      })
-      .catch(() => {
-        setToast(toastTxt.cityFail);
-      });
   };
 }
 
