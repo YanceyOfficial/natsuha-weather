@@ -5,7 +5,7 @@ export const moonPhases = {
   3: 'Waxing Gibbous', // 盈凸月
   4: 'Full Moon', // 滿月、望
   5: 'Waning Gibbous', // 虧凸月
-  6: 'Last Quarter', // 下弦月 (Third Quarter)
+  6: 'Third Quarter', // 下弦月
   7: 'Waning Crescent', // 虧眉月
 }
 

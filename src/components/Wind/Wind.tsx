@@ -43,7 +43,7 @@ class Wind extends Component<IWeatherProps, {}> {
             <View className={styles.wind_info}>
               <Text className={styles.wind_txt}>Wind</Text>
               <Text className={styles.wind_txt}>
-                {windSpeed.toFixed(0)} {isFahrenheit ? 'mph' : 'km/h'}{' '}
+                {windSpeed.toFixed(0)}{' '}{isFahrenheit ? 'mph' : 'km/h'}{' '}
                 {windDirectFormat(windDirectionCode)}
               </Text>
             </View>

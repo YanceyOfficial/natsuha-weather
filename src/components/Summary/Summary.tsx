@@ -22,13 +22,14 @@ class Summary extends Component<IWeatherProps, {}> {
         isFahrenheit,
         metaData,
       },
+
     } = this.props;
 
     const ownerName =
       weatherData.photos[0].resolutions.length !== 0
         ? weatherData.photos[0].ownerName
         : 'Yancey';
-
+        
     return (
       <View className={styles.summary_wrapper}>
         <View className={styles.region_summary}>

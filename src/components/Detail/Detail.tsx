@@ -54,13 +54,13 @@ class Detail extends Component<IWeatherProps, {}> {
             <View className={styles.content_group}>
               <Text>Visibility</Text>
               <Text>
-                {visibility.toFixed(2)} {isFahrenheit ? 'miles' : 'km'}
+                {visibility.toFixed(2)}{' '}{isFahrenheit ? 'miles' : 'km'}
               </Text>
             </View>
             <View className={styles.content_group}>
               <Text>UV Index</Text>
               <Text>
-                {uvIndex} ({uvDescription})
+                {uvIndex}{' '}({uvDescription})
               </Text>
             </View>
           </View>

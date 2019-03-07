@@ -33,7 +33,7 @@
 因此这里使用[**云开发**](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)来"反代"
 Yahoo Weather API.
 
-其中 `getWoeid` 接口涉及到私钥密钥, 故未上传至 github. 你需要先去**Yahoo developer**申请一个 key, 具体戳[Yahoo Weather API](https://developer.yahoo.com/weather/).
+其中 `getWoeid` 接口涉及到私钥密钥, 故未上传至 GitHub. 你需要先去**Yahoo developer**申请一个 key, 具体戳[Yahoo Weather API](https://developer.yahoo.com/weather/).
 
 ![yahpp key](https://yancey-assets.oss-cn-beijing.aliyuncs.com/Jietu20190221-135157.jpg)
 

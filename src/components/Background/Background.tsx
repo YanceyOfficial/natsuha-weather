@@ -36,6 +36,12 @@ class Background extends Component<IBackgroundProps, {}> {
 
     return (
       <Block>
+          <Image
+          className={cs(
+            styles.full_screen_background,
+          )}
+          src={defaultPhotoUrl}
+        />
         <Image
           className={cs(
             styles.full_screen_background,

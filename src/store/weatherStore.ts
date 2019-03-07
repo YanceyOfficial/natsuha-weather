@@ -12,7 +12,7 @@ import {
 import {
   setLoadingToast,
   setToast,
-  httpClient,
+  httpClient
 } from '../utils/util';
 import {
   defaultPhotoUrl,
@@ -39,7 +39,7 @@ Promise.prototype.finally = function (callback) {
 class WeatherStore {
   construtor() {}
 
-  @observable public weatherData: IWeather = {
+  @observable.deep public weatherData: IWeather = {
     location: {
       countryName: 'Loading...',
       displayName: 'Loading...',
@@ -134,24 +134,6 @@ class WeatherStore {
   // 检索（或历史记录）列表
   @observable public regionList: IRegion[] = [];
 
-  constructor() {}
-
-  public getStorage = () => {
-    Taro.getStorageInfo().then(res => {
-      this.regionList = [];
-      res.keys.forEach(key =>
-        Taro.getStorage({
-          key: key,
-        }).then(res => {
-          this.regionList.push({
-            woeid: parseInt(key, 10),
-            qualifiedName: res.data,
-          });
-        }),
-      );
-    });
-  };
-
   // 华氏|摄氏温度换算
   @action
   public handleTemperatureTypeChange = (type: boolean) => {
@@ -207,13 +189,14 @@ class WeatherStore {
 
   @action
   public showSearchDialog = () => {
-    if (!this.showSearch) {
-      this.regionList = [];
-      Taro.getStorageInfo().then(() => {
-        this.getStorage();
-      });
-      this.showSearch = true;
-    }
+    this.getStorage();
+    this.showSearch = true;
+  };
+
+  @action
+  public hideSearchDialog = () => {
+    this.isSearching = false;
+    this.showSearch = false;
   };
 
   @action
@@ -238,12 +221,6 @@ class WeatherStore {
   };
 
   @action
-  public hideSearch = () => {
-    this.isSearching = false;
-    this.showSearch = false;
-  };
-
-  @action
   public deleteHistoryItemByWoeid = (woeid: string) => {
     Taro.removeStorage({
       key: woeid.toString(),
@@ -258,7 +235,8 @@ class WeatherStore {
     httpClient('getWeatherById', {
         woeid: this.curWoeid,
         lang: this.systemLanguage,
-      }).then(res => {
+      })
+      .then(res => {
         runInAction(() => {
           this.isFahrenheit = true;
           const weatherResult = (res as any).weatherResult;
@@ -268,7 +246,8 @@ class WeatherStore {
           this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
           setLoadingToast(false);
         });
-      }).catch(() => {
+      })
+      .catch(() => {
         setToast(toastTxt.deleteHistoryFail);
       })
       .finally(() => {
@@ -355,7 +334,25 @@ class WeatherStore {
       }
     });
   };
+
+  // 获取历史城市列表
+  public getStorage = () => {
+    this.regionList = [];
+    Taro.getStorageInfo().then(res => {
+      res.keys.forEach(key =>
+        Taro.getStorage({
+          key,
+        }).then(res => {
+          this.regionList.push({
+            woeid: parseInt(key, 10),
+            qualifiedName: res.data,
+          });
+        }),
+      );
+    });
+  };
 }
+
 
 const weatherStore = new WeatherStore();
 

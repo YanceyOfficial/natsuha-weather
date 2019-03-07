@@ -19,7 +19,7 @@ export interface IWeatherProps {
     showSearchDialog: Function;
     handleInputTextChange: Function;
     handleSelectRegionChange: Function;
-    hideSearch: Function;
+    hideSearchDialog: Function;
     deleteHistoryItemByWoeid: Function;
   };
 }
@@ -57,9 +57,9 @@ interface IPrecipitation {
 }
 
 interface IPhoto {
-  dayOrNight ? : string;
-  id ? : string;
-  owner ? : string;
+  dayOrNight?: string;
+  id?: string;
+  owner?: string;
   ownerName: string;
   resolutions: IResolution[];
 }
@@ -85,11 +85,11 @@ interface IDayPartText {
 interface ILocation {
   countryName: string;
   displayName: string;
-  latitude ? : number;
-  longitude ? : number;
-  offsetSecs ? : number;
-  photoWoeid ? : number;
-  woeid ? : number;
+  latitude?: number;
+  longitude?: number;
+  offsetSecs?: number;
+  photoWoeid?: number;
+  woeid?: number;
 }
 
 interface IForecasts {
@@ -107,10 +107,10 @@ interface ICondition {
   dayPartTexts: IDayPartText[];
   humidity: number;
   localTime: {
-    day ? : number;
-    hour ? : number;
+    day?: number;
+    hour?: number;
     timestamp: string;
-    weekday ? : number;
+    weekday?: number;
   };
   observationTime?: {
     day: number;
@@ -122,7 +122,7 @@ interface ICondition {
 }
 
 interface IWind {
-  windDirection ? : number;
+  windDirection?: number;
   windDirectionCode: string;
   windSpeed: number;
 }
