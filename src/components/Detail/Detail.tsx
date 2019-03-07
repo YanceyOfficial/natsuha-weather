@@ -13,9 +13,9 @@ class Detail extends Component<IWeatherProps, {}> {
   render() {
     const {
       weatherStore: {
-        curSkyCode,
         weatherData: {
           observation: {
+            conditionCode,
             temperature,
             visibility,
             uvIndex,
@@ -24,7 +24,8 @@ class Detail extends Component<IWeatherProps, {}> {
             humidity
           }
         },
-        isF
+        isF,
+        metaData,
       }
     } = this.props;
 
@@ -39,7 +40,7 @@ class Detail extends Component<IWeatherProps, {}> {
         <View className={styles.detail_content_container}>
           <Image
             className={styles.icon}
-            src={getImageUrl('Temperature', curSkyCode)}
+            src={getImageUrl('Temperature', metaData.skycode[conditionCode])}
           />
           <View className={styles.content_groups}>
             <View className={styles.content_group}>

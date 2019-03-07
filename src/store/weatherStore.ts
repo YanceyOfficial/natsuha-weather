@@ -3,34 +3,28 @@ import {
   runInAction,
   action,
 } from 'mobx';
-
-import _ from 'lodash';
-
 import Taro from '@tarojs/taro';
-
-import {
-  IMeta,
-  IWeather
-} from '../types/weather';
-
-import IRegion from '../types/region';
-
+import _ from 'lodash';
 import {
   convertCelsiusFahrenheit,
   convertKmMiles,
   convertMillibarsInches
 } from '../utils/convert';
-
 import {
   setLoadingToast,
   setToast,
 } from '../utils/util';
-
 import {
   defaultPhotoUrl,
   toastTxt,
 } from '../constants/constants';
+import {
+  IMeta,
+  IWeather
+} from '../types/weather';
+import IRegion from '../types/region';
 
+// 让Taro的Prosise支持finally
 Promise.prototype.finally = function (callback) {
   let P = this.constructor;
   return this.then(value => P.resolve(callback && callback()).then(() => value), reason => P.resolve(callback && callback()).then(() => {
@@ -42,6 +36,7 @@ class WeatherStore {
   construtor() {
     this.getRegion = _.debounce(this.getRegion, 150);
   }
+
   @observable public weatherData: IWeather = {};
 
   @observable public metaData: IMeta = {
@@ -49,13 +44,9 @@ class WeatherStore {
     skycode: {},
   }
 
-  @observable public curSkyCode = 'clear_day';
-
   @observable public curWoeid = '';
 
   @observable public isF = true;
-
-  @observable public fFlag = false;
 
   @observable public systemLanguage = '';
 
@@ -82,7 +73,7 @@ class WeatherStore {
       },
       observation: {
         conditionDescription: 'Sunny',
-        conditionCode: 0,
+        conditionCode: 32,
         localTime: {
           timestamp: (new Date()).toString(),
         },
@@ -135,12 +126,12 @@ class WeatherStore {
     };
     this.metaData = {
       conditionMap: {},
-      skycode: {},
+      skycode: {
+        32: 'clear_day'
+      },
     };
-    this.curSkyCode = 'clear_day';
     this.isF = true;
     this.backgroudImageUrl = defaultPhotoUrl;
-    this.fFlag = false;
     this.systemLanguage = '';
     this.widthBackgroudImageUrl = '';
     this.showModal = false;
@@ -170,25 +161,21 @@ class WeatherStore {
     this.isF = type;
     const observation = this.weatherData.observation;
     const forecasts = this.weatherData.forecasts;
+    observation.temperature.feelsLike = convertCelsiusFahrenheit(this.isF, observation.temperature.feelsLike);
+    observation.temperature.now = convertCelsiusFahrenheit(this.isF, observation.temperature.now);
+    observation.temperature.low = convertCelsiusFahrenheit(this.isF, observation.temperature.low);
+    observation.temperature.high = convertCelsiusFahrenheit(this.isF, observation.temperature.high);
+    observation.visibility = convertKmMiles(this.isF, observation.visibility);
+    observation.windSpeed = convertKmMiles(this.isF, observation.windSpeed);
+    observation.barometricPressure = convertMillibarsInches(this.isF, observation.barometricPressure);
+    forecasts.daily.forEach(value => {
+      value.temperature.low = convertCelsiusFahrenheit(this.isF, value.temperature.low);
+      value.temperature.high = convertCelsiusFahrenheit(this.isF, value.temperature.high);
+    });
 
-    if (this.fFlag === this.isF) {
-      this.fFlag = !this.isF;
-      observation.temperature.feelsLike = convertCelsiusFahrenheit(this.isF, observation.temperature.feelsLike);
-      observation.temperature.now = convertCelsiusFahrenheit(this.isF, observation.temperature.now);
-      observation.temperature.low = convertCelsiusFahrenheit(this.isF, observation.temperature.low);
-      observation.temperature.high = convertCelsiusFahrenheit(this.isF, observation.temperature.high);
-      observation.visibility = convertKmMiles(this.isF, observation.visibility);
-      observation.windSpeed = convertKmMiles(this.isF, observation.windSpeed);
-      observation.barometricPressure = convertMillibarsInches(this.isF, observation.barometricPressure);
-      forecasts.daily.forEach(value => {
-        value.temperature.low = convertCelsiusFahrenheit(this.isF, value.temperature.low);
-        value.temperature.high = convertCelsiusFahrenheit(this.isF, value.temperature.high);
-      });
-
-      forecasts.hourly.forEach(value => {
-        value.temperature.now = convertCelsiusFahrenheit(this.isF, value.temperature.now);
-      });
-    }
+    forecasts.hourly.forEach(value => {
+      value.temperature.now = convertCelsiusFahrenheit(this.isF, value.temperature.now);
+    });
   }
 
   @action
@@ -208,6 +195,9 @@ class WeatherStore {
     this.getRegion(e.target.value);
   }
 
+  /*
+   * @BUG 假设当前是北京，在选择了天津后，如果获取天津的天气失败，curWoeid不应该被设置成天津的
+   */
   @action
   public handleSelectRegionChange = (woeid: string, qualifiedName: string) => {
     this.curWoeid = woeid;
@@ -247,11 +237,9 @@ class WeatherStore {
     }).then((res: any) => {
       runInAction(() => {
         this.isF = true;
-        this.fFlag = false;
         const weatherResult = res.result.weatherResult;
         this.weatherData = weatherResult.weathers[0];
         this.metaData = weatherResult.meta;
-        this.curSkyCode = this.metaData.skycode[this.weatherData.observation.conditionCode];
         this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
         this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
         setLoadingToast(false);

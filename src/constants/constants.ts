@@ -10,7 +10,6 @@ export const moonPhases = {
 }
 
 export const toastTxt = {
-  userLocationDescription: '現在の位置情報を利用します。よろしいですか？',
   deleteHistorySuccess: '削除しました',
   weatherLoading: '天気情報取得中...',
   deleteHistoryFail: '天気情報の取得に失敗しました',

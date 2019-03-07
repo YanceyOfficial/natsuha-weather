@@ -1,7 +1,6 @@
 import Taro, { Component, Config } from '@tarojs/taro';
 import { Provider } from '@tarojs/mobx';
 import Index from './pages/index';
-import { toastTxt } from './constants/constants';
 import weatherStore from './store/weatherStore';
 
 const store = {
@@ -22,9 +21,10 @@ class App extends Component {
       enablePullDownRefresh: true,
     },
     // 使用位置、用户信息等要添加权限描述
+    // 而且还不能引用，只能写纯字符串，md
     permission: {
       'scope.userLocation': {
-        desc: toastTxt.userLocationDescription,
+        desc: '現在の位置情報を利用します。よろしいですか？',
       },
     },
   };

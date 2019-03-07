@@ -12,11 +12,23 @@
 
     .temperature_type {
       display: inline-block;
-      font-size: 44px;
-      font-weight: 200;
 
       .temperature_type_btn {
+
+        font-size: 44px;
+        font-weight: 200;
         padding: 12px;
+        background: transparent;
+        border: none;
+        border-radius: none;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        color: $white;
+
+        &::after {
+          border: none;
+        }
       }
     }
 
@@ -145,7 +157,7 @@
   }
 
   .is_not_f {
-    color: $gray;
+    color: $gray !important;
   }
 
 }

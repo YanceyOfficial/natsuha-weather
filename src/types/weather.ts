@@ -2,7 +2,6 @@ import IRegion from './region';
 export interface IWeatherProps {
   weatherStore: {
     weatherData: IWeather;
-    curSkyCode: string;
     metaData: IMeta;
     isF: boolean;
     backgroudImageUrl: string;

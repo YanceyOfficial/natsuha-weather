@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text } from '@tarojs/components';
+import { View, Image, Text, Button } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import cs from 'classnames';
 import { IWeatherProps } from '../../types/weather';
@@ -17,10 +17,10 @@ class Summary extends Component<IWeatherProps, {}> {
     const {
       weatherStore: {
         weatherData,
-        curSkyCode,
         handleTemperatureType,
         handleSearchChange,
         isF,
+        metaData,
       },
     } = this.props;
 
@@ -55,7 +55,8 @@ class Summary extends Component<IWeatherProps, {}> {
           <View className={styles.condition_summary}>
             <Image
               className={styles.condition_icon}
-              src={getImageUrl('Temperature', curSkyCode)}
+              src={getImageUrl('Temperature', metaData.skycode[weatherData.observation.conditionCode])}
+
             />
             <Text className={styles.condition_txt}>
               {weatherData.observation.conditionDescription}
@@ -82,24 +83,26 @@ class Summary extends Component<IWeatherProps, {}> {
             </Text>
             <Text className={styles.cur_temperature_symbol}>°</Text>
             <View className={styles.temperature_type}>
-              <View
+              <Button
                 className={cs(
                   styles.temperature_type_btn,
                   !isF ? styles.is_not_f : '',
                 )}
+                disabled={isF}
                 onClick={() => handleTemperatureType(true)}
               >
                 F
-              </View>
-              <View
+              </Button>
+              <Button
                 className={cs(
                   styles.temperature_type_btn,
                   isF ? styles.is_not_f : '',
                 )}
+                disabled={!isF}
                 onClick={() => handleTemperatureType(false)}
               >
                 C
-              </View>
+              </Button>
             </View>
           </View>
           <View className={styles.flickr_info}>
