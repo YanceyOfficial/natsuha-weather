@@ -10,14 +10,13 @@ import {
 /**
  * Package the common toast component
  *
- * @param {String} title Current wind speed amount
- * @param {String} icon Current wind speed amount
- * @param {Boolean} mask Current wind speed amount
- * @param {Number} duration Current wind speed amount
- * @param {String} iamge Current wind speed amount
- * @returns {String} Returns the first letter capitalize string.
+ * @param {String} title The content of toast
+ * @param {String} icon The icon of toast
+ * @param {Boolean} mask Show or hide a mask
+ * @param {Number} duration The display duration of toast
+ * @returns {Any} Returns to show a toast
  */
-export const setToast = (title = '', icon = 'none', mask = true, duration = 1500) => {
+export const setToast = (title: string = '', icon: string = 'none', mask: boolean = true, duration: number = 1500): any => {
   return Taro.showToast({
     title,
     icon,
@@ -29,10 +28,10 @@ export const setToast = (title = '', icon = 'none', mask = true, duration = 1500
 /**
  * Package the loading toast component
  *
- * @param {Boolean} showLoadingToast Judge whether toast is turned on or off
- * @param {String} title Current wind speed amount
- * @param {Boolean} mask Current wind speed amount
- * @returns {String} Returns the first letter capitalize string.
+ * @param {Boolean} showLoadingToast Show or hide a toast
+ * @param {String} title The content of toast
+ * @param {Boolean} mask Show or hide a mask
+ * @returns {Any} Returns to show or hide a loading toast
  */
 export const setLoadingToast = (showLoadingToast: boolean, title: string = 'Loading...', mask: boolean = true): void | any => {
   if (showLoadingToast) {
@@ -45,11 +44,23 @@ export const setLoadingToast = (showLoadingToast: boolean, title: string = 'Load
   }
 }
 
+/**
+ * Format a JSON date
+ *
+ * @param {String} title JSON date string
+ * @returns {String} Returns the formatted date string.
+ */
 export const formatJSONDate = (jsonDate: string): string =>
   new Date(+new Date(new Date(jsonDate).toJSON()) + 8 * 3600 * 1000).toISOString()
   .replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
 
-export const hourTo12 = date => {
+/**
+ * Format UTC date
+ *
+ * @param {String} title JSON date string
+ * @returns {String} Returns the formatted UTC date string.
+ */
+export const hourTo12 = (date: string): string => {
   const oDate = new Date(date)
   const month = oDate.getUTCMonth() + 1
   const day = oDate.getUTCDate()
@@ -62,6 +73,12 @@ export const hourTo12 = date => {
   }
 }
 
+/**
+ * Format time
+ *
+ * @param {String} title Timestamp
+ * @returns {String} Returns the formatted time string.
+ */
 export const hourTo12Lite = (hour: number) => {
   if (hour > 12) {
     return `${hour -12} PM`

@@ -16,9 +16,12 @@ class App extends Component {
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'Natsuha',
       navigationBarTextStyle: 'black',
+      // 设为'custom'可去掉小程序默认header
       navigationStyle: 'custom',
+      // 支持下拉刷新
       enablePullDownRefresh: true,
     },
+    // 使用位置、用户信息等要添加权限描述
     permission: {
       'scope.userLocation': {
         desc: toastTxt.userLocationDescription,
