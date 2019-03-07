@@ -99,7 +99,9 @@ class WeatherStore {
 
   @observable public metaData: IMeta = {
     conditionMap: {},
-    skycode: {},
+    skycode: {
+      32: 'clear_day',
+    },
   };
 
   // 当前显示的城市的id
@@ -112,7 +114,7 @@ class WeatherStore {
   @observable public systemLanguage = '';
 
   // 背景图url
-  @observable public backgroudImageUrl = '';
+  @observable public backgroudImageUrl = defaultPhotoUrl;
 
   // 背景图的宽图形式 用于分享
   @observable public widthBackgroudImageUrl = '';
@@ -132,81 +134,7 @@ class WeatherStore {
   // 检索（或历史记录）列表
   @observable public regionList: IRegion[] = [];
 
-  constructor() {
-    this.weatherData = {
-      location: {
-        countryName: 'Loading...',
-        displayName: 'Loading...',
-      },
-      observation: {
-        conditionDescription: 'Sunny',
-        conditionCode: 32,
-        localTime: {
-          timestamp: new Date().toString(),
-        },
-        temperature: {
-          now: 0,
-          high: 0,
-          low: 0,
-          feelsLike: 0,
-        },
-        visibility: 0,
-        uvIndex: 1,
-        uvDescription: 'low',
-        humidity: 100,
-        dayPartTexts: [],
-        windSpeed: 0,
-        windDirectionCode: 'South South East',
-        barometricPressure: 0,
-      },
-      precipitations: [{
-          timeSlot: 'MORNING',
-          probability: 0,
-        },
-        {
-          timeSlot: 'AFTERNOON',
-          probability: 0,
-        },
-        {
-          timeSlot: 'EVENING',
-          probability: 0,
-        },
-        {
-          timeSlot: 'NIGHT',
-          probability: 0,
-        },
-      ],
-      sunAndMoon: {
-        sunrise: 0,
-        sunset: 0,
-        moonPhase: 1,
-      },
-      forecasts: {
-        daily: [],
-        hourly: [],
-      },
-      photos: [{
-        ownerName: '',
-        resolutions: [],
-      }, ],
-    };
-    this.metaData = {
-      conditionMap: {},
-      skycode: {
-        32: 'clear_day',
-      },
-    };
-    this.isFahrenheit = true;
-    this.backgroudImageUrl = defaultPhotoUrl;
-    this.systemLanguage = '';
-    this.widthBackgroudImageUrl = '';
-    this.showModal = false;
-    this.showSearch = false;
-    this.inputText = '';
-    this.regionList = [];
-    this.curWoeid = '';
-    this.isSearching = false;
-  }
+  constructor() {}
 
   public getStorage = () => {
     Taro.getStorageInfo().then(res => {
