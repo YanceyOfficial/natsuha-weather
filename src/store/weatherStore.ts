@@ -327,11 +327,14 @@ class WeatherStore {
     wx.cloud.callFunction({
         name: 'getRegion',
         data: {
-          region: text,
+          region: encodeURI(text),
         },
       }).then((res: any) => {
         runInAction(() => {
-          this.regionList = res.result.regionList;
+          if (!res.result.statesCode) {
+            this.regionList = res.result.regionList;
+          }
+
         })
       })
       .catch(() => {
