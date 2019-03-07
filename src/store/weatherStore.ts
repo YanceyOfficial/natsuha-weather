@@ -263,7 +263,7 @@ class WeatherStore {
   }
 
   public getWoeid = (lat: number, lon: number) => {
-    setLoadingToast(true, '现在地取得中...');
+    setLoadingToast(true, '現在地取得中...');
     wx.cloud.callFunction({
         name: 'getWoeid',
         data: {

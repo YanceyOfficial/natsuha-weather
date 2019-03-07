@@ -16,16 +16,30 @@ interface IBackgroundProps {
   };
 }
 
+interface IBackgroundStates {
+  loaded: boolean;
+}
+
 @inject('weatherStore')
 @observer
-class Background extends Component<IBackgroundProps, {}> {
+class Background extends Component<IBackgroundProps, IBackgroundStates> {
   constructor(props: any) {
     super(props);
-    this.state = {};
+    this.state = {
+      loaded: false,
+    };
   }
   public onError = () => {
-    setToast('画像のロードに失敗しました', 'none');
+    setToast('画像のロードに失敗しました');
     this.props.weatherStore.backgroudImageUrl = defaultPhotoUrl;
+  };
+
+  public onLoad = () => {
+    if (!this.state.loaded) {
+      this.setState({
+        loaded: true,
+      });
+    }
   };
 
   render() {
@@ -33,19 +47,25 @@ class Background extends Component<IBackgroundProps, {}> {
       weatherStore: { backgroudImageUrl },
       needBlur,
     } = this.props;
+
+    const { loaded } = this.state;
+
     return (
       <Block>
         <Image
           className={cs(
             styles.full_screen_background,
+            loaded ? styles.animate : '',
           )}
           src={backgroudImageUrl}
           onError={() => this.onError()}
+          onLoad={() => this.onLoad()}
         />
         <Image
           className={cs(
             styles.full_screen_background,
             needBlur ? styles.background_blur : '',
+            loaded ? styles.animate : '',
           )}
           src={backgroudImageUrl}
         />
