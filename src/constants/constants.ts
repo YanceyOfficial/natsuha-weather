@@ -19,7 +19,7 @@ export const toastTxt = {
   languageFail: 'システム言語の取得に失敗しました',
   coordinatesFail: '地理座標の取得に失敗しました',
   imageFail: '画像のロードに失敗しました',
-
+  authorizeRequest: 'モバイすの設定で位置情報サービスをオンにしてください',
 }
 
 export const defaultPhotoUrl = 'https://yancey-assets.oss-cn-beijing.aliyuncs.com/defaultImage.jpg';

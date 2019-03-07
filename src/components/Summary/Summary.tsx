@@ -17,9 +17,9 @@ class Summary extends Component<IWeatherProps, {}> {
     const {
       weatherStore: {
         weatherData,
-        handleTemperatureType,
+        handleTemperatureTypeChange,
         handleSearchChange,
-        isF,
+        isFahrenheit,
         metaData,
       },
     } = this.props;
@@ -55,8 +55,10 @@ class Summary extends Component<IWeatherProps, {}> {
           <View className={styles.condition_summary}>
             <Image
               className={styles.condition_icon}
-              src={getImageUrl('Temperature', metaData.skycode[weatherData.observation.conditionCode])}
-
+              src={getImageUrl(
+                'Temperature',
+                metaData.skycode[weatherData.observation.conditionCode],
+              )}
             />
             <Text className={styles.condition_txt}>
               {weatherData.observation.conditionDescription}
@@ -86,20 +88,20 @@ class Summary extends Component<IWeatherProps, {}> {
               <Button
                 className={cs(
                   styles.temperature_type_btn,
-                  !isF ? styles.is_not_f : '',
+                  !isFahrenheit ? styles.is_not_f : '',
                 )}
-                disabled={isF}
-                onClick={() => handleTemperatureType(true)}
+                disabled={isFahrenheit}
+                onClick={() => handleTemperatureTypeChange(true)}
               >
                 F
               </Button>
               <Button
                 className={cs(
                   styles.temperature_type_btn,
-                  isF ? styles.is_not_f : '',
+                  isFahrenheit ? styles.is_not_f : '',
                 )}
-                disabled={!isF}
-                onClick={() => handleTemperatureType(false)}
+                disabled={!isFahrenheit}
+                onClick={() => handleTemperatureTypeChange(false)}
               >
                 C
               </Button>

@@ -21,22 +21,22 @@ class Detail extends Component<IWeatherProps, {}> {
             uvIndex,
             uvDescription,
             dayPartTexts,
-            humidity
-          }
+            humidity,
+          },
         },
-        isF,
+        isFahrenheit,
         metaData,
-      }
+      },
     } = this.props;
 
     const dayPartTextList = dayPartTexts.map((value, key) => (
       <Text className={styles.content_detail_txt} key={key}>
-        {upperFirstLetter(value.dayPart)}{' '}-{' '}{value.text}
+        {upperFirstLetter(value.dayPart)} - {value.text}
       </Text>
     ));
 
     return (
-      <ContentWrapper title="Details">
+      <ContentWrapper title='Details'>
         <View className={styles.detail_content_container}>
           <Image
             className={styles.icon}
@@ -54,13 +54,13 @@ class Detail extends Component<IWeatherProps, {}> {
             <View className={styles.content_group}>
               <Text>Visibility</Text>
               <Text>
-                {visibility.toFixed(2)}{' '}{isF ? 'miles' : 'km'}
+                {visibility.toFixed(2)} {isFahrenheit ? 'miles' : 'km'}
               </Text>
             </View>
             <View className={styles.content_group}>
               <Text>UV Index</Text>
               <Text>
-                {uvIndex}{' '}({uvDescription})
+                {uvIndex} ({uvDescription})
               </Text>
             </View>
           </View>

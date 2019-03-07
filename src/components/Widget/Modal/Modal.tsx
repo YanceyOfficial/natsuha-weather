@@ -19,7 +19,7 @@ class Modal extends Component<IWeatherProps, {}> {
               モバイすの設定で位置情報サービスをオンにしてください
             </Text>
             <View className={styles.button_group}>
-              <View className={cs(styles.button, styles.button_cancel)}>
+              <View className={cs(styles.button_cancel)}>
                 Cancel
               </View>
               <Button

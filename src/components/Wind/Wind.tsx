@@ -15,18 +15,18 @@ class Wind extends Component<IWeatherProps, {}> {
     const {
       weatherStore: {
         weatherData: {
-          observation: { windSpeed, windDirectionCode, barometricPressure }
+          observation: { windSpeed, windDirectionCode, barometricPressure },
         },
-        isF
-      }
+        isFahrenheit,
+      },
     } = this.props;
 
     const windSpeedFanStyle = {
-      animationDuration: `${getWindSpeed(windSpeed)}s`
+      animationDuration: `${getWindSpeed(windSpeed)}s`,
     };
 
     return (
-      <ContentWrapper title="Wind & Pressure">
+      <ContentWrapper title='Wind & Pressure'>
         <View className={styles.wind_container}>
           <View className={styles.wind_main}>
             <View className={styles.wind_graph_group}>
@@ -43,15 +43,16 @@ class Wind extends Component<IWeatherProps, {}> {
             <View className={styles.wind_info}>
               <Text className={styles.wind_txt}>Wind</Text>
               <Text className={styles.wind_txt}>
-                {windSpeed.toFixed(0)}{' '}
-                {isF ? 'mph' : 'km/h'}{' '}{windDirectFormat(windDirectionCode)}
+                {windSpeed.toFixed(0)} {isFahrenheit ? 'mph' : 'km/h'}{' '}
+                {windDirectFormat(windDirectionCode)}
               </Text>
             </View>
 
             <View className={styles.barometric_pressure}>
               <Text className={styles.wind_txt}>Barometer</Text>
               <Text className={styles.wind_txt}>
-                {barometricPressure.toFixed(1)}{' '}{isF ? 'inches' : 'millibars'}
+                {barometricPressure.toFixed(1)}{' '}
+                {isFahrenheit ? 'inches' : 'millibars'}
               </Text>
             </View>
           </View>

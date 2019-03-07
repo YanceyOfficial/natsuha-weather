@@ -3,7 +3,7 @@ export interface IWeatherProps {
   weatherStore: {
     weatherData: IWeather;
     metaData: IMeta;
-    isF: boolean;
+    isFahrenheit: boolean;
     backgroudImageUrl: string;
     widthBackgroudImageUrl: string;
     showModal: false;
@@ -15,14 +15,14 @@ export interface IWeatherProps {
     getWeatherById: Function;
     getRegion: Function;
     getPosition: Function;
-    handleTemperatureType: Function;
+    handleTemperatureTypeChange: Function;
     handleSearchChange: Function;
     handleInputTextChange: Function;
     handleSelectRegionChange: Function;
     hideSearch: Function;
     deleteHistoryItemByWoeid: Function;
   };
-};
+}
 
 export interface IMeta {
   conditionMap: {};
@@ -133,5 +133,5 @@ interface ITemperature {
     high: number;
     low: number;
     now: number;
-  }
+  };
 }
