@@ -4,7 +4,6 @@ import {
   action
 } from 'mobx';
 import Taro from '@tarojs/taro';
-import _ from 'lodash';
 import {
   convertCelsiusFahrenheit,
   convertKmMiles,
@@ -38,11 +37,65 @@ Promise.prototype.finally = function (callback) {
 };
 
 class WeatherStore {
-  construtor() {
-    this.getRegion = _.debounce(this.getRegion, 150);
-  }
+  construtor() {}
 
-  @observable public weatherData: IWeather = {};
+  @observable public weatherData: IWeather = {
+    location: {
+      countryName: 'Loading...',
+      displayName: 'Loading...',
+    },
+    observation: {
+      conditionDescription: 'Sunny',
+      conditionCode: 32,
+      localTime: {
+        timestamp: new Date().toString(),
+      },
+      temperature: {
+        now: 0,
+        high: 0,
+        low: 0,
+        feelsLike: 0,
+      },
+      visibility: 0,
+      uvIndex: 1,
+      uvDescription: 'low',
+      humidity: 100,
+      dayPartTexts: [],
+      windSpeed: 0,
+      windDirectionCode: 'South South East',
+      barometricPressure: 0,
+    },
+    precipitations: [{
+        timeSlot: 'MORNING',
+        probability: 0,
+      },
+      {
+        timeSlot: 'AFTERNOON',
+        probability: 0,
+      },
+      {
+        timeSlot: 'EVENING',
+        probability: 0,
+      },
+      {
+        timeSlot: 'NIGHT',
+        probability: 0,
+      },
+    ],
+    sunAndMoon: {
+      sunrise: 0,
+      sunset: 0,
+      moonPhase: 1,
+    },
+    forecasts: {
+      daily: [],
+      hourly: [],
+    },
+    photos: [{
+      ownerName: '',
+      resolutions: [],
+    }, ],
+  };
 
   @observable public metaData: IMeta = {
     conditionMap: {},
@@ -83,7 +136,7 @@ class WeatherStore {
     this.weatherData = {
       location: {
         countryName: 'Loading...',
-        displayName: '--',
+        displayName: 'Loading...',
       },
       observation: {
         conditionDescription: 'Sunny',
@@ -251,7 +304,7 @@ class WeatherStore {
     Taro.setStorage({
       key: woeid.toString(),
       data: qualifiedName,
-    }).then(res => {
+    }).then(() => {
       this.getWeatherById();
     });
   };
@@ -266,7 +319,7 @@ class WeatherStore {
   public deleteHistoryItemByWoeid = (woeid: string) => {
     Taro.removeStorage({
       key: woeid.toString(),
-    }).then(res => {
+    }).then(() => {
       setToast(toastTxt.deleteHistorySuccess, 'success');
       this.getStorage();
     });
@@ -280,14 +333,14 @@ class WeatherStore {
       }).then(res => {
         runInAction(() => {
           this.isFahrenheit = true;
-          const weatherResult = res.weatherResult;
+          const weatherResult = (res as any).weatherResult;
           this.weatherData = weatherResult.weathers[0];
           this.metaData = weatherResult.meta;
           this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
           this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
           setLoadingToast(false);
         });
-      }).catch((e: any) => {
+      }).catch(() => {
         setToast(toastTxt.deleteHistoryFail);
       })
       .finally(() => {
