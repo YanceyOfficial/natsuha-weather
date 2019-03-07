@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { Image, Block } from '@tarojs/components';
-import { defaultPhotoUrl } from '../../constants/constants';
+import { defaultPhotoUrl, toastTxt } from '../../constants/constants';
 import { setToast } from '../../utils/util';
 import cs from 'classnames';
 import { observer, inject } from '@tarojs/mobx';
@@ -16,30 +16,16 @@ interface IBackgroundProps {
   };
 }
 
-interface IBackgroundStates {
-  loaded: boolean;
-}
-
 @inject('weatherStore')
 @observer
-class Background extends Component<IBackgroundProps, IBackgroundStates> {
+class Background extends Component<IBackgroundProps, {}> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      loaded: false,
-    };
+    this.state = {};
   }
   public onError = () => {
-    setToast('画像のロードに失敗しました');
+    setToast(toastTxt.imageFail);
     this.props.weatherStore.backgroudImageUrl = defaultPhotoUrl;
-  };
-
-  public onLoad = () => {
-    if (!this.state.loaded) {
-      this.setState({
-        loaded: true,
-      });
-    }
   };
 
   render() {
@@ -48,24 +34,19 @@ class Background extends Component<IBackgroundProps, IBackgroundStates> {
       needBlur,
     } = this.props;
 
-    const { loaded } = this.state;
-
     return (
       <Block>
         <Image
           className={cs(
             styles.full_screen_background,
-            loaded ? styles.animate : '',
           )}
           src={backgroudImageUrl}
           onError={() => this.onError()}
-          onLoad={() => this.onLoad()}
         />
         <Image
           className={cs(
             styles.full_screen_background,
             needBlur ? styles.background_blur : '',
-            loaded ? styles.animate : '',
           )}
           src={backgroudImageUrl}
         />

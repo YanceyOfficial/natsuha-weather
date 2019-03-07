@@ -1,5 +1,3 @@
-const defaultImage = require('../assets/images/defaultImage.jpg');
-
 export const moonPhases = {
   0: 'New Moon', // 新月、朔
   1: 'Waxing Crescent', // 眉月
@@ -11,9 +9,21 @@ export const moonPhases = {
   7: 'Waning Crescent', // 虧眉月
 }
 
+export const toastTxt = {
+  userLocationDescription: '現在の位置情報を利用します。よろしいですか？',
+  deleteHistorySuccess: '削除しました',
+  weatherLoading: '天気情報取得中...',
+  deleteHistoryFail: '天気情報の取得に失敗しました',
+  locationLoading: '現在地取得中...',
+  cityFail: '都市の取得に失敗しました',
+  coordinatesLoading: '地理座標取得中...',
+  languageFail: 'システム言語の取得に失敗しました',
+  coordinatesFail: '地理座標の取得に失敗しました',
+  imageFail: '画像のロードに失敗しました',
 
+}
 
-export const defaultPhotoUrl = defaultImage;
+export const defaultPhotoUrl = 'https://yancey-assets.oss-cn-beijing.aliyuncs.com/defaultImage.jpg';
 
 export const imageBaseUrl = 'https://s.yimg.com/os/weather/1.0.1';
 

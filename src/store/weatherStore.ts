@@ -27,7 +27,8 @@ import {
 } from '../utils/util';
 
 import {
-  defaultPhotoUrl
+  defaultPhotoUrl,
+  toastTxt,
 } from '../constants/constants';
 
 Promise.prototype.finally = function (callback) {
@@ -230,13 +231,13 @@ class WeatherStore {
     Taro.removeStorage({
       key: woeid.toString()
     }).then(res => {
-      setToast('削除しました', 'success');
+      setToast(toastTxt.deleteHistorySuccess, 'success');
       this.getStorage();
     })
   }
 
   public getWeatherById = () => {
-    setLoadingToast(true, '天気情報取得中...');
+    setLoadingToast(true, toastTxt.weatherLoading);
     wx.cloud.callFunction({
       name: 'getWeatherById',
       data: {
@@ -256,14 +257,14 @@ class WeatherStore {
         setLoadingToast(false);
       })
     }).catch((e: any) => {
-      setToast('天気情報の取得に失敗しました');
+      setToast(toastTxt.deleteHistoryFail);
     }).finally(() => {
       Taro.stopPullDownRefresh();
     })
   }
 
   public getWoeid = (lat: number, lon: number) => {
-    setLoadingToast(true, '現在地取得中...');
+    setLoadingToast(true, toastTxt.locationLoading);
     wx.cloud.callFunction({
         name: 'getWoeid',
         data: {
@@ -282,7 +283,7 @@ class WeatherStore {
       })
       .catch(() => {
         setLoadingToast(false);
-        setToast('都市の取得に失敗しました');
+        setToast(toastTxt.cityFail);
       });
   }
 
@@ -290,7 +291,7 @@ class WeatherStore {
     if (this.showSearch) {
       this.showSearch = false;
     }
-    setLoadingToast(true, '地理座標取得中...');
+    setLoadingToast(true, toastTxt.coordinatesLoading);
     Taro.getLocation({
       type: 'gcj02',
     }).then(res => {
@@ -309,7 +310,7 @@ class WeatherStore {
       this.systemLanguage = res.language;
       this.getPosition();
     }).catch(() => {
-      setToast('システム言語の取得に失敗しました');
+      setToast(toastTxt.languageFail);
     })
   }
 
@@ -318,7 +319,7 @@ class WeatherStore {
       if (!res.authSetting['scope.userLocation']) {
         this.showModal = true;
       } else {
-        setToast('地理座標の取得に失敗しました');
+        setToast(toastTxt.coordinatesFail);
       }
     })
   }
@@ -338,7 +339,7 @@ class WeatherStore {
         })
       })
       .catch(() => {
-        setToast('都市の取得に失敗しました');
+        setToast(toastTxt.cityFail);
       });
   }
 }

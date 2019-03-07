@@ -1,18 +1,16 @@
 import Taro, { Component, Config } from '@tarojs/taro';
 import { Provider } from '@tarojs/mobx';
 import Index from './pages/index';
-
+import { toastTxt } from './constants/constants';
 import weatherStore from './store/weatherStore';
 
 const store = {
-  weatherStore
-}
+  weatherStore,
+};
 
 class App extends Component {
   config: Config = {
-    pages: [
-      'pages/index/index'
-    ],
+    pages: ['pages/index/index'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
@@ -23,18 +21,18 @@ class App extends Component {
     },
     permission: {
       'scope.userLocation': {
-        desc: '現在の位置情報を利用します。よろしいですか？',
-      }
-    }
-  }
+        desc: toastTxt.userLocationDescription,
+      },
+    },
+  };
 
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <Index />
       </Provider>
-    )
+    );
   }
 }
 
-Taro.render(<App />, document.getElementById('app'))
+Taro.render(<App />, document.getElementById('app'));
