@@ -321,6 +321,7 @@ class WeatherStore {
         this.showModal = true;
       } else {
         this.showModal = false;
+        this.getPosition();
         setToast(toastTxt.coordinatesFail);
       }
     });
