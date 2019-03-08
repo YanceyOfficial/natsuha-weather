@@ -21,32 +21,28 @@ class Summary extends Component<IWeatherProps, {}> {
         showSearchDialog,
         isFahrenheit,
         metaData,
+        curCityName,
+        curCountryName,
       },
-
     } = this.props;
 
     const ownerName =
       weatherData.photos[0].resolutions.length !== 0
         ? weatherData.photos[0].ownerName
         : 'Yancey';
-        
+
     return (
       <View className={styles.summary_wrapper}>
         <View className={styles.region_summary}>
           <View className={styles.header}>
-            <Text className={styles.city}>
-              {weatherData.location.displayName}
-            </Text>
+            <Text className={styles.city}>{curCityName}</Text>
             <Image
               className={styles.location_icon}
               src={location_yellow}
               onClick={() => showSearchDialog()}
             />
           </View>
-
-          <Text className={styles.country}>
-            {weatherData.location.countryName}
-          </Text>
+          <Text className={styles.country}>{curCountryName}</Text>
           <Text className={styles.cur_time}>
             {hourTo12(weatherData.observation.localTime.timestamp)}
           </Text>

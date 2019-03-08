@@ -3,12 +3,15 @@ export interface IWeatherProps {
   weatherStore: {
     weatherData: IWeather;
     metaData: IMeta;
+    curWoid: string;
+    curCountryName: string;
+    curCityName: string;
     isFahrenheit: boolean;
     backgroudImageUrl: string;
     widthBackgroudImageUrl: string;
-    showModal: false;
-    showSearch: false;
-    isSearching: false;
+    showModal: boolean;
+    showSearch: boolean;
+    isSearching: boolean;
     inputText: string;
     regionList: IRegion[];
     getLanguage: Function;

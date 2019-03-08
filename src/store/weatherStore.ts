@@ -41,8 +41,8 @@ class WeatherStore {
 
   @observable.deep public weatherData: IWeather = {
     location: {
-      countryName: 'Loading...',
-      displayName: 'Loading...',
+      countryName: '',
+      displayName: '',
     },
     observation: {
       conditionDescription: 'Sunny',
@@ -104,8 +104,14 @@ class WeatherStore {
     },
   };
 
-  // 当前显示的城市的id
+  // 当前城市的id
   @observable public curWoeid = '';
+
+  // 当前城市所属国家
+  @observable public curCountryName = '--';
+
+  // 当前城市名
+  @observable public curCityName = '--';
 
   // 华式温度 or 摄氏温度
   @observable public isFahrenheit = true;
@@ -242,6 +248,8 @@ class WeatherStore {
           const weatherResult = (res as any).weatherResult;
           this.weatherData = weatherResult.weathers[0];
           this.metaData = weatherResult.meta;
+          this.curCountryName = this.weatherData.location.countryName;
+          this.curCityName = this.weatherData.location.displayName;
           this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
           this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
           setLoadingToast(false);
@@ -267,8 +275,8 @@ class WeatherStore {
         runInAction(() => {
           const location = JSON.parse(res).location;
           this.curWoeid = location.woeid;
-          this.weatherData.location.countryName = location.country;
-          this.weatherData.location.displayName = location.region;
+          this.curCountryName = location.country;
+          this.curCityName = location.region;
           this.getWeatherById();
         });
       })
@@ -352,7 +360,6 @@ class WeatherStore {
     });
   };
 }
-
 
 const weatherStore = new WeatherStore();
 
