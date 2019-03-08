@@ -38,7 +38,8 @@
     "lodash": "^4.17.11",
     "mobx": "^5.9.0",
     "nerv-devtools": "^1.3.9",
-    "nervjs": "^1.3.9"
+    "nervjs": "^1.3.9",
+    "react-dom": "^16.8.4"
   },
   "devDependencies": {
     "@tarojs/plugin-babel": "1.2.12",

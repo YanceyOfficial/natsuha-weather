@@ -7,9 +7,9 @@
   object-fit: cover;
   filter: blur(0);
   z-index: -1;
+
   transition: 350ms all linear;
 }
-
 .background_blur {
   filter: blur(7px);
   overflow: hidden;

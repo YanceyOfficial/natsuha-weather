@@ -12,19 +12,35 @@
 
     .temperature_type {
       display: inline-block;
-      font-size: 44px;
-      font-weight: 200;
+      margin-left: 20px;
 
       .temperature_type_btn {
+        font-size: 44px;
+        font-weight: 200;
         padding: 12px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        color: $white;
+
+        &::after {
+          border: none;
+        }
       }
     }
 
     .condition_summary {
-      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
     }
 
     .condition_icon {
+      position: relative;
+      top: -4px;
       width: 64px;
       height: 64px;
     }
@@ -61,7 +77,6 @@
     .cur_temperature {
       display: inline-block;
       margin-left: 10px;
-      width: 240px;
       font-size: 220px;
       font-weight: 100;
       line-height: 1;
@@ -69,7 +84,8 @@
 
     .cur_temperature_symbol {
       display: inline-block;
-      font-size: 160rpx;
+      font-size: 158px;
+      line-height: 158px;
       font-weight: 100;
       vertical-align: top;
     }
@@ -101,6 +117,7 @@
 
   .header {
     display: flex;
+    align-items: center;
   }
 
   .region_summary {
@@ -108,8 +125,6 @@
     margin-left: 20px;
 
     .location_icon {
-      position: relative;
-      top: 4px;
       margin-left: 20px;
       width: 70px;
       height: 70px;
@@ -141,7 +156,7 @@
   }
 
   .is_not_f {
-    color: $gray;
+    color: $gray !important;
   }
 
 }

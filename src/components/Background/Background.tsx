@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { Image, Block } from '@tarojs/components';
-import { defaultPhotoUrl } from '../../constants/constants';
+import { defaultPhotoUrl, toastTxt } from '../../constants/constants';
 import { setToast } from '../../utils/util';
 import cs from 'classnames';
 import { observer, inject } from '@tarojs/mobx';
@@ -24,7 +24,7 @@ class Background extends Component<IBackgroundProps, {}> {
     this.state = {};
   }
   public onError = () => {
-    setToast('图片加载失败', 'none');
+    setToast(toastTxt.imageFail);
     this.props.weatherStore.backgroudImageUrl = defaultPhotoUrl;
   };
 
@@ -33,8 +33,15 @@ class Background extends Component<IBackgroundProps, {}> {
       weatherStore: { backgroudImageUrl },
       needBlur,
     } = this.props;
+
     return (
       <Block>
+          <Image
+          className={cs(
+            styles.full_screen_background,
+          )}
+          src={defaultPhotoUrl}
+        />
         <Image
           className={cs(
             styles.full_screen_background,

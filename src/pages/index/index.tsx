@@ -11,8 +11,8 @@ import Wind from '../../components/Wind/Wind';
 import Forecast from '../../components/Forecast/Forecast';
 import Background from '../../components/Background/Background';
 import Precipitation from '../../components/Precipitation/Precipitation';
-import Modal from '../../components/Modal/Modal';
 import Search from '../../components/Search/Search';
+import Modal from '../../components/Widget/Modal/Modal';
 
 import './index.scss';
 
@@ -33,30 +33,29 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     navigationBarTitleText: '夏葉',
   };
 
-  componentWillMount() {
-    wx.cloud.init();
-  }
-
-  // componentDidShow(){
-  //   const { weatherStore } = this.props;
-  //   weatherStore.getLanguage();
-  // }
-
-  componentDidMount() {
+  componentDidShow() {
     const { weatherStore } = this.props;
     weatherStore.getLanguage();
   }
 
+  componentWillMount() {
+    wx.cloud.init();
+  }
+
+
   public onPullDownRefresh = () => {
-    const { weatherStore } = this.props;
-    weatherStore.getWeatherById();
+    const {
+      weatherStore: { curWoeid, getWeatherById, getPosition },
+    } = this.props;
+    if (curWoeid) {
+      getWeatherById(curWoeid);
+    } else {
+      getPosition();
+    }
   };
 
-  public onShareAppMessage = res => {
+  public onShareAppMessage = () => {
     const { widthBackgroudImageUrl } = this.props.weatherStore;
-    if (res.from === 'button') {
-      // todo
-    }
     return {
       title: 'Natsuha Weather',
       path: '/pages/index/index',

@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text } from '@tarojs/components';
+import { View, Image, Text, Button } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import cs from 'classnames';
 import { IWeatherProps } from '../../types/weather';
@@ -17,10 +17,12 @@ class Summary extends Component<IWeatherProps, {}> {
     const {
       weatherStore: {
         weatherData,
-        curSkyCode,
-        handleTemperatureType,
-        handleSearchChange,
-        isF,
+        handleTemperatureTypeChange,
+        showSearchDialog,
+        isFahrenheit,
+        metaData,
+        curCityName,
+        curCountryName,
       },
     } = this.props;
 
@@ -33,19 +35,14 @@ class Summary extends Component<IWeatherProps, {}> {
       <View className={styles.summary_wrapper}>
         <View className={styles.region_summary}>
           <View className={styles.header}>
-            <Text className={styles.city}>
-              {weatherData.location.displayName}
-            </Text>
+            <Text className={styles.city}>{curCityName}</Text>
             <Image
               className={styles.location_icon}
               src={location_yellow}
-              onClick={() => handleSearchChange()}
+              onClick={() => showSearchDialog()}
             />
           </View>
-
-          <Text className={styles.country}>
-            {weatherData.location.countryName}
-          </Text>
+          <Text className={styles.country}>{curCountryName}</Text>
           <Text className={styles.cur_time}>
             {hourTo12(weatherData.observation.localTime.timestamp)}
           </Text>
@@ -55,7 +52,10 @@ class Summary extends Component<IWeatherProps, {}> {
           <View className={styles.condition_summary}>
             <Image
               className={styles.condition_icon}
-              src={getImageUrl('Temperature', curSkyCode)}
+              src={getImageUrl(
+                'Temperature',
+                metaData.skycode[weatherData.observation.conditionCode],
+              )}
             />
             <Text className={styles.condition_txt}>
               {weatherData.observation.conditionDescription}
@@ -82,24 +82,26 @@ class Summary extends Component<IWeatherProps, {}> {
             </Text>
             <Text className={styles.cur_temperature_symbol}>°</Text>
             <View className={styles.temperature_type}>
-              <View
+              <Button
                 className={cs(
                   styles.temperature_type_btn,
-                  !isF ? styles.is_not_f : '',
+                  !isFahrenheit ? styles.is_not_f : '',
                 )}
-                onClick={() => handleTemperatureType(true)}
+                disabled={isFahrenheit}
+                onClick={() => handleTemperatureTypeChange(true)}
               >
                 F
-              </View>
-              <View
+              </Button>
+              <Button
                 className={cs(
                   styles.temperature_type_btn,
-                  isF ? styles.is_not_f : '',
+                  isFahrenheit ? styles.is_not_f : '',
                 )}
-                onClick={() => handleTemperatureType(false)}
+                disabled={!isFahrenheit}
+                onClick={() => handleTemperatureTypeChange(false)}
               >
                 C
-              </View>
+              </Button>
             </View>
           </View>
           <View className={styles.flickr_info}>

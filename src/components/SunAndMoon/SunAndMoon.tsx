@@ -4,7 +4,11 @@ import { View, Text, Image } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
-import { formatSunRiseAndSetDate, getImageUrl, sunPosition } from '../../utils/util';
+import {
+  formatSunRiseAndSetDate,
+  getImageUrl,
+  sunPosition,
+} from '../../utils/util';
 import { moonPhases } from '../../constants/constants';
 const styles = require('./SunAndMoon.module.scss');
 
@@ -15,9 +19,9 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
     const {
       weatherStore: {
         weatherData: {
-          sunAndMoon: { sunrise, sunset, moonPhase }
-        }
-      }
+          sunAndMoon: { sunrise, sunset, moonPhase },
+        },
+      },
     } = this.props;
 
     const sunIconPosition = sunPosition('sun', sunrise, sunset);
@@ -25,11 +29,11 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
 
     const sunIconStyle = {
       transform: `rotate(${sunIconPosition}deg)`,
-      display: `${sunIconPosition === 0 ? 'none' : 'block'}`
+      display: `${sunIconPosition === 0 ? 'none' : 'block'}`,
     };
 
     const illuminationStyle = {
-      width: `${illuminationPosition}px`
+      width: `${illuminationPosition}px`,
     };
 
     return (
@@ -57,8 +61,12 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
               </View>
             </View>
             <View className={styles.sunrise_sunset_txt}>
-              <Text className={styles.sunrise}>{formatSunRiseAndSetDate(sunrise)}{' '}AM</Text>
-              <Text className={styles.sunset}>{formatSunRiseAndSetDate(sunset)}{' '}PM</Text>
+              <Text className={styles.sunrise}>
+                {formatSunRiseAndSetDate(sunrise)}{' '}AM
+              </Text>
+              <Text className={styles.sunset}>
+                {formatSunRiseAndSetDate(sunset)}{' '}PM
+              </Text>
             </View>
           </View>
         </View>
