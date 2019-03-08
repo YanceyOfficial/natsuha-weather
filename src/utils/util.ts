@@ -211,7 +211,7 @@ export const sunPosition = (type: string, sunrise: number, sunset: number): stri
     if (type === 'sun') {
       return (proportion * 150 + 15).toFixed(0);
     } else {
-      return (proportion * 160).toFixed(0);
+      return (proportion * 218 - 24).toFixed(0);
     }
   }
 }
@@ -227,13 +227,10 @@ export const formatWeek = (weekNum: number): string => weekList[weekNum];
 /**
  * Package wx cloud request function
  *
- * @param {String} title The content of toast
- * @param {String} icon The icon of toast
- * @param {Boolean} mask Show or hide a mask
- * @param {Number} duration The display duration of toast
- * @returns {Any} Returns to show a toast
+ * @param {String} url The content of toast
+ * @param {Object} data The params
  */
-export const httpClient = (url: string, data: any) => new Promise((resolve, reject) => {
+export const httpClient = (url: string, data: any) => new Promise((resolve, reject): void => {
   wx.cloud.callFunction({
     name: url,
     data,

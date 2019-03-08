@@ -33,6 +33,10 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     navigationBarTitleText: '夏葉',
   };
 
+  componentDidShow() {
+    
+  }
+
   componentWillMount() {
     wx.cloud.init();
   }
@@ -43,15 +47,18 @@ class Index extends Component<IWeatherProps, IIndexStates> {
   }
 
   public onPullDownRefresh = () => {
-    const { weatherStore } = this.props;
-    weatherStore.getWeatherById();
+    const {
+      weatherStore: { curWoeid, getWeatherById, getPosition },
+    } = this.props;
+    if (curWoeid) {
+      getWeatherById(curWoeid);
+    } else {
+      getPosition();
+    }
   };
 
-  public onShareAppMessage = res => {
+  public onShareAppMessage = () => {
     const { widthBackgroudImageUrl } = this.props.weatherStore;
-    if (res.from === 'button') {
-      // todo
-    }
     return {
       title: 'Natsuha Weather',
       path: '/pages/index/index',

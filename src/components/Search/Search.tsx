@@ -1,6 +1,14 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Input, Image, Block } from '@tarojs/components';
+import {
+  View,
+  Text,
+  Input,
+  Image,
+  Block,
+  Form,
+  Button,
+} from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';
 import cs from 'classnames';
@@ -25,7 +33,6 @@ class Search extends Component<IWeatherProps, {}> {
   render() {
     const {
       weatherStore: {
-        inputText,
         isSearching,
         showSearch,
         handleInputTextChange,
@@ -37,20 +44,25 @@ class Search extends Component<IWeatherProps, {}> {
       },
     } = this.props;
 
+    // regionList出错时有可能为空 注意一下
     const list = regionList.map(vaule => (
       <View key={vaule.woeid} className={styles.history_item}>
-        <View
-          className={styles.qualified_name}
+        <Button
+          className={cs(styles.button, styles.qualified_name)}
+          formType='reset'
           onClick={() =>
-            handleSelectRegionChange(vaule.woeid, vaule.qualifiedName)
+            handleSelectRegionChange(
+              vaule.woeid.toString(),
+              vaule.qualifiedName,
+            )
           }
         >
           {vaule.qualifiedName}
-        </View>
+        </Button>
         {isSearching ? null : (
           <View
             className={styles.cancel_icon}
-            onClick={() => deleteHistoryItemByWoeid(vaule.woeid)}
+            onClick={() => deleteHistoryItemByWoeid(vaule.woeid.toString())}
           />
         )}
       </View>
@@ -58,7 +70,8 @@ class Search extends Component<IWeatherProps, {}> {
 
     return (
       <Block>
-        <View
+        <Form
+          onReset={() => hideSearchDialog()}
           className={cs(
             styles.search_wrapper,
             !showSearch ? styles.hide_search_wrapper : '',
@@ -75,7 +88,12 @@ class Search extends Component<IWeatherProps, {}> {
               placeholder='Enter City or ZIP code'
               onInput={e => handleInputTextChange(e)}
             />
-            <Text onClick={() => hideSearchDialog()}>Cancel</Text>
+            <Button
+              className={cs(styles.button, styles.close_btn)}
+              formType='reset'
+            >
+              Close
+            </Button>
           </View>
           <View
             className={cs(
@@ -97,9 +115,9 @@ class Search extends Component<IWeatherProps, {}> {
               />
               <Text>History</Text>
             </View>
-            <View className={styles.history_list}>{list}</View>
+            <View className={styles.history_item}>{list}</View>
           </View>
-        </View>
+        </Form>
         {showSearch ? <View className={styles.mask} /> : null}
       </Block>
     );

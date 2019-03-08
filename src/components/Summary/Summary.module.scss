@@ -15,7 +15,6 @@
       margin-left: 20px;
 
       .temperature_type_btn {
-
         font-size: 44px;
         font-weight: 200;
         padding: 12px;
@@ -118,6 +117,7 @@
 
   .header {
     display: flex;
+    align-items: center;
   }
 
   .region_summary {
@@ -125,8 +125,6 @@
     margin-left: 20px;
 
     .location_icon {
-      position: relative;
-      top: 4px;
       margin-left: 20px;
       width: 70px;
       height: 70px;

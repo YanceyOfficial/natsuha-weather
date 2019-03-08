@@ -134,9 +134,6 @@ class WeatherStore {
   // 搜索状态
   @observable public isSearching = false;
 
-  // 输入框文本
-  @observable public inputText = '';
-
   // 检索（或历史记录）列表
   @observable public regionList: IRegion[] = [];
 
@@ -201,8 +198,11 @@ class WeatherStore {
 
   @action
   public hideSearchDialog = () => {
-    this.isSearching = false;
     this.showSearch = false;
+    setTimeout(() => {
+      this.isSearching = false;
+    }, 350)
+
   };
 
   @action
@@ -211,18 +211,13 @@ class WeatherStore {
     this.getRegion(e.target.value);
   };
 
-  /*
-   * @BUG 假设当前是北京，在选择了天津后，如果获取天津的天气失败，curWoeid不应该被设置成天津的
-   */
   @action
   public handleSelectRegionChange = (woeid: string, qualifiedName: string) => {
-    this.curWoeid = woeid;
-    this.showSearch = false;
     Taro.setStorage({
       key: woeid.toString(),
       data: qualifiedName,
     }).then(() => {
-      this.getWeatherById();
+      this.getWeatherById(woeid);
     });
   };
 
@@ -236,14 +231,15 @@ class WeatherStore {
     });
   };
 
-  public getWeatherById = () => {
+  public getWeatherById = (woeid: string) => {
     setLoadingToast(true, toastTxt.weatherLoading);
     httpClient('getWeatherById', {
-        woeid: this.curWoeid,
+        woeid,
         lang: this.systemLanguage,
       })
       .then(res => {
         runInAction(() => {
+          this.curWoeid = woeid;
           this.isFahrenheit = true;
           const weatherResult = (res as any).weatherResult;
           this.weatherData = weatherResult.weathers[0];
@@ -257,6 +253,7 @@ class WeatherStore {
       })
       .catch(() => {
         setToast(toastTxt.deleteHistoryFail);
+        Taro.vibrateLong();
       })
       .finally(() => {
         Taro.stopPullDownRefresh();
@@ -274,34 +271,14 @@ class WeatherStore {
       .then((res: any) => {
         runInAction(() => {
           const location = JSON.parse(res).location;
-          this.curWoeid = location.woeid;
           this.curCountryName = location.country;
           this.curCityName = location.region;
-          this.getWeatherById();
+          this.getWeatherById(location.woeid);
         });
       })
       .catch(() => {
         setLoadingToast(false);
         setToast(toastTxt.cityFail);
-      });
-  };
-
-  public getPosition = () => {
-    if (this.showSearch) {
-      this.showSearch = false;
-    }
-    setLoadingToast(true, toastTxt.coordinatesLoading);
-    Taro.getLocation({
-        type: 'gcj02',
-      })
-      .then(res => {
-        const lat = res.latitude;
-        const lon = res.longitude;
-        this.getWoeid(lat, lon);
-      })
-      .catch(() => {
-        setLoadingToast(false);
-        this.getSetting();
       });
   };
 
@@ -311,7 +288,7 @@ class WeatherStore {
       })
       .then((res: any) => {
         runInAction(() => {
-          if (!res.statesCode) {
+          if (res.regionList) {
             this.regionList = res.regionList;
           }
         });
@@ -319,28 +296,6 @@ class WeatherStore {
       .catch(() => {
         setToast(toastTxt.cityFail);
       });
-  };
-
-  public getLanguage = () => {
-    this.showModal = false;
-    Taro.getSystemInfo()
-      .then(res => {
-        this.systemLanguage = res.language;
-        this.getPosition();
-      })
-      .catch(() => {
-        setToast(toastTxt.languageFail);
-      });
-  };
-
-  public getSetting = () => {
-    Taro.getSetting().then(res => {
-      if (!res.authSetting['scope.userLocation']) {
-        this.showModal = true;
-      } else {
-        setToast(toastTxt.coordinatesFail);
-      }
-    });
   };
 
   // 获取历史城市列表
@@ -358,6 +313,49 @@ class WeatherStore {
         }),
       );
     });
+  };
+
+  public getSetting = () => {
+    Taro.getSetting().then(res => {
+      if (!res.authSetting['scope.userLocation']) {
+        this.showModal = true;
+      } else {
+        this.showModal = false;
+        setToast(toastTxt.coordinatesFail);
+      }
+    });
+  };
+
+  public getPosition = () => {
+    // 如果是点击的 detach my location
+    if (this.showModal) {
+      this.showModal = false;
+    }
+    setLoadingToast(true, toastTxt.coordinatesLoading);
+    Taro.getLocation({
+        type: 'gcj02',
+      })
+      .then(res => {
+        const lat = res.latitude;
+        const lon = res.longitude;
+        this.getWoeid(lat, lon);
+      })
+      .catch(() => {
+        setLoadingToast(false);
+        // 在每次获取地理坐标失败的时候都要查一下是用户未授权导致的还是纯粹接口请求失败
+        this.getSetting();
+      });
+  };
+
+  public getLanguage = () => {
+    Taro.getSystemInfo()
+      .then(res => {
+        this.systemLanguage = res.language;
+        this.getPosition();
+      })
+      .catch(() => {
+        setToast(toastTxt.languageFail);
+      });
   };
 }
 

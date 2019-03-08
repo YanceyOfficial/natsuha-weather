@@ -2,6 +2,7 @@
 @import '../../assets/styles/mixins.scss';
 
 .search_wrapper {
+  display: block;
   position: fixed;
   bottom: 0;
   z-index: 9999;
@@ -25,13 +26,14 @@
   }
 
   .search_container {
+    position: relative;
     background: rgba($white, .12);
 
     .input {
       margin-left: 20px;
       margin-right: 60px;
       padding: 6px;
-      width: 65%;
+      width: 70%;
       font-size: 28px;
       background: rgba($white, .3);
       text-shadow: none;
@@ -47,7 +49,7 @@
   }
 
   .history {
-    height: 880px;
+    max-height: 80%;
     overflow-y: auto;
 
     .history_container {
@@ -59,21 +61,23 @@
     }
 
     .history_item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       @include border_1px('bottom', rgba($white, .3), 0);
 
       .qualified_name {
         position: relative;
         padding: 28px;
+        width: 85%;
+        text-align: left;
         z-index: 1;
       }
 
 
       .cancel_icon {
-        position: relative;
-        margin-right: 28px;
+        position: absolute;
+        top: 0;
+        right: 40px;
+        bottom: 0;
+        margin: auto;
         width: 40px;
         height: 40px;
         background: rgba(255, 51, 60, .8);
@@ -96,6 +100,24 @@
     }
   }
 
+  .button {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    color: $white;
+
+    &::after {
+      border: none;
+    }
+  }
+
+  .close_btn {
+    position: absolute;
+    right: 40px;
+  }
 }
 
 .hide_search_wrapper {
@@ -103,7 +125,7 @@
   transition: 350ms all linear;
 }
 
-.mask{
+.mask {
   position: fixed;
   top: 0;
   right: 0;
@@ -111,5 +133,5 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index:9998;
+  z-index: 9998;
 }
