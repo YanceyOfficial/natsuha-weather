@@ -108,13 +108,16 @@ class Search extends Component<IWeatherProps, {}> {
             <Text onClick={() => getPosition()}>Detach my location</Text>
           </View>
           <View className={styles.history}>
-            <View className={cs(styles.container, styles.history_container)}>
-              <Image
-                src={history}
-                className={cs(styles.icon, styles.history_icon)}
-              />
-              <Text>History</Text>
-            </View>
+            {!isSearching ? (
+              <View className={cs(styles.container, styles.history_container)}>
+                <Image
+                  src={history}
+                  className={cs(styles.icon, styles.history_icon)}
+                />
+                <Text>History</Text>
+              </View>
+            ) : null}
+
             <View className={styles.history_item}>{list}</View>
           </View>
         </Form>
