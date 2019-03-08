@@ -2,28 +2,33 @@ import IRegion from './region';
 export interface IWeatherProps {
   weatherStore: {
     weatherData: IWeather;
-    curSkyCode: string;
     metaData: IMeta;
-    isF: boolean;
+    curWoeid: string;
+    curCountryName: string;
+    curCityName: string;
+    isFahrenheit: boolean;
     backgroudImageUrl: string;
     widthBackgroudImageUrl: string;
-    showModal: false;
-    showSearch: false;
-    isSearching: false;
-    inputText: string;
+    showModal: boolean;
+    showSearch: boolean;
+    isSearching: boolean;
     regionList: IRegion[];
-    getLanguage: Function;
-    getWeatherById: Function;
-    getRegion: Function;
-    getPosition: Function;
-    handleTemperatureType: Function;
-    handleSearchChange: Function;
-    handleInputTextChange: Function;
-    handleSelectRegionChange: Function;
-    hideSearch: Function;
-    deleteHistoryItemByWoeid: Function;
+
+    getLanguage: () => void;
+    getStorage: () => void;
+    getSetting: () => void;
+    getWeatherById: (woeid: string) => void;
+    getWoeid: (lat: number, lon: number) => void;
+    getRegion: (text: string) => void;
+    getPosition: () => void;
+    handleTemperatureTypeChange: (type: boolean) => void;
+    showSearchDialog: () => void;
+    hideSearchDialog: () => void;
+    handleInputTextChange: (e: any) => void;
+    handleSelectRegionChange: (woeid: string, qualifiedName: string) => void;
+    deleteHistoryItemByWoeid: (woeid: string) => void;
   };
-};
+}
 
 export interface IMeta {
   conditionMap: {};
@@ -31,10 +36,10 @@ export interface IMeta {
 }
 
 export interface IWeather {
-  woeid: number;
-  unit: string;
+  woeid ? : number;
+  unit ? : string;
   sunAndMoon: ISunAndMoon;
-  provider: IProvider;
+  provider ? : IProvider;
   precipitations: IPrecipitation[];
   photos: IPhoto[];
   observation: IObservation;
@@ -58,9 +63,9 @@ interface IPrecipitation {
 }
 
 interface IPhoto {
-  dayOrNight?: string;
-  id?: string;
-  owner?: string;
+  dayOrNight ? : string;
+  id ? : string;
+  owner ? : string;
   ownerName: string;
   resolutions: IResolution[];
 }
@@ -86,11 +91,11 @@ interface IDayPartText {
 interface ILocation {
   countryName: string;
   displayName: string;
-  latitude?: number;
-  longitude?: number;
-  offsetSecs?: number;
-  photoWoeid?: number;
-  woeid?: number;
+  latitude ? : number;
+  longitude ? : number;
+  offsetSecs ? : number;
+  photoWoeid ? : number;
+  woeid ? : number;
 }
 
 interface IForecasts {
@@ -108,22 +113,22 @@ interface ICondition {
   dayPartTexts: IDayPartText[];
   humidity: number;
   localTime: {
-    day?: number;
-    hour?: number;
+    day ? : number;
+    hour ? : number;
     timestamp: string;
-    weekday?: number;
+    weekday ? : number;
   };
-  observationTime: {
+  observationTime ? : {
     day: number;
     hour: number;
     timestamp: string;
     weekday: number;
   };
-  precipitationProbability: number;
+  precipitationProbability ? : number;
 }
 
 interface IWind {
-  windDirection?: number;
+  windDirection ? : number;
   windDirectionCode: string;
   windSpeed: number;
 }
@@ -134,5 +139,5 @@ interface ITemperature {
     high: number;
     low: number;
     now: number;
-  }
+  };
 }

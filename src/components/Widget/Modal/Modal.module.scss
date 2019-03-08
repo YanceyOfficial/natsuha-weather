@@ -9,7 +9,7 @@
   left: 0;
   margin: auto;
   width: 75%;
-  height: 250px;
+  height: 270px;
   background: $white;
   font-size: 28px;
   text-shadow: none;
@@ -19,8 +19,10 @@
 
   .title {
     display: block;
-    text-align: center;
+    box-sizing: border-box;
     padding: 40px 20px;
+    height: 180px;
+    text-align: center;
     @include border_1px('bottom', #dcdcdc, 0);
   }
 
@@ -29,19 +31,21 @@
     grid-template-columns: repeat(2, 1fr);
 
     .button {
+      height: 90px;
       position: static;
       background: transparent;
       border: none;
-      line-height: 92px;
-      border-radius: none;
+      border-radius: 0;
       margin: 0;
-      padding: 0;
-      color: #535353
+      padding: 24px 0;
+      color: #535353;
+      line-height: 1;
     }
 
     .button_cancel {
       @include border_1px('right', #dcdcdc, 0);
       font-size: 36px;
+      line-height: 90px;
       text-align: center;
     }
 

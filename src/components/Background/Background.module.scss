@@ -8,33 +8,10 @@
   filter: blur(0);
   z-index: -1;
 
-
-  opacity: 0;
-  animation-delay: 0s;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease;
-  will-change: transform;
   transition: 350ms all linear;
 }
-
-.animate {
-  animation-name: 'fade-in';
-  opacity: 1;
-}
-
 .background_blur {
   filter: blur(7px);
   overflow: hidden;
   transition: 350ms all linear;
-}
-
-@keyframes fadein {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
 }
