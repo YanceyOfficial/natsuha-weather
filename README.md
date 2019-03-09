@@ -1,5 +1,7 @@
 # Natsuha Weather for WeChat Mini Program
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4bfa9469141e41949181fd7f0452c196)](https://app.codacy.com/app/YanceyOfficial/Natsuha-Weather?utm_source=github.com&utm_medium=referral&utm_content=YanceyOfficial/Natsuha-Weather&utm_campaign=Badge_Grade_Dashboard)
+
 ## Introduction
 
 Natsuha is a weather app that created with [Taro](https://github.com/NervJS/taro) 
