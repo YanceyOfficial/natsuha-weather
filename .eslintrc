@@ -6,8 +6,7 @@
     }],
     "react/jsx-filename-extension": [1, {
       "extensions": [".js", ".jsx", ".tsx", ".ts"]
-    }],
-    "max-line-length": [true, 120]
+    }]
   },
   "parser": "babel-eslint"
 }
