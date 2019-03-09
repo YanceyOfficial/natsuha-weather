@@ -4,6 +4,7 @@ import {
   action
 } from 'mobx';
 import Taro from '@tarojs/taro';
+import _ from 'lodash';
 import {
   convertCelsiusFahrenheit,
   convertKmMiles,
@@ -37,7 +38,9 @@ Promise.prototype.finally = function (callback) {
 };
 
 class WeatherStore {
-  construtor() {}
+  construtor() {
+    this.getRegion = _.debounce(this.getRegion, 150);
+  }
 
   @observable.deep public weatherData: IWeather = {
     location: {

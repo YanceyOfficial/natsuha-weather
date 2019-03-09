@@ -5,20 +5,12 @@ import { defaultPhotoUrl, toastTxt } from '../../constants/constants';
 import { setToast } from '../../utils/util';
 import cs from 'classnames';
 import { observer, inject } from '@tarojs/mobx';
-import { IWeather } from '../../types/weather';
+import { IWeatherProps } from '../../types/weather';
 const styles = require('./Background.module.scss');
-
-interface IBackgroundProps {
-  needBlur: boolean;
-  weatherStore: {
-    weatherData: IWeather;
-    backgroudImageUrl: string;
-  };
-}
 
 @inject('weatherStore')
 @observer
-class Background extends Component<IBackgroundProps, {}> {
+class Background extends Component<IWeatherProps, {}> {
   constructor(props: any) {
     super(props);
     this.state = {};

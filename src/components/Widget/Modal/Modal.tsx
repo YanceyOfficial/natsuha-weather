@@ -26,6 +26,7 @@ class Modal extends Component<IWeatherProps, {}> {
           <View>
             <Text className={styles.title}>{toastTxt.authorizeRequest}</Text>
             <View className={styles.button_group}>
+              <View className={cs(styles.button_cancel)}>Cancel</View>
               <Button
                 className={cs(styles.button, styles.button_confirm)}
                 openType='openSetting'

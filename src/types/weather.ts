@@ -28,6 +28,7 @@ export interface IWeatherProps {
     handleSelectRegionChange: (woeid: string, qualifiedName: string) => void;
     deleteHistoryItemByWoeid: (woeid: string) => void;
   };
+  needBlur: boolean;
 }
 
 export interface IMeta {

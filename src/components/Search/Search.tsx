@@ -20,15 +20,6 @@ const history = require('../../assets/images/history.png');
 @inject('weatherStore')
 @observer
 class Search extends Component<IWeatherProps, {}> {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
 
   render() {
     const {
