@@ -117,7 +117,7 @@ class WeatherStore {
   @observable public isFahrenheit = true;
 
   // 系统语言
-  @observable public systemLanguage = '';
+  @observable public systemLanguage = 'ja-JP';
 
   // 背景图url
   @observable public backgroudImageUrl = defaultPhotoUrl;
