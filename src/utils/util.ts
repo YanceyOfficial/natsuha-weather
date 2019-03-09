@@ -61,16 +61,30 @@ export const formatJSONDate = (jsonDate: string): string =>
  * @returns {String} Returns the formatted UTC date string.
  */
 export const hourTo12 = (date: string): string => {
-  const oDate = new Date(date)
-  const month = oDate.getUTCMonth() + 1
-  const day = oDate.getUTCDate()
-  const hour = oDate.getUTCHours()
-  const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
-  if (hour > 12) {
-    return `${month}/${day}, ${hour -12}:${minute} PM`
+  if (date) {
+    const oDate = new Date(date)
+    const month = oDate.getUTCMonth() + 1
+    const day = oDate.getUTCDate()
+    const hour = oDate.getUTCHours()
+    const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
+    if (hour > 12) {
+      return `${month}/${day}, ${hour -12}:${minute} PM`
+    } else {
+      return `${month}/${day}, ${hour}:${minute} AM`
+    }
   } else {
-    return `${month}/${day}, ${hour}:${minute} AM`
+    const oDate = new Date()
+    const month = oDate.getMonth() + 1
+    const day = oDate.getDate()
+    const hour = oDate.getHours()
+    const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
+    if (hour > 12) {
+      return `${month}/${day}, ${hour -12}:${minute} PM`
+    } else {
+      return `${month}/${day}, ${hour}:${minute} AM`
+    }
   }
+
 }
 
 /**

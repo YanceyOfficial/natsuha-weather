@@ -30,18 +30,17 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     };
   }
   config: Config = {
-    navigationBarTitleText: '夏葉',
+    navigationBarTitleText: 'Natsuha',
   };
-
-  componentDidShow() {
-    const { weatherStore } = this.props;
-    weatherStore.getLanguage();
-  }
 
   componentWillMount() {
     wx.cloud.init();
   }
 
+  componentDidMount() {
+    const { weatherStore } = this.props;
+    weatherStore.getLanguage();
+  }
 
   public onPullDownRefresh = () => {
     const {

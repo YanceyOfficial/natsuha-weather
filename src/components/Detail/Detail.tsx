@@ -31,7 +31,7 @@ class Detail extends Component<IWeatherProps, {}> {
 
     const dayPartTextList = dayPartTexts.map((value, key) => (
       <Text className={styles.content_detail_txt} key={key}>
-        {upperFirstLetter(value.dayPart)} - {value.text}
+        {upperFirstLetter(value.dayPart)}{' '} -{' '}{value.text}
       </Text>
     ));
 

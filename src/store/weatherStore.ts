@@ -4,6 +4,7 @@ import {
   action
 } from 'mobx';
 import Taro from '@tarojs/taro';
+import _ from 'lodash';
 import {
   convertCelsiusFahrenheit,
   convertKmMiles,
@@ -37,7 +38,9 @@ Promise.prototype.finally = function (callback) {
 };
 
 class WeatherStore {
-  construtor() {}
+  construtor() {
+    this.getRegion = _.debounce(this.getRegion, 150);
+  }
 
   @observable.deep public weatherData: IWeather = {
     location: {
@@ -48,8 +51,13 @@ class WeatherStore {
       conditionDescription: 'Sunny',
       conditionCode: 32,
       localTime: {
-        timestamp: new Date().toString(),
+        timestamp: '',
       },
+      observationTime: {
+        hour: 0,
+        weekday: 0,
+      },
+      precipitationProbability: 0,
       temperature: {
         now: 0,
         high: 0,
@@ -117,7 +125,7 @@ class WeatherStore {
   @observable public isFahrenheit = true;
 
   // 系统语言
-  @observable public systemLanguage = '';
+  @observable public systemLanguage = 'ja-JP';
 
   // 背景图url
   @observable public backgroudImageUrl = defaultPhotoUrl;
