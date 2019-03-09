@@ -34,8 +34,7 @@ class Search extends Component<IWeatherProps, {}> {
         getPosition,
       },
     } = this.props;
-
-    // regionList出错时有可能为空 注意一下
+    
     const list = regionList.map(vaule => (
       <View key={vaule.woeid} className={styles.history_item}>
         <Button

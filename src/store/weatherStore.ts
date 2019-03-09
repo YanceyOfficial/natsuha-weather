@@ -51,8 +51,13 @@ class WeatherStore {
       conditionDescription: 'Sunny',
       conditionCode: 32,
       localTime: {
-        timestamp: new Date().toString(),
+        timestamp: '',
       },
+      observationTime: {
+        hour: 0,
+        weekday: 0,
+      },
+      precipitationProbability: 0,
       temperature: {
         now: 0,
         high: 0,

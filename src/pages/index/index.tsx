@@ -30,7 +30,7 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     };
   }
   config: Config = {
-    navigationBarTitleText: '夏葉',
+    navigationBarTitleText: 'Natsuha',
   };
 
   componentWillMount() {

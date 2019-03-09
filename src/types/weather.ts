@@ -119,13 +119,13 @@ interface ICondition {
     timestamp: string;
     weekday ? : number;
   };
-  observationTime ? : {
-    day: number;
+  observationTime: {
+    day?: number;
     hour: number;
-    timestamp: string;
+    timestamp?: string;
     weekday: number;
   };
-  precipitationProbability ? : number;
+  precipitationProbability: number;
 }
 
 interface IWind {
