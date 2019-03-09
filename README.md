@@ -8,8 +8,8 @@
 
 ## Introduction
 
-tryNatsuha is a weather app that created with [Taro](https://github.com/NervJS/taro) 
-and Yahoo Weather API for WeChat Mini Program. Now the first official version(v1.0.0) is released, 
+tryNatsuha is a weather app that created with [Taro](https://github.com/NervJS/taro)
+and Yahoo Weather API for WeChat Mini Program. Now the first official version(v1.0.0) is released,
 welcome to try and fork.
 
 ![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha_344.jpg)
@@ -29,32 +29,31 @@ welcome to try and fork.
 
 ## Available Scripts
 
-In the project directory, you can run:
+⚠️ Because of the [unknown bugs](https://github.com/NervJS/taro/issues/699) of Taro, you **must** use `npm` instead of `yarn`.
 
-### `yarn dev:weapp`
+### `npm i -g @tarojs/cli@latest`
 
-Runs the app in the development mode.<br>
-Open the developer tools of WeChat to view it.
+Firstly you must install the `@tarojs/cli` globally.
 
-The page will be deployed if you make edits.<br>
-You will also see any lint errors in the console.
+### `npm install`
 
-### `yarn build:weapp`
+Install dependency.
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles the app in production mode and optimizes the build for the best performance.
+### `npm run dev:weapp`
 
-The build is minified and the filenames include the hashes.<br>
-The app is ready to be deployed!
+Runs the app in the development mode. Open the developer tools of WeChat to view it. The app will be deployed if you make edits. You will also see any lint errors in the console.
+
+### `npm run build:weapp`
+
+Builds the app for production to the `dist` folder. It correctly bundles the app in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. The app is ready to be deployed!
 
 ## Privacy
 
-Because the following files refer to private key, those are not uploaded to GitHub, 
-you must create them manually.
+Because the following files refer to private key, those are not uploaded to GitHub, you must create them manually.
 
 ### getWoeid
 
-You must apply a key in [Yahoo Weather API](https://developer.yahoo.com/weather/) at first.
+You should apply a key in [Yahoo Weather API](https://developer.yahoo.com/weather/) at first.
 
 ![yahoo key](https://yancey-assets.oss-cn-beijing.aliyuncs.com/Jietu20190221-135157.jpg)
 
