@@ -12,6 +12,7 @@ welcome to use and fork.
 
 ## Features
 
+- Pull down to refresh
 - Swtich temperature between Fahrenheit and Celsius
 - Display the weather condition by hour
 - Display the weather condition by day
