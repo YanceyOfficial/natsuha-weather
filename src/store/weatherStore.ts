@@ -337,8 +337,8 @@ class WeatherStore {
 
   public getPosition = () => {
     // 如果是点击的 detach my location
-    if (this.showModal) {
-      this.showModal = false;
+    if (this.showSearch) {
+      this.showSearch = false;
     }
     setLoadingToast(true, toastTxt.coordinatesLoading);
     Taro.getLocation({
