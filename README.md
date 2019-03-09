@@ -8,7 +8,7 @@
 
 ## Introduction
 
-tryNatsuha is a weather app that created with [Taro](https://github.com/NervJS/taro)
+Natsuha is a weather app that created with [Taro](https://github.com/NervJS/taro)
 and Yahoo Weather API for WeChat Mini Program. Now the first official version(v1.0.0) is released,
 welcome to try and fork.
 
