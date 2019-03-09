@@ -12,7 +12,6 @@ import {
 const styles = require('./ForecastByDay.module.scss');
 
 interface IForecastByDayStates {
-  isSelected: boolean;
   isFive: boolean;
 }
 
@@ -22,16 +21,9 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isSelected: false,
       isFive: true,
     };
   }
-
-  public handleSelect = () => {
-    this.setState({
-      isSelected: true,
-    });
-  };
 
   public handleDay = (day: number) => {
     if (day === 5) {
@@ -56,11 +48,11 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
       },
     } = this.props;
 
-    const { isSelected, isFive } = this.state;
+    const { isFive } = this.state;
 
     const dailyList = daily.slice(0, 10).map((day, key) => (
       <View key={key}>
-        <View className={styles.day_group} onClick={() => this.handleSelect()}>
+        <View className={styles.day_group}>
           <View className={styles.group_basic}>
             <Text className={styles.week_name}>
               {formatWeek(day.observationTime.weekday)}
@@ -94,17 +86,6 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
             </Text>
           </View>
         </View>
-        {/* <View
-          className={cs(
-            styles.group_detail_container,
-            isSelected ? styles.selected : ''
-          )}
-        >
-          <Text className={styles.group_detail}>
-            Partly cloudy today with a high of 67 °F (19.4 °C) and a low of 48
-            °F (8.9 °C).
-          </Text>
-        </View> */}
       </View>
     ));
 

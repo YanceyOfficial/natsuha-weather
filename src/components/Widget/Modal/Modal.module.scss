@@ -13,7 +13,7 @@
   background: $white;
   font-size: 28px;
   text-shadow: none;
-  color: rgb(38, 38, 38);
+  color: $modalColor;
   border-radius: 16px;
   z-index: 9999;
 
@@ -23,7 +23,8 @@
     padding: 40px 20px;
     height: 180px;
     text-align: center;
-    @include border_1px('bottom', #dcdcdc, 0);
+    line-height: 1.8;
+    @include border_1px('bottom', $modalborder, 0);
   }
 
   .button_group {
@@ -38,19 +39,19 @@
       border-radius: 0;
       margin: 0;
       padding: 24px 0;
-      color: #535353;
+      color: $modalBtnColor;
       line-height: 1;
     }
 
     .button_cancel {
-      @include border_1px('right', #dcdcdc, 0);
+      @include border_1px('right', $modalborder, 0);
       font-size: 36px;
       line-height: 90px;
       text-align: center;
     }
 
     .button_confirm {
-      color: #fda009;
+      color: $modalConfirm;
     }
   }
 }

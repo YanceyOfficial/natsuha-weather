@@ -20,15 +20,6 @@ const history = require('../../assets/images/history.png');
 @inject('weatherStore')
 @observer
 class Search extends Component<IWeatherProps, {}> {
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
 
   render() {
     const {
@@ -43,8 +34,7 @@ class Search extends Component<IWeatherProps, {}> {
         getPosition,
       },
     } = this.props;
-
-    // regionList出错时有可能为空 注意一下
+    
     const list = regionList.map(vaule => (
       <View key={vaule.woeid} className={styles.history_item}>
         <Button
@@ -108,13 +98,16 @@ class Search extends Component<IWeatherProps, {}> {
             <Text onClick={() => getPosition()}>Detach my location</Text>
           </View>
           <View className={styles.history}>
-            <View className={cs(styles.container, styles.history_container)}>
-              <Image
-                src={history}
-                className={cs(styles.icon, styles.history_icon)}
-              />
-              <Text>History</Text>
-            </View>
+            {!isSearching ? (
+              <View className={cs(styles.container, styles.history_container)}>
+                <Image
+                  src={history}
+                  className={cs(styles.icon, styles.history_icon)}
+                />
+                <Text>History</Text>
+              </View>
+            ) : null}
+
             <View className={styles.history_item}>{list}</View>
           </View>
         </Form>

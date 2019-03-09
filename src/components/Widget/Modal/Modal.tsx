@@ -10,8 +10,16 @@ const styles = require('./Modal.module.scss');
 @inject('weatherStore')
 @observer
 class Modal extends Component<IWeatherProps, {}> {
+  public onOpenSetting() {
+    const {
+      weatherStore: { getSetting },
+    } = this.props;
+    getSetting();
+  }
   render() {
-    const { showModal } = this.props.weatherStore;
+    const {
+      weatherStore: { showModal },
+    } = this.props;
     const modalGroup = (
       <Block>
         <View className={styles.modal_wrapper}>
@@ -22,6 +30,7 @@ class Modal extends Component<IWeatherProps, {}> {
               <Button
                 className={cs(styles.button, styles.button_confirm)}
                 openType='openSetting'
+                onOpenSetting={() => this.onOpenSetting()}
               >
                 OK
               </Button>
