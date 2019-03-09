@@ -12,5 +12,5 @@ jobs:
   include:
     - stage: test
       script:
-        - yarn install
-        - yarn build:weapp
+        - npm install
+        - npm run build:weapp
