@@ -2,30 +2,9 @@
 
 ![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha_344.jpg)
 
-## ⚠️ 关于隐私文件
+## Secret
 
 因为一些文件涉及到私钥, 故未上传至 GitHub, 下面对此说明.
-
-### project.config.json
-
-在**根目录**下创建文件`project.config.json`, 并添加如下代码,
-
-    {
-      "miniprogramRoot": "dist/",
-      "projectname": "Natsuha-Weather-WeChat",
-      "description": "An awesome weather app for WeChat Mini Program.",
-      "appid": YOUR_APP_ID,
-      "cloudfunctionRoot": "functions/",
-      "setting": {
-        "urlCheck": true,
-        "es6": false,
-        "postcss": false,
-        "minified": false,
-        "newFeature": true
-      },
-      "compileType": "miniprogram",
-      "condition": {}
-    }
 
 ### functions/getWoeid/index.js
 

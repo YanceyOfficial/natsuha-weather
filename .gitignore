@@ -24,6 +24,5 @@ yarn-error.log*
 dist
 
 #  The following files include secret key or other private info
-project.config.json*
 
 functions/getWoeid/index.js*
