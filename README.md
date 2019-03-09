@@ -1,12 +1,16 @@
 # Natsuha Weather for WeChat Mini Program
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4bfa9469141e41949181fd7f0452c196)](https://app.codacy.com/app/YanceyOfficial/Natsuha-Weather?utm_source=github.com&utm_medium=referral&utm_content=YanceyOfficial/Natsuha-Weather&utm_campaign=Badge_Grade_Dashboard)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.com/YanceyOfficial/Natsuha-Weather.svg?branch=master)](https://travis-ci.com/YanceyOfficial/Natsuha-Weather)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://travis-ci.com/YanceyOfficial/Natsuha-Weather)
+[![Node](https://img.shields.io/badge/node-%3E%3D8.0.0-green.svg)](https://travis-ci.com/YanceyOfficial/Natsuha-Weather)
 
 ## Introduction
 
-Natsuha is a weather app that created with [Taro](https://github.com/NervJS/taro) 
+tryNatsuha is a weather app that created with [Taro](https://github.com/NervJS/taro) 
 and Yahoo Weather API for WeChat Mini Program. Now the first official version(v1.0.0) is released, 
-welcome to use and fork.
+welcome to try and fork.
 
 ![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha_344.jpg)
 
@@ -38,14 +42,14 @@ You will also see any lint errors in the console.
 ### `yarn build:weapp`
 
 Builds the app for production to the `dist` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+It correctly bundles the app in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br>
 The app is ready to be deployed!
 
 ## Privacy
 
-Because the following files refer to private key, those files are not uploaded to GitHub, 
+Because the following files refer to private key, those are not uploaded to GitHub, 
 you must create them manually.
 
 ### getWoeid
