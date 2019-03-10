@@ -6,6 +6,7 @@
 [![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://github.com/YanceyOfficial/Natsuha-Weather)
 [![Node](https://img.shields.io/badge/node-%3E%3D8.0.0-green.svg)](https://github.com/YanceyOfficial/Natsuha-Weather)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/YanceyOfficial/Natsuha-Weather/pulls)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FYanceyOfficial%2FNatsuha-Weather.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FYanceyOfficial%2FNatsuha-Weather?ref=badge_shield)
 
 ## Introduction
 
