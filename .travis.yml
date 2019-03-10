@@ -14,5 +14,4 @@ jobs:
       if: (branch = master) AND (NOT (type IN (pull_request)))
       script:
         - npm install
-        - npm run build:weapp
         - npm run test
