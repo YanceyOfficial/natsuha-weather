@@ -13,8 +13,8 @@ import {
 import {
   setLoadingToast,
   setToast,
-  httpClient
 } from '../utils/util';
+import httpClient from '../utils/https';
 import {
   defaultPhotoUrl,
   toastTxt

@@ -237,20 +237,3 @@ export const sunPosition = (type: string, sunrise: number, sunset: number): stri
  * @returns {String} Returns the name of weekday.
  */
 export const formatWeek = (weekNum: number): string => weekList[weekNum];
-
-/**
- * Package wx cloud request function
- *
- * @param {String} url The content of toast
- * @param {Object} data The params
- */
-export const httpClient = (url: string, data: any) => new Promise((resolve, reject): void => {
-  wx.cloud.callFunction({
-    name: url,
-    data,
-  }).then(res => {
-    resolve(res.result);
-  }).catch(e => {
-    reject(e)
-  });
-});
