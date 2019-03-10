@@ -16,7 +16,8 @@
 		"dev:alipay": "npm run build:alipay -- --watch",
 		"dev:tt": "npm run build:tt -- --watch",
 		"dev:h5": "npm run build:h5 -- --watch",
-		"dev:rn": "npm run build:rn -- --watch"
+		"dev:rn": "npm run build:rn -- --watch",
+		"test": "jest"
 	},
 	"author": "",
 	"license": "MIT",
@@ -42,16 +43,20 @@
 		"react-dom": "^16.8.4"
 	},
 	"devDependencies": {
+		"@babel/preset-env": "^7.3.4",
 		"@tarojs/plugin-babel": "1.2.16",
 		"@tarojs/plugin-csso": "1.2.16",
 		"@tarojs/plugin-sass": "1.2.16",
 		"@tarojs/plugin-uglifyjs": "1.2.16",
 		"@tarojs/webpack-runner": "1.2.16",
 		"@types/classnames": "^2.2.7",
+		"@types/jest": "^24.0.11",
 		"@types/lodash": "^4.14.121",
 		"@types/react": "16.3.14",
 		"@types/webpack-env": "^1.13.6",
+		"babel-core": "^6.26.3",
 		"babel-eslint": "^8.2.3",
+		"babel-jest": "^24.3.1",
 		"babel-plugin-transform-class-properties": "^6.24.1",
 		"babel-plugin-transform-decorators-legacy": "^1.3.4",
 		"babel-plugin-transform-jsx-stylesheet": "^0.6.5",
@@ -62,6 +67,8 @@
 		"eslint-plugin-import": "^2.12.0",
 		"eslint-plugin-react": "^7.8.2",
 		"eslint-plugin-taro": "1.2.16",
+		"jest": "^24.3.1",
+		"ts-jest": "^24.0.0",
 		"typescript": "^3.0.1"
 	}
 }

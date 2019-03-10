@@ -9,7 +9,7 @@
 ## Introduction
 
 Natsuha is a weather app that created with [Taro](https://github.com/NervJS/taro)
-and Yahoo Weather API for WeChat Mini Program. Now the first official version(v1.0.0) is released,
+and Yahoo Weather API for WeChat Mini Program. Now the first official version(v1.0.1) is released,
 welcome to try and fork.
 
 ![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha_344.jpg)
@@ -49,15 +49,15 @@ Builds the app for production to the `dist` folder. It correctly bundles the app
 
 ## Privacy
 
-Because the following files refer to private key, those are not uploaded to GitHub, you must create them manually.
+The following files are not uploaded to GitHub because of private key, you must create them manually.
 
 ### getWoeid
 
-You should apply a key in [Yahoo Weather API](https://developer.yahoo.com/weather/) at first.
+You need apply a key in [Yahoo Weather API](https://developer.yahoo.com/weather/) at first.
 
 ![yahoo key](https://yancey-assets.oss-cn-beijing.aliyuncs.com/Jietu20190221-135157.jpg)
 
-Then create a file called `index.js` in `functions/getWoeid`, and insert the following codes.
+Then create a file called `index.js` in `functions/getWoeid`, and insert the following codes with your keys.
 
     /* eslint-disable */
 
