@@ -1,6 +1,6 @@
 node_modules
 build
-packages/**/package-lock.json
+package-lock.json*
 npm-debug.log*
 /coverage-report
 .DS_Store
