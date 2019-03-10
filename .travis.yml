@@ -1,5 +1,5 @@
 language: node_js
-sudo: false
+sudo: true
 
 node_js:
   - '10'
@@ -13,5 +13,7 @@ jobs:
     - stage: test
       if: (branch = master) AND (NOT (type IN (pull_request)))
       script:
+        - npm install -g @tarojs/cli
         - npm install
+        - npm build:weapp
         - npm run test

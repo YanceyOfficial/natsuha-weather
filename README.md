@@ -3,7 +3,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4bfa9469141e41949181fd7f0452c196)](https://app.codacy.com/app/YanceyOfficial/Natsuha-Weather?utm_source=github.com&utm_medium=referral&utm_content=YanceyOfficial/Natsuha-Weather&utm_campaign=Badge_Grade_Dashboard)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.com/YanceyOfficial/Natsuha-Weather.svg?branch=master)](https://travis-ci.com/YanceyOfficial/Natsuha-Weather)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/YanceyOfficial/Natsuha-Weather)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://github.com/YanceyOfficial/Natsuha-Weather)
 [![Node](https://img.shields.io/badge/node-%3E%3D8.0.0-green.svg)](https://github.com/YanceyOfficial/Natsuha-Weather)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/YanceyOfficial/Natsuha-Weather/pulls)
 
