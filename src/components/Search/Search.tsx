@@ -20,7 +20,6 @@ const history = require('../../assets/images/history.png');
 @inject('weatherStore')
 @observer
 class Search extends Component<IWeatherProps, {}> {
-
   render() {
     const {
       weatherStore: {
@@ -34,7 +33,7 @@ class Search extends Component<IWeatherProps, {}> {
         getPosition,
       },
     } = this.props;
-    
+
     const list = regionList.map(vaule => (
       <View key={vaule.woeid} className={styles.history_item}>
         <Button
