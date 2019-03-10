@@ -6,4 +6,5 @@ npm-debug.log*
 .DS_Store
 .idea
 dist
+# secret key
 functions/getWoeid/index.js*
