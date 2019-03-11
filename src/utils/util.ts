@@ -84,7 +84,6 @@ export const hourTo12 = (date: string): string => {
       return `${month}/${day}, ${hour}:${minute} AM`
     }
   }
-
 }
 
 /**
