@@ -2,8 +2,8 @@ node_modules
 build
 packages/**/package-lock.json
 npm-debug.log*
-/coverage-report
 .DS_Store
 .idea
 dist
 functions/getWoeid/index.js*
+/.coverage-report
