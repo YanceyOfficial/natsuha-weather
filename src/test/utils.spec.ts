@@ -15,7 +15,7 @@ test('should get right date', () => {
 
 test('should get right date', () => {
   expect(utils.upperFirstLetter('AFTERNOON')).toBe('Afternoon')
-  expect(utils.upperFirstLetter('YANCEY_LEO')).toBe('Yancey_Leo')
+  expect(utils.upperFirstLetter('YANCEY_LEO')).toBe('Yancey Leo')
 })
 
 test('should get right date', () => {
@@ -44,7 +44,7 @@ test('should get right date', () => {
 
 test('should get right date', () => {
   expect(utils.formatSunRiseAndSetDate(22700)).toBe('6:18')
-  expect(utils.formatSunRiseAndSetDate(22000)).toBe('6:08')
+  expect(utils.formatSunRiseAndSetDate(22000)).toBe('6:06')
   expect(utils.formatSunRiseAndSetDate(43200)).toBe('12:00')
 })
 
