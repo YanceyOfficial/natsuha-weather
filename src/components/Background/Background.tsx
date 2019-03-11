@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { Image, Block } from '@tarojs/components';
 import { defaultPhotoUrl, toastTxt } from '../../constants/constants';
-import { setToast } from '../../utils/util';
+import { setToast } from '../../utils/toast';
 import cs from 'classnames';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';

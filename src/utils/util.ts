@@ -1,4 +1,3 @@
-import Taro from '@tarojs/taro'
 import {
   imageBaseUrl,
   imageType,
@@ -6,43 +5,6 @@ import {
   hd3,
   weekList,
 } from '../constants/constants'
-
-/**
- * Package the common toast component
- *
- * @param {String} title The content of toast
- * @param {String} icon The icon of toast
- * @param {Boolean} mask Show or hide a mask
- * @param {Number} duration The display duration of toast
- * @returns {Any} Returns to show a toast
- */
-export const setToast = (title: string = '', icon: string = 'none', mask: boolean = true, duration: number = 1500): any => {
-  return Taro.showToast({
-    title,
-    icon,
-    mask,
-    duration,
-  })
-}
-
-/**
- * Package the loading toast component
- *
- * @param {Boolean} showLoadingToast Show or hide a toast
- * @param {String} title The content of toast
- * @param {Boolean} mask Show or hide a mask
- * @returns {Any} Returns to show or hide a loading toast
- */
-export const setLoadingToast = (showLoadingToast: boolean, title: string = 'Loading...', mask: boolean = true): void | any => {
-  if (showLoadingToast) {
-    return Taro.showLoading({
-      title,
-      mask,
-    })
-  } else {
-    Taro.hideLoading();
-  }
-}
 
 /**
  * Format a JSON date
@@ -146,12 +108,14 @@ export const getRainfallIconName = (number: number): number => parseInt((number 
  * @returns {String} Returns a new string with the first letter of each word in the string.
  */
 export const windDirectFormat = (value: string): string => {
-  const arr = value.match(/\b(\w)/g);
-  if (arr) {
-    if (arr.length > 1) {
-      return arr.join('')
-    } else {
-      return value
+  if (value.trim() && typeof value === 'string') {
+    const arr = value.match(/\b(\w)/g);
+    if (arr) {
+      if (arr.length > 1) {
+        return arr.join('')
+      } else {
+        return value
+      }
     }
   }
   return value;

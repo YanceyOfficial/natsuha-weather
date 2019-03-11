@@ -13,7 +13,7 @@ import {
 import {
   setLoadingToast,
   setToast,
-} from '../utils/util';
+} from '../utils/toast';
 import httpClient from '../utils/https';
 import {
   defaultPhotoUrl,
@@ -239,71 +239,67 @@ class WeatherStore {
     });
   };
 
-  public getWeatherById = (woeid: string) => {
+  public getWeatherById = async (woeid: string) => {
     setLoadingToast(true, toastTxt.weatherLoading);
-    httpClient('getWeatherById', {
+    try {
+      const res = await httpClient('getWeatherById', {
         woeid,
         lang: this.systemLanguage,
-      })
-      .then(res => {
-        runInAction(() => {
-          this.curWoeid = woeid;
-          this.isFahrenheit = true;
-          const weatherResult = (res as any).weatherResult;
-          this.weatherData = weatherResult.weathers[0];
-          this.metaData = weatherResult.meta;
-          this.curCountryName = this.weatherData.location.countryName;
-          this.curCityName = this.weatherData.location.displayName;
-          this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
-          this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
-          setLoadingToast(false);
-        });
-      })
-      .catch(() => {
-        setToast(toastTxt.deleteHistoryFail);
-        Taro.vibrateLong();
-      })
-      .finally(() => {
-        Taro.stopPullDownRefresh();
       });
+      runInAction(() => {
+        this.curWoeid = woeid;
+        this.isFahrenheit = true;
+        const weatherResult = (res as any).weatherResult;
+        this.weatherData = weatherResult.weathers[0];
+        this.metaData = weatherResult.meta;
+        this.curCountryName = this.weatherData.location.countryName;
+        this.curCityName = this.weatherData.location.displayName;
+        this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
+        this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
+        setLoadingToast(false);
+      })
+    } catch (e) {
+      setToast(toastTxt.deleteHistoryFail);
+      Taro.vibrateLong();
+    } finally {
+      Taro.stopPullDownRefresh();
+    }
   };
 
   // 根据经纬度反查城市
-  public getWoeid = (lat: number, lon: number) => {
+  public getWoeid = async (lat: number, lon: number) => {
     setLoadingToast(true, toastTxt.locationLoading);
-    httpClient('getWoeid', {
+    try {
+      const res = await httpClient('getWoeid', {
         lat,
         lon,
         lang: this.systemLanguage,
-      })
-      .then((res: any) => {
-        runInAction(() => {
-          const location = JSON.parse(res).location;
-          this.curCountryName = location.country;
-          this.curCityName = location.region;
-          this.getWeatherById(location.woeid);
-        });
-      })
-      .catch(() => {
-        setLoadingToast(false);
-        setToast(toastTxt.cityFail);
       });
+      runInAction(() => {
+        const location = JSON.parse((res as any)).location;
+        this.curCountryName = location.country;
+        this.curCityName = location.region;
+        this.getWeatherById(location.woeid);
+      });
+    } catch (e) {
+      setLoadingToast(false);
+      setToast(toastTxt.cityFail);
+    }
   };
 
-  public getRegion = (text: string) => {
-    httpClient('getRegion', {
+  public getRegion = async (text: string) => {
+    try {
+      const res = await httpClient('getRegion', {
         region: encodeURI(text),
-      })
-      .then((res: any) => {
-        runInAction(() => {
-          if (res.regionList) {
-            this.regionList = res.regionList;
-          }
-        });
-      })
-      .catch(() => {
-        setToast(toastTxt.cityFail);
       });
+      runInAction(() => {
+        if ((res as any).regionList) {
+          this.regionList = res.regionList;
+        }
+      });
+    } catch (e) {
+      setToast(toastTxt.cityFail);
+    }
   };
 
   // 获取历史城市列表
