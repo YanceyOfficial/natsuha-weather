@@ -2,9 +2,9 @@ node_modules
 build
 package-lock.json*
 npm-debug.log*
-/coverage-report
 .DS_Store
 .idea
 dist
 # secret key
 functions/getWoeid/index.js*
+/.coverage-report
