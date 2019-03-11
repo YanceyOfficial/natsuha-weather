@@ -31,7 +31,6 @@ test('should get right date', () => {
 test('should get right date', () => {
   expect(utils.windDirectFormat('North North West')).toBe('NNW')
   expect(utils.windDirectFormat('North')).toBe('North')
-  expect(utils.windDirectFormat(1)).toBe(1)
 })
 
 test('should get right date', () => {

@@ -11,7 +11,7 @@ test('should get right date', () => {
 })
 
 test('should get right date', () => {
-  expect(convert.convertMillibarsInches(true, 1000)).toBe(29.6134)
+  expect(convert.convertMillibarsInches(true, 1)).toBe(0.0296134)
   expect(convert.convertMillibarsInches(false, 0.0296134)).toBe(1)
 })
 
