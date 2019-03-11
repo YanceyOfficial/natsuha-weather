@@ -31,6 +31,7 @@ test('should get right date', () => {
 test('should get right date', () => {
   expect(utils.windDirectFormat('North North West')).toBe('NNW')
   expect(utils.windDirectFormat('North')).toBe('North')
+  expect(utils.windDirectFormat(1)).toBe(1)
 })
 
 test('should get right date', () => {
@@ -39,16 +40,14 @@ test('should get right date', () => {
   expect(utils.getWindSpeed(11)).toBe(2.6875)
   expect(utils.getWindSpeed(16)).toBe(2.25)
   expect(utils.getWindSpeed(21)).toBe(1.8125)
+  expect(utils.getWindSpeed(-1)).toBe(3.5625)
 })
 
 test('should get right date', () => {
   expect(utils.formatSunRiseAndSetDate(22700)).toBe('6:18')
   expect(utils.formatSunRiseAndSetDate(22000)).toBe('6:08')
+  expect(utils.formatSunRiseAndSetDate(43200)).toBe('12:00')
 })
-
-// test('should get right date', () => {
-//   expect(utils.sunPosition('sun', 22700, 68400)).toThrow()
-// })
 
 test('should get right date', () => {
   expect(utils.formatWeek(0)).toBe('Sunday')
