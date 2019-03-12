@@ -25,18 +25,6 @@ import {
 } from '../types/weather';
 import IRegion from '../types/region';
 
-// 让Taro的Prosise支持finally
-Promise.prototype.finally = function (callback) {
-  let P = this.constructor;
-  return this.then(
-    value => P.resolve(callback && callback()).then(() => value),
-    reason =>
-    P.resolve(callback && callback()).then(() => {
-      throw reason;
-    }),
-  );
-};
-
 class WeatherStore {
   construtor() {
     this.getRegion = _.debounce(this.getRegion, 150);
@@ -267,13 +255,13 @@ class WeatherStore {
   };
 
   // 根据经纬度反查城市
-  public getWoeid = async (lat: number, lon: number) => {
+  public getWoeid = async (lat: number, lon: number, lang = this.systemLanguage) => {
     setLoadingToast(true, toastTxt.locationLoading);
     try {
       const res = await httpClient('getWoeid', {
         lat,
         lon,
-        lang: this.systemLanguage,
+        lang,
       });
       runInAction(() => {
         const location = JSON.parse((res as any)).location;
@@ -294,7 +282,7 @@ class WeatherStore {
       });
       runInAction(() => {
         if ((res as any).regionList) {
-          this.regionList = res.regionList;
+          this.regionList = (res as any).regionList;
         }
       });
     } catch (e) {
