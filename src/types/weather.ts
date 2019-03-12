@@ -18,7 +18,7 @@ export interface IWeatherProps {
     getStorage: () => void;
     getSetting: () => void;
     getWeatherById: (woeid: string) => void;
-    getWoeid: (lat: number, lon: number) => void;
+    getWoeid: (lat: number, lon: number, lang: string) => void;
     getRegion: (text: string) => void;
     getPosition: () => void;
     handleTemperatureTypeChange: (type: boolean) => void;
