@@ -59,7 +59,7 @@ You need apply a key in [Yahoo Weather API](https://developer.yahoo.com/weather/
 
 ![yahoo key](https://yancey-assets.oss-cn-beijing.aliyuncs.com/Jietu20190221-135157.jpg)
 
-Then create a file called `index.js` in `functions/getWoeid`, and insert the following codes with your keys.
+Then create a file `index.js` in `functions/getWoeid`, and insert the following codes with your keys.
 
     /* eslint-disable */
 
