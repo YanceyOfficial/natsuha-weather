@@ -105,6 +105,8 @@ Then create a file `index.js` in `functions/getWoeid`, and insert the following 
 - Optimize image loading
 - Support Test
 - Move the search component to a new page
+- Drag and Drop
+- Display multi city by swipe
 
 ## License
 
