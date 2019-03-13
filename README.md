@@ -35,11 +35,11 @@ welcome to experience and fork.
 
 ### `npm i -g @tarojs/cli@latest`
 
-Firstly you must install the `@tarojs/cli` globally.
+Firstly you should install the `@tarojs/cli` globally.
 
 ### `npm install`
 
-Install dependency.
+Install dependencies.
 
 ### `npm run dev:weapp`
 
