@@ -12,5 +12,5 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-  "condition": {}
+	"condition": {}
 }

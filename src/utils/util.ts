@@ -108,7 +108,7 @@ export const getRainfallIconName = (number: number): number => parseInt((number 
  * @returns {String} Returns a new string with the first letter of each word in the string.
  */
 export const windDirectFormat = (value: string): string => {
-  if (value.trim() && typeof value === 'string') {
+  if (typeof value === 'string') {
     const arr = value.match(/\b(\w)/g);
     if (arr) {
       if (arr.length > 1) {

@@ -1,6 +1,6 @@
 {
 	"name": "natsuha-weather",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"private": true,
 	"description": "An awesome weather app for WeChat mini program.",
 	"main": "index.js",
