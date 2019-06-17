@@ -1,4 +1,4 @@
-# Natsuha Weather for WeChat Mini Program
+# Natsuha Weather
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4bfa9469141e41949181fd7f0452c196)](https://app.codacy.com/app/YanceyOfficial/Natsuha-Weather?utm_source=github.com&utm_medium=referral&utm_content=YanceyOfficial/Natsuha-Weather&utm_campaign=Badge_Grade_Dashboard)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
