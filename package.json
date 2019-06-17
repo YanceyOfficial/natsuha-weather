@@ -2,7 +2,7 @@
 	"name": "natsuha-weather",
 	"version": "1.0.2",
 	"private": true,
-	"description": "An awesome weather app for WeChat mini program.",
+	"description": "An awesome weather app for WeChat Mini Program.",
 	"main": "index.js",
 	"scripts": {
 		"build:weapp": "taro build --type weapp",
