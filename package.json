@@ -37,7 +37,7 @@
 		"@tarojs/taro-weapp": "1.2.16",
 		"classnames": "^2.2.6",
 		"global": "^4.3.2",
-		"lodash": "^4.17.11",
+		"lodash": "^4.17.13",
 		"mobx": "^5.9.0",
 		"nerv-devtools": "^1.3.9",
 		"nervjs": "^1.3.9",
