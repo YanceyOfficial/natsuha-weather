@@ -12,7 +12,7 @@
 
 Natsuha is a weather app that created with [Taro](https://github.com/NervJS/taro)
 and Yahoo Weather API for WeChat Mini Program. Now the stable version(v1.0.3) is released,
-welcome to experience and fork.
+welcome to experience and star.
 
 ![Natsuha Weather](https://yancey-assets.oss-cn-beijing.aliyuncs.com/natsuha_344.jpg)
 
