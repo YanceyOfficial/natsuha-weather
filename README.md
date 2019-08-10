@@ -3,7 +3,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4bfa9469141e41949181fd7f0452c196)](https://app.codacy.com/app/YanceyOfficial/Natsuha-Weather?utm_source=github.com&utm_medium=referral&utm_content=YanceyOfficial/Natsuha-Weather&utm_campaign=Badge_Grade_Dashboard)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.com/YanceyOfficial/Natsuha-Weather.svg?branch=master)](https://travis-ci.com/YanceyOfficial/Natsuha-Weather)
-[![Version](https://img.shields.io/badge/version-1.0.3-blue.svg)](https://github.com/YanceyOfficial/Natsuha-Weather)
+[![Version](https://img.shields.io/badge/version-1.0.4-blue.svg)](https://github.com/YanceyOfficial/Natsuha-Weather)
 [![Node](https://img.shields.io/badge/node-%3E%3D8.0.0-green.svg)](https://github.com/YanceyOfficial/Natsuha-Weather)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/YanceyOfficial/Natsuha-Weather/pulls)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYanceyOfficial%2FNatsuha-Weather.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FYanceyOfficial%2FNatsuha-Weather?ref=badge_shield)
@@ -31,21 +31,19 @@ welcome to experience and star.
 
 ## Available Scripts
 
-⚠️ Because of the [unknown bugs](https://github.com/NervJS/taro/issues/699) of Taro, you **must** use `npm` instead of `yarn`.
-
-### `npm i -g @tarojs/cli@latest`
+### `yarn global add @tarojs/cli`
 
 Firstly you should install the `@tarojs/cli` globally.
 
-### `npm install`
+### `yarn install`
 
 Install dependencies.
 
-### `npm run dev:weapp`
+### `yarn dev:weapp`
 
 Runs the app in the development mode. Open the developer tools of WeChat to view it. The app will be deployed if you make edits. You will also see any lint errors in the console.
 
-### `npm run build:weapp`
+### `yarn build:weapp`
 
 Builds the app for production to the `dist` folder. It correctly bundles the app in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. The app is ready to be deployed!
 
@@ -113,11 +111,11 @@ exports.main = async (event, context) =>
 
 ## Change Logs
 
-### v1.0.3 
+### v1.0.3
 
 Fix bug of Wind Component. (2019-04-18)
 
-### v1.0.2 
+### v1.0.2
 
 Add Serach Component. (2019-03-11)
 
@@ -128,7 +126,6 @@ Optimization code. (2019-03-07)
 ### v1.0.0
 
 Publish the first version. (2019-03-01)
-
 
 ## License
 
