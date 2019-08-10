@@ -21,7 +21,7 @@ interface IForecastByHourStates {
 @inject('weatherStore')
 @observer
 class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
-  constructor(props: any) {
+  constructor(props: IWeatherProps) {
     super(props);
     this.state = {
       typeList: ['Temperature', 'Precipitation', 'Wind'],

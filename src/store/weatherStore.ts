@@ -1,8 +1,4 @@
-import {
-  observable,
-  runInAction,
-  action
-} from 'mobx';
+import { observable, runInAction, action } from 'mobx';
 import Taro from '@tarojs/taro';
 import _ from 'lodash';
 import {
@@ -10,20 +6,19 @@ import {
   convertKmMiles,
   convertMillibarsInches,
 } from '../utils/convert';
-import {
-  setLoadingToast,
-  setToast,
-} from '../utils/toast';
+import { setLoadingToast, setToast } from '../utils/toast';
 import httpClient from '../utils/https';
-import {
-  defaultPhotoUrl,
-  toastTxt
-} from '../constants/constants';
-import {
-  IMeta,
-  IWeather
-} from '../types/weather';
+import { defaultPhotoUrl, toastTxt } from '../constants/constants';
+import { IMeta, IWeather } from '../types/weather';
 import IRegion from '../types/region';
+
+interface IWeatherRes {
+  requestID: string
+  weatherResult: {
+    meta: IMeta
+    weathers: IWeather[]
+  }
+}
 
 class WeatherStore {
   construtor() {
@@ -61,7 +56,8 @@ class WeatherStore {
       windDirectionCode: 'South South East',
       barometricPressure: 0,
     },
-    precipitations: [{
+    precipitations: [
+      {
         timeSlot: 'MORNING',
         probability: 0,
       },
@@ -87,13 +83,15 @@ class WeatherStore {
       daily: [],
       hourly: [],
     },
-    photos: [{
-      ownerName: '',
-      resolutions: [],
-    }, ],
+    photos: [
+      {
+        ownerName: '',
+        resolutions: [],
+      },
+    ],
   };
 
-  @observable public metaData: IMeta = {
+  @observable.deep public metaData: IMeta = {
     conditionMap: {},
     skycode: {
       32: 'clear_day',
@@ -197,8 +195,7 @@ class WeatherStore {
     this.showSearch = false;
     setTimeout(() => {
       this.isSearching = false;
-    }, 350)
-
+    }, 350);
   };
 
   @action
@@ -227,6 +224,8 @@ class WeatherStore {
     });
   };
 
+
+
   public getWeatherById = async (woeid: string) => {
     setLoadingToast(true, toastTxt.weatherLoading);
     try {
@@ -237,7 +236,7 @@ class WeatherStore {
       runInAction(() => {
         this.curWoeid = woeid;
         this.isFahrenheit = true;
-        const weatherResult = (res as any).weatherResult;
+        const weatherResult = (res as IWeatherRes).weatherResult;
         this.weatherData = weatherResult.weathers[0];
         this.metaData = weatherResult.meta;
         this.curCountryName = this.weatherData.location.countryName;
@@ -245,7 +244,7 @@ class WeatherStore {
         this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url;
         this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url;
         setLoadingToast(false);
-      })
+      });
     } catch (e) {
       setToast(toastTxt.deleteHistoryFail);
       Taro.vibrateLong();
@@ -255,7 +254,11 @@ class WeatherStore {
   };
 
   // 根据经纬度反查城市
-  public getWoeid = async (lat: number, lon: number, lang = this.systemLanguage) => {
+  public getWoeid = async (
+    lat: number,
+    lon: number,
+    lang = this.systemLanguage,
+  ) => {
     setLoadingToast(true, toastTxt.locationLoading);
     try {
       const res = await httpClient('getWoeid', {
@@ -264,7 +267,7 @@ class WeatherStore {
         lang,
       });
       runInAction(() => {
-        const location = JSON.parse((res as any)).location;
+        const location = JSON.parse(res as any).location;
         this.curCountryName = location.country;
         this.curCityName = location.region;
         this.getWeatherById(location.woeid);
@@ -326,8 +329,8 @@ class WeatherStore {
     }
     setLoadingToast(true, toastTxt.coordinatesLoading);
     Taro.getLocation({
-        type: 'gcj02',
-      })
+      type: 'gcj02',
+    })
       .then(res => {
         const lat = res.latitude;
         const lon = res.longitude;

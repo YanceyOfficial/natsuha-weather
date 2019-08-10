@@ -18,7 +18,7 @@ interface IForecastByDayStates {
 @inject('weatherStore')
 @observer
 class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
-  constructor(props: any) {
+  constructor(props: IWeatherProps) {
     super(props);
     this.state = {
       isFive: true,

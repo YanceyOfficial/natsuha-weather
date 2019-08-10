@@ -16,7 +16,7 @@ class Summary extends Component<IWeatherProps, {}> {
   render() {
     const {
       weatherStore: {
-        weatherData,
+        weatherData: { photos, observation },
         handleTemperatureTypeChange,
         showSearchDialog,
         isFahrenheit,
@@ -27,9 +27,7 @@ class Summary extends Component<IWeatherProps, {}> {
     } = this.props;
 
     const ownerName =
-      weatherData.photos[0].resolutions.length !== 0
-        ? weatherData.photos[0].ownerName
-        : 'Yancey';
+      photos[0].resolutions.length !== 0 ? photos[0].ownerName : 'Yancey';
 
     return (
       <View className={styles.summary_wrapper}>
@@ -44,7 +42,7 @@ class Summary extends Component<IWeatherProps, {}> {
           </View>
           <Text className={styles.country}>{curCountryName}</Text>
           <Text className={styles.cur_time}>
-            {hourTo12(weatherData.observation.localTime.timestamp)}
+            {hourTo12(observation.localTime.timestamp)}
           </Text>
         </View>
 
@@ -54,11 +52,11 @@ class Summary extends Component<IWeatherProps, {}> {
               className={styles.condition_icon}
               src={getImageUrl(
                 'Temperature',
-                metaData.skycode[weatherData.observation.conditionCode],
+                metaData.skycode[observation.conditionCode],
               )}
             />
             <Text className={styles.condition_txt}>
-              {weatherData.observation.conditionDescription}
+              {observation.conditionDescription}
             </Text>
           </View>
 
@@ -68,17 +66,17 @@ class Summary extends Component<IWeatherProps, {}> {
               src={arrow}
             />
             <Text className={styles.temperature}>
-              {weatherData.observation.temperature.high.toFixed(0)}°
+              {observation.temperature.high.toFixed(0)}°
             </Text>
             <Image className={styles.arrow} src={arrow} />
             <Text className={styles.temperature}>
-              {weatherData.observation.temperature.low.toFixed(0)}°
+              {observation.temperature.low.toFixed(0)}°
             </Text>
           </View>
 
           <View>
             <Text className={styles.cur_temperature}>
-              {weatherData.observation.temperature.now.toFixed(0)}
+              {observation.temperature.now.toFixed(0)}
             </Text>
             <Text className={styles.cur_temperature_symbol}>°</Text>
             <View className={styles.temperature_type}>
