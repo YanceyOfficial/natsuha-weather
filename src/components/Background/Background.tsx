@@ -11,7 +11,7 @@ import styles from './Background.module.scss';
 @inject('weatherStore')
 @observer
 class Background extends Component<IWeatherProps, {}> {
-  constructor(props: any) {
+  constructor(props: IWeatherProps) {
     super(props);
     this.state = {};
   }

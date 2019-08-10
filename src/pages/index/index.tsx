@@ -3,6 +3,7 @@ import Taro, { Component, Config } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';
+import './index.scss';
 
 import Summary from '../../components/Summary/Summary';
 import Detail from '../../components/Detail/Detail';
@@ -14,8 +15,6 @@ import Precipitation from '../../components/Precipitation/Precipitation';
 import Search from '../../components/Search/Search';
 import Modal from '../../components/Widget/Modal/Modal';
 
-import './index.scss';
-
 interface IIndexStates {
   needBlur: boolean;
 }
@@ -23,7 +22,7 @@ interface IIndexStates {
 @inject('weatherStore')
 @observer
 class Index extends Component<IWeatherProps, IIndexStates> {
-  constructor(props: any) {
+  constructor(props: IWeatherProps) {
     super(props);
     this.state = {
       needBlur: false,

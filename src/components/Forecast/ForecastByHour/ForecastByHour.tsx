@@ -55,8 +55,11 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
 
     const { typeList, selected, scrollLength } = this.state;
 
-    const hourlyList = hourly.map((hour, key) => (
-      <View className={styles.precipitation_group} key={key}>
+    const hourlyList = hourly.map(hour => (
+      <View
+        className={styles.precipitation_group}
+        key={hour.observationTime.timestamp}
+      >
         <Text className={styles.precipitation_txt}>
           {hourTo12Lite(hour.observationTime.hour)}
         </Text>

@@ -29,9 +29,9 @@ class Detail extends Component<IWeatherProps, {}> {
       },
     } = this.props;
 
-    const dayPartTextList = dayPartTexts.map((value, key) => (
-      <Text className={styles.content_detail_txt} key={key}>
-        {upperFirstLetter(value.dayPart)}{' '} -{' '}{value.text}
+    const dayPartTextList = dayPartTexts.map(value => (
+      <Text className={styles.content_detail_txt} key={value.dayPart}>
+        {upperFirstLetter(value.dayPart)} - {value.text}
       </Text>
     ));
 
@@ -54,13 +54,13 @@ class Detail extends Component<IWeatherProps, {}> {
             <View className={styles.content_group}>
               <Text>Visibility</Text>
               <Text>
-                {visibility.toFixed(2)}{' '}{isFahrenheit ? 'miles' : 'km'}
+                {visibility.toFixed(2)} {isFahrenheit ? 'miles' : 'km'}
               </Text>
             </View>
             <View className={styles.content_group}>
               <Text>UV Index</Text>
               <Text>
-                {uvIndex}{' '}({uvDescription})
+                {uvIndex} ({uvDescription})
               </Text>
             </View>
           </View>

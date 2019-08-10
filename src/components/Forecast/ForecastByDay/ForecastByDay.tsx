@@ -50,8 +50,8 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
 
     const { isFive } = this.state;
 
-    const dailyList = daily.slice(0, 10).map((day, key) => (
-      <View key={key}>
+    const dailyList = daily.slice(0, 10).map(day => (
+      <View key={day.observationTime.timestamp}>
         <View className={styles.day_group}>
           <View className={styles.group_basic}>
             <Text className={styles.week_name}>
@@ -96,7 +96,10 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
         </View>
         <View className={styles.day_picker}>
           <Text
-            className={cs(styles.five_day, isFive ? '' : styles.unselected_picker)}
+            className={cs(
+              styles.five_day,
+              isFive ? '' : styles.unselected_picker,
+            )}
             onClick={() => this.handleDay(5)}
           >
             5 DAY

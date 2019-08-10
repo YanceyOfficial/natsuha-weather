@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx';
 import cs from 'classnames';
 import { toastTxt } from '../../../constants/constants';
 import { IWeatherProps } from '../../../types/weather';
-
+import styles from './Modal.module.scss';
 
 @inject('weatherStore')
 @observer
