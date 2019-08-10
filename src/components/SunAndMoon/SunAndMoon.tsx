@@ -10,7 +10,7 @@ import {
   sunPosition,
 } from '../../utils/util';
 import { moonPhases } from '../../constants/constants';
-const styles = require('./SunAndMoon.module.scss');
+import styles from './SunAndMoon.module.scss';
 
 @inject('weatherStore')
 @observer

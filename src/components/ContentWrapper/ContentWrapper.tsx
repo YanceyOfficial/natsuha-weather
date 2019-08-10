@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Block } from '@tarojs/components';
 import IContentWrapperProps from '../../types/contentWrapper';
-const styles = require('./ContentWrapper.module.scss');
+import styles from './ContentWrapper.module.scss';
 
 class ContentWrapper extends Component<IContentWrapperProps, {}> {
   render() {

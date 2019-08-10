@@ -5,10 +5,10 @@ import { observer, inject } from '@tarojs/mobx';
 import cs from 'classnames';
 import { IWeatherProps } from '../../types/weather';
 import { hourTo12, getImageUrl } from '../../utils/util';
-const flickr = require('../../assets/images/flickr.png');
-const arrow = require('../../assets/images/arrow.png');
-const location_yellow = require('../../assets/images/location_yellow.png');
-const styles = require('./Summary.module.scss');
+import styles from './Summary.module.scss';
+import flickr from '../../assets/images/flickr.png';
+import arrow from '../../assets/images/arrow.png';
+import location_yellow from '../../assets/images/location_yellow.png';
 
 @inject('weatherStore')
 @observer
@@ -105,9 +105,9 @@ class Summary extends Component<IWeatherProps, {}> {
             </View>
           </View>
           <View className={styles.flickr_info}>
-            <Text className={styles.flickr_txt}>© by{' '}</Text>
+            <Text className={styles.flickr_txt}>© by </Text>
             <Text className={styles.flickr_txt}>{ownerName}</Text>
-            <Text className={styles.flickr_txt}>{' '}on{' '}</Text>
+            <Text className={styles.flickr_txt}> on </Text>
             <Image className={styles.flickr_icon} src={flickr} />
           </View>
         </View>

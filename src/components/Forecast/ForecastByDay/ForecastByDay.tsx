@@ -9,7 +9,7 @@ import {
   getImageUrl,
   getRainfallIconName,
 } from '../../../utils/util';
-const styles = require('./ForecastByDay.module.scss');
+import styles from './ForecastByDay.module.scss';
 
 interface IForecastByDayStates {
   isFive: boolean;

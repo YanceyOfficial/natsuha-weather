@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';
 import { upperFirstLetter, getImageUrl } from '../../utils/util';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
-const styles = require('./Detail.module.scss');
+import styles from './Detail.module.scss';
 
 @inject('weatherStore')
 @observer

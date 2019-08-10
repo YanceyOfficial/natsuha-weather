@@ -6,7 +6,7 @@ import { setToast } from '../../utils/toast';
 import cs from 'classnames';
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';
-const styles = require('./Background.module.scss');
+import styles from './Background.module.scss';
 
 @inject('weatherStore')
 @observer
@@ -28,16 +28,12 @@ class Background extends Component<IWeatherProps, {}> {
 
     return (
       <Block>
-          <Image
-          className={cs(
-            styles.full_screen_background,
-          )}
+        <Image
+          className={cs(styles.full_screen_background)}
           src={defaultPhotoUrl}
         />
         <Image
-          className={cs(
-            styles.full_screen_background,
-          )}
+          className={cs(styles.full_screen_background)}
           src={backgroudImageUrl}
           onError={() => this.onError()}
         />

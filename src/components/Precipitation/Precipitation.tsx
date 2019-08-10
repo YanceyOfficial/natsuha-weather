@@ -9,7 +9,7 @@ import {
   getImageUrl,
   getRainfallIconName
 } from '../../utils/util';
-const styles = require('./Precipitation.module.scss');
+import styles from './Precipitation.module.scss';
 
 @inject('weatherStore')
 @observer

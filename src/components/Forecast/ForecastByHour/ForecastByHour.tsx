@@ -9,8 +9,8 @@ import {
   getRainfallIconName,
 } from '../../../utils/util';
 
-const arrow = require('../../../assets/images/arrow.png');
-const styles = require('./ForecastByHour.module.scss');
+import styles from './ForecastByHour.module.scss';
+import arrow from '../../../assets/images/arrow.png';
 
 interface IForecastByHourStates {
   typeList: string[];

@@ -12,10 +12,10 @@ import {
 import { observer, inject } from '@tarojs/mobx';
 import { IWeatherProps } from '../../types/weather';
 import cs from 'classnames';
-const styles = require('./Search.module.scss');
-const search = require('../../assets/images/search.png');
-const location = require('../../assets/images/location.png');
-const history = require('../../assets/images/history.png');
+import styles from './Search.module.scss';
+import search from '../../assets/images/search.png';
+import location from '../../assets/images/location.png';
+import history from '../../assets/images/history.png';
 
 @inject('weatherStore')
 @observer
