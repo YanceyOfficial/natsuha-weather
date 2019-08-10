@@ -1,6 +1,6 @@
 const config = {
-  projectName: 'natsuha-weather',
-  date: '2019-2-14',
+  projectName: 'natsuha',
+  date: '2019-8-10',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,

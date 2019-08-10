@@ -1,40 +1,40 @@
-import { ComponentType } from 'react';
-import Taro, { Component, Config } from '@tarojs/taro';
-import { View } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import { IWeatherProps } from '../../types/weather';
+import { ComponentType } from "react";
+import Taro, { Component, Config } from "@tarojs/taro";
+import { View } from "@tarojs/components";
+import { observer, inject } from "@tarojs/mobx";
+import { IWeatherProps } from "../../types/weather";
 
-import Summary from '../../components/Summary/Summary';
-import Detail from '../../components/Detail/Detail';
-import SunAndMoon from '../../components/SunAndMoon/SunAndMoon';
-import Wind from '../../components/Wind/Wind';
-import Forecast from '../../components/Forecast/Forecast';
-import Background from '../../components/Background/Background';
-import Precipitation from '../../components/Precipitation/Precipitation';
-import Search from '../../components/Search/Search';
-import Modal from '../../components/Widget/Modal/Modal';
+import Summary from "../../components/Summary/Summary";
+import Detail from "../../components/Detail/Detail";
+import SunAndMoon from "../../components/SunAndMoon/SunAndMoon";
+import Wind from "../../components/Wind/Wind";
+import Forecast from "../../components/Forecast/Forecast";
+import Background from "../../components/Background/Background";
+import Precipitation from "../../components/Precipitation/Precipitation";
+import Search from "../../components/Search/Search";
+import Modal from "../../components/Widget/Modal/Modal";
 
-import './index.scss';
+import "./index.scss";
 
 interface IIndexStates {
   needBlur: boolean;
 }
 
-@inject('weatherStore')
+@inject("weatherStore")
 @observer
 class Index extends Component<IWeatherProps, IIndexStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      needBlur: false,
+      needBlur: false
     };
   }
   config: Config = {
-    navigationBarTitleText: 'Natsuha',
+    navigationBarTitleText: "Natsuha"
   };
 
   componentWillMount() {
-    wx.cloud.init();
+    Taro.cloud.init();
   }
 
   componentDidMount() {
@@ -44,7 +44,7 @@ class Index extends Component<IWeatherProps, IIndexStates> {
 
   public onPullDownRefresh = () => {
     const {
-      weatherStore: { curWoeid, getWeatherById, getPosition },
+      weatherStore: { curWoeid, getWeatherById, getPosition }
     } = this.props;
     if (curWoeid) {
       getWeatherById(curWoeid);
@@ -56,20 +56,20 @@ class Index extends Component<IWeatherProps, IIndexStates> {
   public onShareAppMessage = () => {
     const { widthBackgroudImageUrl } = this.props.weatherStore;
     return {
-      title: 'Natsuha Weather',
-      path: '/pages/index/index',
-      imageUrl: widthBackgroudImageUrl,
+      title: "Natsuha Weather",
+      path: "/pages/index/index",
+      imageUrl: widthBackgroudImageUrl
     };
   };
 
   public onPageScroll(e: any) {
     if (e.scrollTop >= 100) {
       this.setState({
-        needBlur: true,
+        needBlur: true
       });
     } else {
       this.setState({
-        needBlur: false,
+        needBlur: false
       });
     }
   }
@@ -78,7 +78,7 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     const { needBlur } = this.state;
     const { showModal, showSearch } = this.props.weatherStore;
     return (
-      <View className='index' style={showSearch ? { position: 'fixed' } : {}}>
+      <View className="index" style={showSearch ? { position: "fixed" } : {}}>
         {showModal ? <Modal /> : null}
         <Background needBlur={needBlur} />
         <Summary />

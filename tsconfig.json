@@ -14,17 +14,19 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "rootDir": "src",
+    "rootDir": ".",
     "jsx": "preserve",
     "jsxFactory": "Taro.createElement",
     "allowJs": true,
+    "resolveJsonModule": true,
     "typeRoots": [
       "node_modules/@types",
       "global.d.ts"
-    ],
+    ]
   },
-  "compileOnSave": false,
-  "include": [
-    "src"
-  ]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "compileOnSave": false
 }

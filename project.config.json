@@ -1,16 +1,17 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "Natsuha-Weather-WeChat",
-	"description": "An awesome weather app for WeChat Mini Program.",
+	"projectname": "natsuha",
+	"description": "Natsuha Weather",
 	"appid": "wx50e47221f2016c9d",
 	"cloudfunctionRoot": "functions/",
 	"setting": {
 		"urlCheck": true,
 		"es6": false,
 		"postcss": false,
-		"minified": false,
-		"newFeature": true
+		"minified": false
 	},
 	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {}
 }
