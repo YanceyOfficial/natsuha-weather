@@ -111,6 +111,10 @@ exports.main = async (event, context) =>
 
 ## Change Logs
 
+### v1.0.4
+
+Upgrage Taro to v1.3.12 (2019-08-10)
+
 ### v1.0.3
 
 Fix bug of Wind Component. (2019-04-18)
