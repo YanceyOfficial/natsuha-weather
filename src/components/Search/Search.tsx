@@ -84,7 +84,8 @@ class Search extends Component<IWeatherProps, {}> {
               Close
             </Button>
           </View>
-          <View
+          {/* FIXME: */}
+          {/* <View
             className={cs(
               styles.container,
               styles.detech_my_location_container,
@@ -95,7 +96,7 @@ class Search extends Component<IWeatherProps, {}> {
               className={cs(styles.icon, styles.location_icon)}
             />
             <Text onClick={() => getPosition()}>Detach my location</Text>
-          </View>
+          </View> */}
           <View className={styles.history}>
             {!isSearching ? (
               <View className={cs(styles.container, styles.history_container)}>
