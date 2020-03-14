@@ -1,8 +1,8 @@
 {
-  "name": "myApp",
-  "version": "1.0.0",
+  "name": "natsuha",
+  "version": "2.0.0",
   "private": true,
-  "description": "natsuha",
+  "description": "natsuha wether for wechat mini program",
   "templateInfo": {
     "name": "mobx",
     "typescript": true,
