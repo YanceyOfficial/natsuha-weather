@@ -1,10 +1,6 @@
-node_modules
-build
-package-lock.json*
-npm-debug.log*
+dist/
+deploy_versions/
+.temp/
+.rn_temp/
+node_modules/
 .DS_Store
-.idea
-dist
-# secret key
-functions/getWoeid/index.js*
-/.coverage-report
