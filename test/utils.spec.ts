@@ -1,7 +1,9 @@
-import * as utils from '../utils/util';
+import * as utils from '../utils/util'
 
 test('should get right date', () => {
-  expect(utils.formatJSONDate('2019-03-10T04:15:40.629Z')).toBe('2019-03-10 12:15:40')
+  expect(utils.formatJSONDate('2019-03-10T04:15:40.629Z')).toBe(
+    '2019-03-10 12:15:40',
+  )
 })
 
 test('should get right date', () => {
@@ -19,9 +21,15 @@ test('should get right date', () => {
 })
 
 test('should get right date', () => {
-  expect(utils.getImageUrl('Temperature', 'clear_day')).toBe('https://s.yimg.com/os/weather/1.0.1/shadow_icon/60x60/clear_day@2x.png')
-  expect(utils.getImageUrl('Precipitation', 0)).toBe('https://s.yimg.com/os/weather/1.0.1/precipitation/54x60/rain_ico_0@2x.png')
-  expect(utils.getImageUrl('Moon', 2)).toBe('https://s.yimg.com/os/weather/1.0.1/moon/ic_moonphase_2@3x.png')
+  expect(utils.getImageUrl('Temperature', 'clear_day')).toBe(
+    'https://s.yimg.com/os/weather/1.0.1/shadow_icon/60x60/clear_day@2x.png',
+  )
+  expect(utils.getImageUrl('Precipitation', 0)).toBe(
+    'https://s.yimg.com/os/weather/1.0.1/precipitation/54x60/rain_ico_0@2x.png',
+  )
+  expect(utils.getImageUrl('Moon', 2)).toBe(
+    'https://s.yimg.com/os/weather/1.0.1/moon/ic_moonphase_2@3x.png',
+  )
 })
 
 test('should get right date', () => {

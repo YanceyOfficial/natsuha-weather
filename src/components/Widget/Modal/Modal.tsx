@@ -1,11 +1,11 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { View, Button, Text, Block } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import cs from 'classnames';
-import { toastTxt } from '../../../constants/constants';
-import { IWeatherProps } from '../../../types/weather';
-import styles from './Modal.module.scss';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Button, Text, Block } from '@tarojs/components'
+import { observer, inject } from '@tarojs/mobx'
+import cs from 'classnames'
+import { toastTxt } from '../../../constants/constants'
+import { IWeatherProps } from '../../../types/weather'
+import styles from './Modal.module.scss'
 
 @inject('weatherStore')
 @observer
@@ -13,13 +13,13 @@ class Modal extends Component<IWeatherProps, {}> {
   public onOpenSetting() {
     const {
       weatherStore: { getSetting },
-    } = this.props;
-    getSetting();
+    } = this.props
+    getSetting()
   }
   render() {
     const {
       weatherStore: { showModal },
-    } = this.props;
+    } = this.props
     const modalGroup = (
       <Block>
         <View className={styles.modal_wrapper}>
@@ -39,9 +39,9 @@ class Modal extends Component<IWeatherProps, {}> {
         </View>
         <View className={styles.mask} />
       </Block>
-    );
-    return showModal ? modalGroup : null;
+    )
+    return showModal ? modalGroup : null
   }
 }
 
-export default Modal as ComponentType;
+export default Modal as ComponentType

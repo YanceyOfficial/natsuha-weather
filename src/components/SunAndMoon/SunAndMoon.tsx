@@ -1,16 +1,16 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import { IWeatherProps } from '../../types/weather';
-import ContentWrapper from '../ContentWrapper/ContentWrapper';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import { observer, inject } from '@tarojs/mobx'
+import { IWeatherProps } from '../../types/weather'
+import ContentWrapper from '../ContentWrapper/ContentWrapper'
 import {
   formatSunRiseAndSetDate,
   getImageUrl,
   sunPosition,
-} from '../../utils/util';
-import { moonPhases } from '../../constants/constants';
-import styles from './SunAndMoon.module.scss';
+} from '../../utils/util'
+import { moonPhases } from '../../constants/constants'
+import styles from './SunAndMoon.module.scss'
 
 @inject('weatherStore')
 @observer
@@ -22,22 +22,22 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
           sunAndMoon: { sunrise, sunset, moonPhase },
         },
       },
-    } = this.props;
+    } = this.props
 
-    const sunIconPosition = sunPosition('sun', sunrise, sunset);
-    const illuminationPosition = sunPosition('illumination', sunrise, sunset);
+    const sunIconPosition = sunPosition('sun', sunrise, sunset)
+    const illuminationPosition = sunPosition('illumination', sunrise, sunset)
 
     const sunIconStyle = {
       transform: `rotate(${sunIconPosition}deg)`,
       display: `${sunIconPosition === 0 ? 'none' : 'block'}`,
-    };
+    }
 
     const illuminationStyle = {
       width: `${illuminationPosition}px`,
-    };
+    }
 
     return (
-      <ContentWrapper title="Sun & Moon">
+      <ContentWrapper title='Sun & Moon'>
         <View className={styles.sun_moon_container}>
           <View className={styles.moon_parse}>
             <View className={styles.sun_icon_container}>
@@ -62,17 +62,17 @@ class SunAndMoon extends Component<IWeatherProps, {}> {
             </View>
             <View className={styles.sunrise_sunset_txt}>
               <Text className={styles.sunrise}>
-                {formatSunRiseAndSetDate(sunrise)}{' '}AM
+                {formatSunRiseAndSetDate(sunrise)} AM
               </Text>
               <Text className={styles.sunset}>
-                {formatSunRiseAndSetDate(sunset)}{' '}PM
+                {formatSunRiseAndSetDate(sunset)} PM
               </Text>
             </View>
           </View>
         </View>
       </ContentWrapper>
-    );
+    )
   }
 }
 
-export default SunAndMoon as ComponentType;
+export default SunAndMoon as ComponentType

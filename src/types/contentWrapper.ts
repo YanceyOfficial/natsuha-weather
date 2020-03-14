@@ -1,4 +1,4 @@
 export default interface IContentWrapperProps {
-  title: string;
-  children: any;
-};
+  title: string
+  children: any
+}

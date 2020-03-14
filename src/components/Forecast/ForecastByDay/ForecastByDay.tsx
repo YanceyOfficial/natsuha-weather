@@ -1,41 +1,41 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import cs from 'classnames';
-import { observer, inject } from '@tarojs/mobx';
-import { IWeatherProps } from '../../../types/weather';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import cs from 'classnames'
+import { observer, inject } from '@tarojs/mobx'
+import { IWeatherProps } from '../../../types/weather'
 import {
   formatWeek,
   getImageUrl,
   getRainfallIconName,
-} from '../../../utils/util';
-import styles from './ForecastByDay.module.scss';
+} from '../../../utils/util'
+import styles from './ForecastByDay.module.scss'
 
-interface IForecastByDayStates {
-  isFive: boolean;
+interface ForecastByDayStates {
+  isFive: boolean
 }
 
 @inject('weatherStore')
 @observer
-class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
+class ForecastByDay extends Component<IWeatherProps, ForecastByDayStates> {
   constructor(props: IWeatherProps) {
-    super(props);
+    super(props)
     this.state = {
       isFive: true,
-    };
+    }
   }
 
   public handleDay = (day: number) => {
     if (day === 5) {
       this.setState({
         isFive: true,
-      });
+      })
     } else {
       this.setState({
         isFive: false,
-      });
+      })
     }
-  };
+  }
 
   render() {
     const {
@@ -46,9 +46,9 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
         },
         metaData,
       },
-    } = this.props;
+    } = this.props
 
-    const { isFive } = this.state;
+    const { isFive } = this.state
 
     const dailyList = daily.slice(0, 10).map(day => (
       <View key={day.observationTime.timestamp}>
@@ -87,7 +87,7 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
           </View>
         </View>
       </View>
-    ));
+    ))
 
     return (
       <View className={styles.forecast_day_conatainer}>
@@ -112,8 +112,8 @@ class ForecastByDay extends Component<IWeatherProps, IForecastByDayStates> {
           </Text>
         </View>
       </View>
-    );
+    )
   }
 }
 
-export default ForecastByDay as ComponentType;
+export default ForecastByDay as ComponentType

@@ -1,5 +1,5 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
 import {
   View,
   Text,
@@ -8,14 +8,14 @@ import {
   Block,
   Form,
   Button,
-} from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import { IWeatherProps } from '../../types/weather';
-import cs from 'classnames';
-import styles from './Search.module.scss';
-import search from '../../assets/images/search.png';
-import location from '../../assets/images/location.png';
-import history from '../../assets/images/history.png';
+} from '@tarojs/components'
+import { observer, inject } from '@tarojs/mobx'
+import cs from 'classnames'
+import { IWeatherProps } from '../../types/weather'
+import styles from './Search.module.scss'
+import search from '../../assets/images/search.png'
+// import location from '../../assets/images/location.png'
+import history from '../../assets/images/history.png'
 
 @inject('weatherStore')
 @observer
@@ -30,9 +30,9 @@ class Search extends Component<IWeatherProps, {}> {
         handleSelectRegionChange,
         hideSearchDialog,
         deleteHistoryItemByWoeid,
-        getPosition,
+        // getPosition,
       },
-    } = this.props;
+    } = this.props
 
     const list = regionList.map(vaule => (
       <View key={vaule.woeid} className={styles.history_item}>
@@ -55,7 +55,7 @@ class Search extends Component<IWeatherProps, {}> {
           />
         )}
       </View>
-    ));
+    ))
 
     return (
       <Block>
@@ -113,8 +113,8 @@ class Search extends Component<IWeatherProps, {}> {
         </Form>
         {showSearch ? <View className={styles.mask} /> : null}
       </Block>
-    );
+    )
   }
 }
 
-export default Search as ComponentType;
+export default Search as ComponentType

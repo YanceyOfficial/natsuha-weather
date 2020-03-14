@@ -1,11 +1,11 @@
-import Taro, { Component, Config } from '@tarojs/taro';
-import { Provider } from '@tarojs/mobx';
-import Index from './pages/index';
-import weatherStore from './store/weatherStore';
+import Taro, { Component, Config } from '@tarojs/taro'
+import { Provider } from '@tarojs/mobx'
+import Index from './pages/index'
+import weatherStore from './store/weatherStore'
 
 const store = {
   weatherStore,
-};
+}
 
 class App extends Component {
   config: Config = {
@@ -27,15 +27,15 @@ class App extends Component {
         desc: '現在の位置情報を利用します。よろしいですか？',
       },
     },
-  };
+  }
 
   render() {
     return (
       <Provider store={store}>
         <Index />
       </Provider>
-    );
+    )
   }
 }
 
-Taro.render(<App />, document.getElementById('app'));
+Taro.render(<App />, document.getElementById('app'))

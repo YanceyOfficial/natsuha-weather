@@ -1,30 +1,30 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { Image, Block } from '@tarojs/components';
-import { defaultPhotoUrl, toastTxt } from '../../constants/constants';
-import { setToast } from '../../utils/toast';
-import cs from 'classnames';
-import { observer, inject } from '@tarojs/mobx';
-import { IWeatherProps } from '../../types/weather';
-import styles from './Background.module.scss';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
+import { Image, Block } from '@tarojs/components'
+import { observer, inject } from '@tarojs/mobx'
+import cs from 'classnames'
+import { defaultPhotoUrl, toastTxt } from '../../constants/constants'
+import { setToast } from '../../utils/toast'
+import { IWeatherProps } from '../../types/weather'
+import styles from './Background.module.scss'
 
 @inject('weatherStore')
 @observer
 class Background extends Component<IWeatherProps, {}> {
   constructor(props: IWeatherProps) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = {}
   }
   public onError = () => {
-    setToast(toastTxt.imageFail);
-    this.props.weatherStore.backgroudImageUrl = defaultPhotoUrl;
-  };
+    setToast(toastTxt.imageFail)
+    this.props.weatherStore.backgroudImageUrl = defaultPhotoUrl
+  }
 
   render() {
     const {
       weatherStore: { backgroudImageUrl },
       needBlur,
-    } = this.props;
+    } = this.props
 
     return (
       <Block>
@@ -45,8 +45,8 @@ class Background extends Component<IWeatherProps, {}> {
           src={backgroudImageUrl}
         />
       </Block>
-    );
+    )
   }
 }
 
-export default Background as ComponentType;
+export default Background as ComponentType

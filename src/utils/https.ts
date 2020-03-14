@@ -1,4 +1,4 @@
-import Taro from "@tarojs/taro";
+import Taro from '@tarojs/taro'
 
 /**
  * Package wx cloud request function
@@ -7,20 +7,18 @@ import Taro from "@tarojs/taro";
  * @param {Object} data The params
  */
 const httpClient = (url: string, data: any) =>
-  new Promise(
-    (resolve, reject): void => {
-      Taro.cloud
-        .callFunction({
-          name: url,
-          data
-        })
-        .then(res => {
-          resolve(res.result);
-        })
-        .catch(e => {
-          reject(e);
-        });
-    }
-  );
+  new Promise((resolve, reject): void => {
+    Taro.cloud
+      .callFunction({
+        name: url,
+        data,
+      })
+      .then(res => {
+        resolve(res.result)
+      })
+      .catch(e => {
+        reject(e)
+      })
+  })
 
-export default httpClient;
+export default httpClient

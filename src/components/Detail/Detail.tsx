@@ -1,11 +1,11 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import { IWeatherProps } from '../../types/weather';
-import { upperFirstLetter, getImageUrl } from '../../utils/util';
-import ContentWrapper from '../ContentWrapper/ContentWrapper';
-import styles from './Detail.module.scss';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import { observer, inject } from '@tarojs/mobx'
+import { IWeatherProps } from '../../types/weather'
+import { upperFirstLetter, getImageUrl } from '../../utils/util'
+import ContentWrapper from '../ContentWrapper/ContentWrapper'
+import styles from './Detail.module.scss'
 
 @inject('weatherStore')
 @observer
@@ -27,13 +27,13 @@ class Detail extends Component<IWeatherProps, {}> {
         isFahrenheit,
         metaData,
       },
-    } = this.props;
+    } = this.props
 
     const dayPartTextList = dayPartTexts.map(value => (
       <Text className={styles.content_detail_txt} key={value.dayPart}>
         {upperFirstLetter(value.dayPart)} - {value.text}
       </Text>
-    ));
+    ))
 
     return (
       <ContentWrapper title='Details'>
@@ -67,8 +67,8 @@ class Detail extends Component<IWeatherProps, {}> {
         </View>
         <View className={styles.content_detail}>{dayPartTextList}</View>
       </ContentWrapper>
-    );
+    )
   }
 }
 
-export default Detail as ComponentType;
+export default Detail as ComponentType

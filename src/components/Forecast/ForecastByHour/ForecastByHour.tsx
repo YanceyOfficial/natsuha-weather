@@ -1,47 +1,47 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Picker, Image, ScrollView } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import { IWeatherProps } from '../../../types/weather';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Picker, Image, ScrollView } from '@tarojs/components'
+import { observer, inject } from '@tarojs/mobx'
+import { IWeatherProps } from '../../../types/weather'
 import {
   getImageUrl,
   hourTo12Lite,
   getRainfallIconName,
-} from '../../../utils/util';
+} from '../../../utils/util'
 
-import styles from './ForecastByHour.module.scss';
-import arrow from '../../../assets/images/arrow.png';
+import styles from './ForecastByHour.module.scss'
+import arrow from '../../../assets/images/arrow.png'
 
-interface IForecastByHourStates {
-  typeList: string[];
-  selected: string;
-  scrollLength: number;
+interface ForecastByHourStates {
+  typeList: string[]
+  selected: string
+  scrollLength: number
 }
 
 @inject('weatherStore')
 @observer
-class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
+class ForecastByHour extends Component<IWeatherProps, ForecastByHourStates> {
   constructor(props: IWeatherProps) {
-    super(props);
+    super(props)
     this.state = {
       typeList: ['Temperature', 'Precipitation', 'Wind'],
       selected: 'Temperature',
       scrollLength: 0,
-    };
+    }
   }
 
   public onSelectChange = (e: any) => {
     this.setState({
       selected: this.state.typeList[e.detail.value],
       scrollLength: 0,
-    });
-  };
+    })
+  }
 
   public onScroll = (e: any) => {
     this.setState({
       scrollLength: e.detail.scrollLeft,
-    });
-  };
+    })
+  }
 
   render() {
     const {
@@ -51,9 +51,9 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
         },
         metaData,
       },
-    } = this.props;
+    } = this.props
 
-    const { typeList, selected, scrollLength } = this.state;
+    const { typeList, selected, scrollLength } = this.state
 
     const hourlyList = hourly.map(hour => (
       <View
@@ -101,7 +101,7 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
 
         {selected === 'Wind' ? <Text>{hour.windSpeed}</Text> : null}
       </View>
-    ));
+    ))
 
     return (
       <View className={styles.forecast_hour_container}>
@@ -126,8 +126,8 @@ class ForecastByHour extends Component<IWeatherProps, IForecastByHourStates> {
           {hourlyList}
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
-export default ForecastByHour as ComponentType;
+export default ForecastByHour as ComponentType

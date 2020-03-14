@@ -1,14 +1,14 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text, Button } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import cs from 'classnames';
-import { IWeatherProps } from '../../types/weather';
-import { hourTo12, getImageUrl } from '../../utils/util';
-import styles from './Summary.module.scss';
-import flickr from '../../assets/images/flickr.png';
-import arrow from '../../assets/images/arrow.png';
-import location_yellow from '../../assets/images/location_yellow.png';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Image, Text, Button } from '@tarojs/components'
+import { observer, inject } from '@tarojs/mobx'
+import cs from 'classnames'
+import { IWeatherProps } from '../../types/weather'
+import { hourTo12, getImageUrl } from '../../utils/util'
+import styles from './Summary.module.scss'
+import flickr from '../../assets/images/flickr.png'
+import arrow from '../../assets/images/arrow.png'
+import location_yellow from '../../assets/images/location_yellow.png'
 
 @inject('weatherStore')
 @observer
@@ -24,10 +24,10 @@ class Summary extends Component<IWeatherProps, {}> {
         curCityName,
         curCountryName,
       },
-    } = this.props;
+    } = this.props
 
     const ownerName =
-      photos[0].resolutions.length !== 0 ? photos[0].ownerName : 'Yancey';
+      photos[0].resolutions.length !== 0 ? photos[0].ownerName : 'Yancey'
 
     return (
       <View className={styles.summary_wrapper}>
@@ -110,8 +110,8 @@ class Summary extends Component<IWeatherProps, {}> {
           </View>
         </View>
       </View>
-    );
+    )
   }
 }
 
-export default Summary as ComponentType;
+export default Summary as ComponentType

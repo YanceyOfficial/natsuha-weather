@@ -13,8 +13,10 @@ import {
  * @returns {String} Returns the formatted date string.
  */
 export const formatJSONDate = (jsonDate: string): string =>
-  new Date(+new Date(new Date(jsonDate).toJSON()) + 8 * 3600 * 1000).toISOString()
-  .replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+  new Date(+new Date(new Date(jsonDate).toJSON()) + 8 * 3600 * 1000)
+    .toISOString()
+    .replace(/T/g, ' ')
+    .replace(/\.[\d]{3}Z/, '')
 
 /**
  * Format UTC date
@@ -28,9 +30,10 @@ export const hourTo12 = (date: string): string => {
     const month = oDate.getUTCMonth() + 1
     const day = oDate.getUTCDate()
     const hour = oDate.getUTCHours()
-    const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
+    const minute =
+      oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
     if (hour > 12) {
-      return `${month}/${day}, ${hour -12}:${minute} PM`
+      return `${month}/${day}, ${hour - 12}:${minute} PM`
     } else {
       return `${month}/${day}, ${hour}:${minute} AM`
     }
@@ -39,9 +42,10 @@ export const hourTo12 = (date: string): string => {
     const month = oDate.getMonth() + 1
     const day = oDate.getDate()
     const hour = oDate.getHours()
-    const minute = oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
+    const minute =
+      oDate.getMinutes() < 10 ? `0${oDate.getMinutes()}` : oDate.getMinutes()
     if (hour > 12) {
-      return `${month}/${day}, ${hour -12}:${minute} PM`
+      return `${month}/${day}, ${hour - 12}:${minute} PM`
     } else {
       return `${month}/${day}, ${hour}:${minute} AM`
     }
@@ -56,7 +60,7 @@ export const hourTo12 = (date: string): string => {
  */
 export const hourTo12Lite = (hour: number) => {
   if (hour > 12) {
-    return `${hour -12} PM`
+    return `${hour - 12} PM`
   } else {
     return `${hour} AM`
   }
@@ -72,7 +76,7 @@ export const upperFirstLetter = (str: string): string => {
   if (str.includes('_')) {
     str = str.split('_').join(' ')
   }
-  return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase())
+  return str.toLowerCase().replace(/( |^)[a-z]/g, L => L.toUpperCase())
 }
 
 /**
@@ -82,14 +86,17 @@ export const upperFirstLetter = (str: string): string => {
  * @param {String | Number} iconName The icon name
  * @returns {String} Returns full url of icon.
  */
-export const getImageUrl = (type: string, iconName: string | number): string => {
-  const base = `${imageBaseUrl}/${imageType[type]}`;
+export const getImageUrl = (
+  type: string,
+  iconName: string | number,
+): string => {
+  const base = `${imageBaseUrl}/${imageType[type]}`
   if (type === 'Temperature') {
-    return `${base}/60x60/${iconName}${hd2}`;
+    return `${base}/60x60/${iconName}${hd2}`
   } else if (type === 'Precipitation') {
-    return `${base}/54x60/rain_ico_${iconName}${hd2}`;
+    return `${base}/54x60/rain_ico_${iconName}${hd2}`
   } else {
-    return `${base}/ic_moonphase_${iconName}${hd3}`;
+    return `${base}/ic_moonphase_${iconName}${hd3}`
   }
 }
 
@@ -99,7 +106,8 @@ export const getImageUrl = (type: string, iconName: string | number): string => 
  * @param {Number} number Current wind speed amount
  * @returns {Number} Returns the rainfall icon Name.
  */
-export const getRainfallIconName = (number: number): number => parseInt((number / 10).toString(), 10) * 10
+export const getRainfallIconName = (number: number): number =>
+  parseInt((number / 10).toString(), 10) * 10
 
 /**
  * Extract the first letter of each word in the string.
@@ -109,7 +117,7 @@ export const getRainfallIconName = (number: number): number => parseInt((number 
  */
 export const windDirectFormat = (value: string): string => {
   if (typeof value === 'string') {
-    const arr = value.match(/\b(\w)/g);
+    const arr = value.match(/\b(\w)/g)
     if (arr) {
       if (arr.length > 1) {
         return arr.join('')
@@ -118,7 +126,7 @@ export const windDirectFormat = (value: string): string => {
       }
     }
   }
-  return value;
+  return value
 }
 
 /**
@@ -128,28 +136,28 @@ export const windDirectFormat = (value: string): string => {
  * @returns {Number} Returns the time required to make one rotation.
  */
 export const getWindSpeed = (windSpeed: number): number => {
-  const windSpeedKey = parseInt((windSpeed / 5).toString(), 10);
-  let result = 3.5625;
+  const windSpeedKey = parseInt((windSpeed / 5).toString(), 10)
+  let result = 3.5625
   switch (true) {
     case windSpeedKey === 0:
-      result = 3.5625;
-      break;
+      result = 3.5625
+      break
     case windSpeedKey === 1:
-      result = result - 0.4375;
-      break;
+      result = result - 0.4375
+      break
     case windSpeedKey === 2:
-      result = result - 0.4375 * 2;
-      break;
+      result = result - 0.4375 * 2
+      break
     case windSpeedKey === 3:
-      result = result - 0.4375 * 3;
-      break;
+      result = result - 0.4375 * 3
+      break
     case windSpeedKey > 3:
-      result = result - 0.4375 * 4;
-      break;
+      result = result - 0.4375 * 4
+      break
     default:
-      result = 3.5625;
+      result = 3.5625
   }
-  return result;
+  return result
 }
 
 /**
@@ -159,15 +167,15 @@ export const getWindSpeed = (windSpeed: number): number => {
  * @returns {String} Returns the time of 12-hour system.
  */
 export const formatSunRiseAndSetDate = (timestamp: number): string => {
-  let minute = '';
-  const hour = new Date(timestamp * 1000).getUTCHours() % 12 || 12;
-  const _minute = new Date(timestamp * 1000).getUTCMinutes();
+  let minute = ''
+  const hour = new Date(timestamp * 1000).getUTCHours() % 12 || 12
+  const _minute = new Date(timestamp * 1000).getUTCMinutes()
   if (_minute < 10) {
-    minute = `0${_minute}`;
+    minute = `0${_minute}`
   } else {
-    minute = _minute.toString();
+    minute = _minute.toString()
   }
-  return `${hour}:${minute}`;
+  return `${hour}:${minute}`
 }
 
 /**
@@ -178,17 +186,21 @@ export const formatSunRiseAndSetDate = (timestamp: number): string => {
  * @param {Number} sunset An UTC timestamp of sunset
  * @returns {String} Returns the offset amount.
  */
-export const sunPosition = (type: string, sunrise: number, sunset: number): string | number => {
-  const oDate = new Date();
-  const now = oDate.getHours() * 60 * 60 + oDate.getMinutes() * 60;
-  const proportion = (now - sunrise) / (sunset - sunrise);
+export const sunPosition = (
+  type: string,
+  sunrise: number,
+  sunset: number,
+): string | number => {
+  const oDate = new Date()
+  const now = oDate.getHours() * 60 * 60 + oDate.getMinutes() * 60
+  const proportion = (now - sunrise) / (sunset - sunrise)
   if (proportion < 0.1 || proportion > 0.9) {
-    return 0;
+    return 0
   } else {
     if (type === 'sun') {
-      return (proportion * 150 + 15).toFixed(0);
+      return (proportion * 150 + 15).toFixed(0)
     } else {
-      return (proportion * 218 - 24).toFixed(0);
+      return (proportion * 218 - 24).toFixed(0)
     }
   }
 }
@@ -199,4 +211,4 @@ export const sunPosition = (type: string, sunrise: number, sunset: number): stri
  * @param {Number} weekNum An UTC timestamp of sunset
  * @returns {String} Returns the name of weekday.
  */
-export const formatWeek = (weekNum: number): string => weekList[weekNum];
+export const formatWeek = (weekNum: number): string => weekList[weekNum]

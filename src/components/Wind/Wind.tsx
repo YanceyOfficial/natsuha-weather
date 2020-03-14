@@ -1,12 +1,12 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
-import cs from 'classnames';
-import { observer, inject } from '@tarojs/mobx';
-import { IWeatherProps } from '../../types/weather';
-import ContentWrapper from '../ContentWrapper/ContentWrapper';
-import { windDirectFormat, getWindSpeed } from '../../utils/util';
-import styles from './Wind.module.scss';
+import { ComponentType } from 'react'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text } from '@tarojs/components'
+import cs from 'classnames'
+import { observer, inject } from '@tarojs/mobx'
+import { IWeatherProps } from '../../types/weather'
+import ContentWrapper from '../ContentWrapper/ContentWrapper'
+import { windDirectFormat, getWindSpeed } from '../../utils/util'
+import styles from './Wind.module.scss'
 
 @inject('weatherStore')
 @observer
@@ -19,11 +19,11 @@ class Wind extends Component<IWeatherProps, {}> {
         },
         isFahrenheit,
       },
-    } = this.props;
+    } = this.props
 
     const windSpeedFanStyle = {
       animationDuration: `${getWindSpeed(windSpeed)}s`,
-    };
+    }
 
     return (
       <ContentWrapper title='Wind & Pressure'>
@@ -59,8 +59,8 @@ class Wind extends Component<IWeatherProps, {}> {
           <View className={styles.split} />
         </View>
       </ContentWrapper>
-    );
+    )
   }
 }
 
-export default Wind as ComponentType;
+export default Wind as ComponentType
