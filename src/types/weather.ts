@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react'
 import Region from './region'
 
 export interface WeatherProps {
@@ -25,7 +26,7 @@ export interface WeatherProps {
     handleTemperatureTypeChange: (type: boolean) => void
     showSearchDialog: () => void
     hideSearchDialog: () => void
-    handleInputTextChange: (e: any) => void
+    handleInputTextChange: (e: ChangeEvent<HTMLInputElement>) => void
     handleSelectRegionChange: (woeid: string, qualifiedName: string) => void
     deleteHistoryItemByWoeid: (woeid: string) => void
   }
