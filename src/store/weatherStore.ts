@@ -21,6 +21,10 @@ interface WeatherRes {
   }
 }
 
+interface RegionRes {
+  regionList: Region[]
+}
+
 class WeatherStore {
   construtor() {
     this.getRegion = _.debounce(this.getRegion, 150)
@@ -109,7 +113,7 @@ class WeatherStore {
   @observable public curCityName = '--'
 
   // 华式温度 or 摄氏温度
-  @observable public isFahrenheit = true
+  @observable public isFahrenheit = false
 
   // 系统语言
   @observable public systemLanguage = 'en-US'
@@ -138,6 +142,7 @@ class WeatherStore {
     this.isFahrenheit = type
     const observation = this.weatherData.observation
     const forecasts = this.weatherData.forecasts
+
     observation.temperature.feelsLike = convertCelsiusFahrenheit(
       this.isFahrenheit,
       observation.temperature.feelsLike,
@@ -243,6 +248,9 @@ class WeatherStore {
         this.backgroudImageUrl = this.weatherData.photos[0].resolutions[0].url
         this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[1].url
         setLoadingToast(false)
+
+        // 请求得到的温度值为华氏温度, 初始化转换成摄氏温度
+        this.handleTemperatureTypeChange(false)
       })
     } catch (e) {
       setToast(toastTxt.deleteHistoryFail)
@@ -277,14 +285,16 @@ class WeatherStore {
     }
   }
 
+ 
+
   public getRegion = async (text: string) => {
     try {
       const res = await httpClient('getRegion', {
         region: encodeURI(text),
       })
       runInAction(() => {
-        if ((res as any).regionList) {
-          this.regionList = (res as any).regionList
+        if ((res as RegionRes).regionList) {
+          this.regionList = (res as RegionRes).regionList
         }
       })
     } catch (e) {
@@ -296,7 +306,7 @@ class WeatherStore {
   public getStorage = () => {
     this.regionList = []
     Taro.getStorageInfo().then(res => {
-      (res as any).keys.forEach(key =>
+      ;(res as any).keys.forEach(key =>
         Taro.getStorage({
           key,
         }).then(data => {
