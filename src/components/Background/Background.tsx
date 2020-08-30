@@ -5,13 +5,17 @@ import { observer, inject } from '@tarojs/mobx'
 import cs from 'classnames'
 import { defaultPhotoUrl, toastTxt } from '../../constants/constants'
 import { setToast } from '../../utils/toast'
-import { IWeatherProps } from '../../types/weather'
+import { WeatherProps } from '../../types/weather'
 import styles from './Background.module.scss'
+
+interface BackgroundProps {
+  needBlur: boolean
+}
 
 @inject('weatherStore')
 @observer
-class Background extends Component<IWeatherProps, {}> {
-  constructor(props: IWeatherProps) {
+class Background extends Component<WeatherProps, {}> {
+  constructor(props: WeatherProps) {
     super(props)
     this.state = {}
   }
@@ -49,4 +53,4 @@ class Background extends Component<IWeatherProps, {}> {
   }
 }
 
-export default Background as ComponentType
+export default Background as ComponentType<BackgroundProps>

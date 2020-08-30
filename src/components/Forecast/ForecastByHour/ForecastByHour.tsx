@@ -2,7 +2,7 @@ import { ComponentType } from 'react'
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Picker, Image, ScrollView } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import { IWeatherProps } from '../../../types/weather'
+import { WeatherProps } from '../../../types/weather'
 import {
   getImageUrl,
   hourTo12Lite,
@@ -20,8 +20,8 @@ interface ForecastByHourStates {
 
 @inject('weatherStore')
 @observer
-class ForecastByHour extends Component<IWeatherProps, ForecastByHourStates> {
-  constructor(props: IWeatherProps) {
+class ForecastByHour extends Component<WeatherProps, ForecastByHourStates> {
+  constructor(props: WeatherProps) {
     super(props)
     this.state = {
       typeList: ['Temperature', 'Precipitation', 'Wind'],
@@ -118,7 +118,7 @@ class ForecastByHour extends Component<IWeatherProps, ForecastByHourStates> {
           </View>
         </Picker>
         <ScrollView
-          scrollX={true}
+          scrollX
           scrollLeft={scrollLength}
           onScroll={e => this.onScroll(e)}
           className={styles.precipitation_contaienr}

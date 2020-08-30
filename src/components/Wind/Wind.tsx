@@ -3,14 +3,14 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import cs from 'classnames'
 import { observer, inject } from '@tarojs/mobx'
-import { IWeatherProps } from '../../types/weather'
+import { WeatherProps } from '../../types/weather'
 import ContentWrapper from '../ContentWrapper/ContentWrapper'
 import { windDirectFormat, getWindSpeed } from '../../utils/util'
 import styles from './Wind.module.scss'
 
 @inject('weatherStore')
 @observer
-class Wind extends Component<IWeatherProps, {}> {
+class Wind extends Component<WeatherProps, {}> {
   render() {
     const {
       weatherStore: {

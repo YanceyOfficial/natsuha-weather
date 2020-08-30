@@ -1,4 +1,4 @@
-export default interface IRegion {
+export default interface Region {
   woeid: number
   lat?: number
   lon?: number

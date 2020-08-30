@@ -4,12 +4,12 @@ import { View, Button, Text, Block } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import cs from 'classnames'
 import { toastTxt } from '../../../constants/constants'
-import { IWeatherProps } from '../../../types/weather'
+import { WeatherProps } from '../../../types/weather'
 import styles from './Modal.module.scss'
 
 @inject('weatherStore')
 @observer
-class Modal extends Component<IWeatherProps, {}> {
+class Modal extends Component<WeatherProps, {}> {
   public onOpenSetting() {
     const {
       weatherStore: { getSetting },

@@ -1,5 +1,7 @@
 import Taro from '@tarojs/taro'
 
+type IconType = 'success' | 'loading' | 'none'
+
 /**
  * Package the common toast component
  *
@@ -10,11 +12,11 @@ import Taro from '@tarojs/taro'
  * @returns {Any} Returns to show a toast
  */
 export const setToast = (
-  title: string = '',
-  icon: string = 'none',
-  mask: boolean = true,
-  duration: number = 1500,
-): any => {
+  title = '',
+  icon: IconType = 'none',
+  mask = true,
+  duration = 1500,
+) => {
   return Taro.showToast({
     title,
     icon,
@@ -33,9 +35,9 @@ export const setToast = (
  */
 export const setLoadingToast = (
   showLoadingToast: boolean,
-  title: string = 'Loading...',
-  mask: boolean = true,
-): void | any => {
+  title = 'Loading...',
+  mask = true,
+) => {
   if (showLoadingToast) {
     return Taro.showLoading({
       title,

@@ -1,9 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Block } from '@tarojs/components'
-import IContentWrapperProps from '../../types/contentWrapper'
+import ContentWrapperProps from '../../types/contentWrapper'
 import styles from './ContentWrapper.module.scss'
 
-class ContentWrapper extends Component<IContentWrapperProps, {}> {
+class ContentWrapper extends Component<ContentWrapperProps, {}> {
   render() {
     const { title } = this.props
 

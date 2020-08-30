@@ -3,7 +3,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import cs from 'classnames'
 import { observer, inject } from '@tarojs/mobx'
-import { IWeatherProps } from '../../../types/weather'
+import { WeatherProps } from '../../../types/weather'
 import {
   formatWeek,
   getImageUrl,
@@ -17,8 +17,8 @@ interface ForecastByDayStates {
 
 @inject('weatherStore')
 @observer
-class ForecastByDay extends Component<IWeatherProps, ForecastByDayStates> {
-  constructor(props: IWeatherProps) {
+class ForecastByDay extends Component<WeatherProps, ForecastByDayStates> {
+  constructor(props: WeatherProps) {
     super(props)
     this.state = {
       isFive: true,

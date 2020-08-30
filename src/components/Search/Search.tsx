@@ -11,15 +11,15 @@ import {
 } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import cs from 'classnames'
-import { IWeatherProps } from '../../types/weather'
+import { WeatherProps } from '../../types/weather'
 import styles from './Search.module.scss'
 import search from '../../assets/images/search.png'
-// import location from '../../assets/images/location.png'
 import history from '../../assets/images/history.png'
+import location from '../../assets/images/location.png'
 
 @inject('weatherStore')
 @observer
-class Search extends Component<IWeatherProps, {}> {
+class Search extends Component<WeatherProps, {}> {
   render() {
     const {
       weatherStore: {
@@ -30,7 +30,7 @@ class Search extends Component<IWeatherProps, {}> {
         handleSelectRegionChange,
         hideSearchDialog,
         deleteHistoryItemByWoeid,
-        // getPosition,
+        getPosition,
       },
     } = this.props
 
@@ -84,8 +84,7 @@ class Search extends Component<IWeatherProps, {}> {
               Close
             </Button>
           </View>
-          {/* FIXME: */}
-          {/* <View
+          <View
             className={cs(
               styles.container,
               styles.detech_my_location_container,
@@ -96,7 +95,7 @@ class Search extends Component<IWeatherProps, {}> {
               className={cs(styles.icon, styles.location_icon)}
             />
             <Text onClick={() => getPosition()}>Detach my location</Text>
-          </View> */}
+          </View>
           <View className={styles.history}>
             {!isSearching ? (
               <View className={cs(styles.container, styles.history_container)}>

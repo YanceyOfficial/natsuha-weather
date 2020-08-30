@@ -3,16 +3,16 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text, Button } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import cs from 'classnames'
-import { IWeatherProps } from '../../types/weather'
+import { WeatherProps } from '../../types/weather'
 import { hourTo12, getImageUrl } from '../../utils/util'
 import styles from './Summary.module.scss'
 import flickr from '../../assets/images/flickr.png'
 import arrow from '../../assets/images/arrow.png'
-import location_yellow from '../../assets/images/location_yellow.png'
+import locationYellow from '../../assets/images/location_yellow.png'
 
 @inject('weatherStore')
 @observer
-class Summary extends Component<IWeatherProps, {}> {
+class Summary extends Component<WeatherProps, {}> {
   render() {
     const {
       weatherStore: {
@@ -36,7 +36,7 @@ class Summary extends Component<IWeatherProps, {}> {
             <Text className={styles.city}>{curCityName}</Text>
             <Image
               className={styles.location_icon}
-              src={location_yellow}
+              src={locationYellow}
               onClick={() => showSearchDialog()}
             />
           </View>

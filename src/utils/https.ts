@@ -6,7 +6,7 @@ import Taro from '@tarojs/taro'
  * @param {String} url The content of toast
  * @param {Object} data The params
  */
-const httpClient = (url: string, data: any) =>
+const httpClient = (url: string, data: object) =>
   new Promise((resolve, reject): void => {
     Taro.cloud
       .callFunction({

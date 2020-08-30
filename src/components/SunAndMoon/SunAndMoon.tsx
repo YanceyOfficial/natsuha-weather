@@ -2,7 +2,7 @@ import { ComponentType } from 'react'
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import { IWeatherProps } from '../../types/weather'
+import { WeatherProps } from '../../types/weather'
 import ContentWrapper from '../ContentWrapper/ContentWrapper'
 import {
   formatSunRiseAndSetDate,
@@ -14,7 +14,7 @@ import styles from './SunAndMoon.module.scss'
 
 @inject('weatherStore')
 @observer
-class SunAndMoon extends Component<IWeatherProps, {}> {
+class SunAndMoon extends Component<WeatherProps, {}> {
   render() {
     const {
       weatherStore: {

@@ -1,5 +1,6 @@
 import { observable, runInAction, action } from 'mobx'
 import Taro from '@tarojs/taro'
+import { ChangeEvent } from 'react'
 import _ from 'lodash'
 import {
   convertCelsiusFahrenheit,
@@ -9,14 +10,14 @@ import {
 import { setLoadingToast, setToast } from '../utils/toast'
 import httpClient from '../utils/https'
 import { defaultPhotoUrl, toastTxt } from '../constants/constants'
-import { IMeta, IWeather } from '../types/weather'
-import IRegion from '../types/region'
+import { Meta, Weather } from '../types/weather'
+import Region from '../types/region'
 
-interface IWeatherRes {
+interface WeatherRes {
   requestID: string
   weatherResult: {
-    meta: IMeta
-    weathers: IWeather[]
+    meta: Meta
+    weathers: Weather[]
   }
 }
 
@@ -25,7 +26,7 @@ class WeatherStore {
     this.getRegion = _.debounce(this.getRegion, 150)
   }
 
-  @observable.deep public weatherData: IWeather = {
+  @observable.deep public weatherData: Weather = {
     location: {
       countryName: '',
       displayName: '',
@@ -91,7 +92,7 @@ class WeatherStore {
     ],
   }
 
-  @observable.deep public metaData: IMeta = {
+  @observable.deep public metaData: Meta = {
     conditionMap: {},
     skycode: {
       32: 'clear_day',
@@ -129,7 +130,7 @@ class WeatherStore {
   @observable public isSearching = false
 
   // 检索（或历史记录）列表
-  @observable public regionList: IRegion[] = []
+  @observable public regionList: Region[] = []
 
   // 华氏|摄氏温度换算
   @action
@@ -199,7 +200,7 @@ class WeatherStore {
   }
 
   @action
-  public handleInputTextChange = (e: any) => {
+  public handleInputTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.isSearching = true
     this.getRegion(e.target.value)
   }
@@ -234,13 +235,13 @@ class WeatherStore {
       runInAction(() => {
         this.curWoeid = woeid
         this.isFahrenheit = true
-        const weatherResult = (res as IWeatherRes).weatherResult
+        const weatherResult = (res as WeatherRes).weatherResult
         this.weatherData = weatherResult.weathers[0]
         this.metaData = weatherResult.meta
         this.curCountryName = this.weatherData.location.countryName
         this.curCityName = this.weatherData.location.displayName
-        this.backgroudImageUrl = this.weatherData.photos[0].resolutions[5].url
-        this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[2].url
+        this.backgroudImageUrl = this.weatherData.photos[0].resolutions[0].url
+        this.widthBackgroudImageUrl = this.weatherData.photos[0].resolutions[1].url
         setLoadingToast(false)
       })
     } catch (e) {
@@ -295,13 +296,13 @@ class WeatherStore {
   public getStorage = () => {
     this.regionList = []
     Taro.getStorageInfo().then(res => {
-      res.keys.forEach(key =>
+      (res as any).keys.forEach(key =>
         Taro.getStorage({
           key,
-        }).then(res => {
+        }).then(data => {
           this.regionList.push({
             woeid: parseInt(key, 10),
-            qualifiedName: res.data,
+            qualifiedName: data.data,
           })
         }),
       )

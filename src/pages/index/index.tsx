@@ -2,7 +2,7 @@ import { ComponentType } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import { IWeatherProps } from '../../types/weather'
+import { WeatherProps } from '../../types/weather'
 import './index.scss'
 
 import Summary from '../../components/Summary/Summary'
@@ -15,21 +15,18 @@ import Precipitation from '../../components/Precipitation/Precipitation'
 import Search from '../../components/Search/Search'
 import Modal from '../../components/Widget/Modal/Modal'
 
-interface IIndexStates {
+interface IndexStates {
   needBlur: boolean
 }
 
 @inject('weatherStore')
 @observer
-class Index extends Component<IWeatherProps, IIndexStates> {
-  constructor(props: IWeatherProps) {
+class Index extends Component<WeatherProps, IndexStates> {
+  constructor(props: WeatherProps) {
     super(props)
     this.state = {
       needBlur: false,
     }
-  }
-  config: Config = {
-    navigationBarTitleText: 'Natsuha',
   }
 
   componentWillMount() {
@@ -38,9 +35,11 @@ class Index extends Component<IWeatherProps, IIndexStates> {
 
   componentDidMount() {
     const { weatherStore } = this.props
-    // FIXME:
-    // weatherStore.getLanguage();
-    weatherStore.getWeatherById('2151330')
+    weatherStore.getLanguage()
+  }
+
+  config: Config = {
+    navigationBarTitleText: 'Natsuha',
   }
 
   public onPullDownRefresh = () => {
@@ -50,9 +49,7 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     if (curWoeid) {
       getWeatherById(curWoeid)
     } else {
-      // FIXME:
-      // getPosition();
-      getWeatherById('2151330')
+      getPosition()
     }
   }
 
@@ -65,7 +62,7 @@ class Index extends Component<IWeatherProps, IIndexStates> {
     }
   }
 
-  public onPageScroll(e: any) {
+  public onPageScroll(e) {
     if (e.scrollTop >= 100) {
       this.setState({
         needBlur: true,

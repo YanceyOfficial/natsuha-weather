@@ -1,8 +1,9 @@
-import IRegion from './region'
-export interface IWeatherProps {
+import Region from './region'
+
+export interface WeatherProps {
   weatherStore: {
-    weatherData: IWeather
-    metaData: IMeta
+    weatherData: Weather
+    metaData: Meta
     curWoeid: string
     curCountryName: string
     curCityName: string
@@ -12,7 +13,7 @@ export interface IWeatherProps {
     showModal: boolean
     showSearch: boolean
     isSearching: boolean
-    regionList: IRegion[]
+    regionList: Region[]
 
     getLanguage: () => void
     getStorage: () => void
@@ -31,65 +32,65 @@ export interface IWeatherProps {
   needBlur?: boolean
 }
 
-export interface IMeta {
+export interface Meta {
   conditionMap: {}
   skycode: {}
 }
 
-export interface IWeather {
+export interface Weather {
   woeid?: number
   unit?: string
-  sunAndMoon: ISunAndMoon
-  provider?: IProvider
-  precipitations: IPrecipitation[]
-  photos: IPhoto[]
-  observation: IObservation
-  location: ILocation
-  forecasts: IForecasts
+  sunAndMoon: SunAndMoon
+  provider?: Provider
+  precipitations: Precipitation[]
+  photos: Photo[]
+  observation: Observation
+  location: Location
+  forecasts: Forecasts
 }
 
-interface ISunAndMoon {
+interface SunAndMoon {
   moonPhase: number
   sunrise: number
   sunset: number
 }
 
-interface IProvider {
+interface Provider {
   name: string
 }
 
-interface IPrecipitation {
+interface Precipitation {
   probability: number
   timeSlot: string
 }
 
-interface IPhoto {
+interface Photo {
   dayOrNight?: string
   id?: string
   owner?: string
   ownerName: string
-  resolutions: IResolution[]
+  resolutions: Resolution[]
 }
 
-interface IResolution {
+interface Resolution {
   height: number
   width: number
   url: string
 }
 
-interface IObservation extends ICondition, IWind, ITemperature {
+interface Observation extends Condition, Wind, Temperature {
   barometricPressure: number
   uvDescription: string
   uvIndex: number
   visibility: number
 }
 
-interface IDayPartText {
+interface DayPartText {
   text: string
   dayPart: string
 }
 
-interface ILocation {
+interface Location {
   countryName: string
   displayName: string
   latitude?: number
@@ -99,19 +100,19 @@ interface ILocation {
   woeid?: number
 }
 
-interface IForecasts {
-  daily: IDaily[]
-  hourly: IHourly[]
+interface Forecasts {
+  daily: Daily[]
+  hourly: Hourly[]
 }
 
-interface IDaily extends ICondition, ITemperature {}
+interface Daily extends Condition, Temperature {}
 
-interface IHourly extends ICondition, IWind, ITemperature {}
+interface Hourly extends Condition, Wind, Temperature {}
 
-interface ICondition {
+interface Condition {
   conditionCode: number
   conditionDescription: string
-  dayPartTexts: IDayPartText[]
+  dayPartTexts: DayPartText[]
   humidity: number
   localTime: {
     day?: number
@@ -128,13 +129,13 @@ interface ICondition {
   precipitationProbability: number
 }
 
-interface IWind {
+interface Wind {
   windDirection?: number
   windDirectionCode: string
   windSpeed: number
 }
 
-interface ITemperature {
+interface Temperature {
   temperature: {
     feelsLike: number
     high: number
