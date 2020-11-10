@@ -1,7 +1,7 @@
 import { observable, runInAction, action } from 'mobx'
 import Taro from '@tarojs/taro'
 import { ChangeEvent } from 'react'
-import _ from 'lodash'
+import debounce from 'lodash.debounce'
 import {
   convertCelsiusFahrenheit,
   convertKmMiles,
@@ -27,7 +27,7 @@ interface RegionRes {
 
 class WeatherStore {
   construtor() {
-    this.getRegion = _.debounce(this.getRegion, 150)
+    this.getRegion = debounce(this.getRegion, 150)
   }
 
   @observable.deep public weatherData: Weather = {
