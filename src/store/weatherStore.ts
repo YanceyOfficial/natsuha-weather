@@ -274,6 +274,7 @@ class WeatherStore {
         lang,
       })
       runInAction(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const location = JSON.parse(res as any).location
         this.curCountryName = location.country
         this.curCityName = location.region
@@ -306,6 +307,7 @@ class WeatherStore {
   public getStorage = () => {
     this.regionList = []
     Taro.getStorageInfo().then(res => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ;(res as any).keys.forEach(key =>
         Taro.getStorage({
           key,
